@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
         borderRadius:6,
         borderWidth:0.3,
         backgroundColor:'#EDEDF0',
-        marginTop:20,
+        marginTop:20.29,
     },
 })

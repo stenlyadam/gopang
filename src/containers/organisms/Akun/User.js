@@ -41,7 +41,6 @@ const User = ({navigation}) => {
 
       {/* Render Button dan dont have an account *button login yang props */}
       <View style={{alignItems:'center'}}>
-
           <Button title='Login' />
 
           <Text style={styles.textOr}>Or</Text>
@@ -61,7 +60,6 @@ const User = ({navigation}) => {
           onPress={()=>navigation.replace('SignUpUser')}
           title={'Sign Up'}
           />
-
       </View>
     </View>
     </ScrollView> 
@@ -90,7 +88,7 @@ const styles = StyleSheet.create({
   fontUser:{
     fontSize:17,
     fontWeight:'bold',
-    marginTop:90,
+    marginTop:69,
     marginLeft:183,
     color:'#000000'
   },
@@ -100,14 +98,6 @@ const styles = StyleSheet.create({
     marginTop:4,
     marginLeft:130
   },
-  Button:{
-    paddingTop:15,
-    alignItems:'center',
-    borderRadius:20,
-    backgroundColor: "#38A7D0",
-    width:353.92,
-    height:61.73,
-  },
   input:{
     height: 54,
     width:343,
@@ -116,15 +106,15 @@ const styles = StyleSheet.create({
     borderRadius:6,
     borderWidth:0.3,
     backgroundColor:'#EDEDF0',
-    marginTop:20,
+    marginTop:20.29,
   },
   ButtonGoogle:{
     color:'#C7C8C8',
     alignItems:'center',
     borderRadius:20,
     backgroundColor: "#C7C8C8",
-    width:323.72,
-    height:61,
+    width:353.92,
+    height:61.73,
   },
   textButtonGoogle:{
     fontSize:18,
@@ -154,9 +144,6 @@ const styles = StyleSheet.create({
   titleSignup:{ 
     color:'#007AFF',
     fontWeight:'bold'
-  },
-  tcbSignup:{
-    marginLeft:7,
   },
   textDont:{
     fontSize:16,
