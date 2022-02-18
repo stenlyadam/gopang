@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
+import SignUpOwner from './SignUpOwner';
 
 
 
@@ -44,6 +45,7 @@ const User = ({navigation}) => {
           txtStyling={styles.textDont}
           text={'Dont have an account?'}
           stylingTitle={styles.titleSignup} 
+          onPress={()=>navigation.replace('SignUpOwner')}
           title={'Sign Up'}
           />
       </View>
