@@ -51,7 +51,6 @@ const Section = ({children, title}): Node => {
     </View>
   );
 };
-
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
