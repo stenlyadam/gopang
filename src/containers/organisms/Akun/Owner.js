@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import { Text,View,StyleSheet,Image,TextInput, ScrollView,TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text,View,StyleSheet,Image, ScrollView} from 'react-native';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
-import SignUpOwner from './SignUpOwner';
 
 
 
@@ -35,7 +33,11 @@ const User = ({navigation}) => {
       </View>
 
       {/* Forget Password props */}
-      <TextTouchable title={'Forgot Password?'} stylingTitle={styles.textForgot} />
+      <TextTouchable 
+      title={'Forgot Password?'} 
+      stylingTitle={styles.textForgot} 
+      onPress={()=>navigation.navigate('ForgetPassword')}
+      />
 
       {/* Render Button dan dont have an account*/}
       <View style={{alignItems:'center'}}>

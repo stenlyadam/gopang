@@ -8,6 +8,7 @@ import OwnerScreen from './src/containers/organisms/Akun/Owner';
 import Splash from './src/containers/organisms/Splash'
 import SignUpUser from './src/containers/organisms/Akun/SignUpUser';
 import SignUpOwner from './src/containers/organisms/Akun/SignUpOwner';
+import ForgetPassword from './src/containers/organisms/Akun/ForgetPassword';
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +46,11 @@ const Gopang=()=>{
           name='SignUpUser'
           component={SignUpUser}
         />
+        <Stack.Screen
+          name='ForgetPassword'
+          component={ForgetPassword}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
