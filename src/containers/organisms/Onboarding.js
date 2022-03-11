@@ -18,21 +18,24 @@ const COLORS = {primary: '#000000', white: '#fff'};
 const slides = [
   {
     id: '1',
-    image: require('../../../src/assets/image/Onboard1.png'),
+    image: require('../../../src/assets/onboard/Onboard1.jpeg'),
     title: 'Find your Vacation Spot',
-    subtitle: 'Gopang is a travel service application that helps tourists to vacation in 3 beaches in likupang.',
+    subtitle:
+      'Gopang is a travel service application that helps tourists to vacation in 3 beaches in Likupang',
   },
   {
     id: '2',
-    image: require('../../../src/assets/image/Onboard2.png'),
+    image: require('../../../src/assets/onboard/Onboard2.jpeg'),
     title: 'Find Your Place',
-    subtitle: 'Booking homestay, Gazebos and ordering your food while you are travelling on 3 beaches in likupang',
+    subtitle:
+      'Booking homestay, Gazebos and ordering your food while you are travelling on 3 beaches in Likupang',
   },
   {
     id: '3',
-    image: require('../../../src/assets/image/Onboard1.png'),
+    image: require('../../../src/assets/onboard/Onboard3.jpeg'),
     title: 'Make a Special Moment',
-    subtitle: 'Lets create an account and feel the experience of travelling in likupang using GOPANG',
+    subtitle:
+      'Lets create an account and feel the experience of travelling in Likupang using GOPANG',
   },
 ];
 
@@ -41,7 +44,7 @@ const Slide = ({item}) => {
     <View style={{alignItems: 'center'}}>
       <Image
         source={item?.image}
-        style={{height: '75%', width, resizeMode: 'contain'}}
+        style={{height: '75%', width, resizeMode: 'cover'}}
       />
       <View>
         <Text style={styles.title}>{item?.title}</Text>
@@ -183,9 +186,10 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 13,
     marginTop: 10,
-    width:276,
+    width: 276,
     textAlign: 'center',
     lineHeight: 23,
+    justifyContent: 'center',
   },
   title: {
     color: 'black',
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     height: 276,
     width: 412,
     resizeMode: 'contain',
-    marginTop:132
+    marginTop: 132,
   },
   indicator: {
     height: 2.5,
