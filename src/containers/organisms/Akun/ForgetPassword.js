@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { StyleSheet, Text, View,Image,ScrollView } from 'react-native'
 import React,{useState} from 'react'
 import Header from '../../../components/molecules/header'
 import Input from '../../../components/atoms/Input'
@@ -7,8 +7,9 @@ import Button from '../../../components/atoms/Button'
 const ForgetPassword = ({navigation}) => {
   const [text] = useState(null);
   return (
+    <ScrollView>
     <View style={{flex:1}}>
-        <Header/>
+        <Header onPress={()=> navigation.navigate('UserScreen')} />
         <View style={{flex:1,alignItems:'center', marginTop:16}}>
             <Text style={styles.fontResetPass}>Reset Password</Text>
             <Image 
@@ -16,10 +17,11 @@ const ForgetPassword = ({navigation}) => {
               source={require('../../../assets/image/ImageKeyForget.png')}
             />
             <Text style={styles.textReset}>Provide your account's email for which you want to reset your password</Text>
-            <Input placeholder={'Email'} focus={true} type={text} input={styles.input} />
+            <Input placeholder={'Email'} type={text} input={styles.input} />
             <Button title={'Send intruction'} btnView={styles.btnView} />
         </View>
     </View>
+    </ScrollView>
   )
 }
 

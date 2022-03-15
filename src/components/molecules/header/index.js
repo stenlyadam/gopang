@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
 
-const header = ({title, navigation}) => {
+const header = ({title,onPress}) => {
   return (
     <View style={styles.containter}>
       <TouchableOpacity
         style={{position: 'absolute', left: 46}}
-        onPress={() => navigation.navigate('HomeScreen')}>
+        onPress={onPress}>
         <Image source={Arrow} style={{height: 22.39, width: 10}} />
       </TouchableOpacity>
       <Text style={styles.text}>{title}</Text>
