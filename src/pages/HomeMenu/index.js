@@ -22,6 +22,7 @@ const HomeMenu = ({navigation}) => {
           <Image
             source={require('../../assets/home/Likupang.png')}
             style={{
+              width:'100%',
               height: 229,
               borderBottomLeftRadius: 15,
               borderBottomRightRadius: 15,
@@ -89,8 +90,7 @@ const HomeMenu = ({navigation}) => {
 
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
-        <View style={{marginTop: 10}}>
-
+        <View style={{marginTop: 10,width:'100%',justifyContent:'center'}}>
           {/* Wahyu */}
           <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} />
 
@@ -113,30 +113,26 @@ const HomeMenu = ({navigation}) => {
           Popular Destinations
         </Text>
         <View style={styles.Gdestination}>
-          <View style={styles.Fdestination}>
             <View>
               <TouchableOpacity>
                 <Image source={require('../../assets/pantai/Paal.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
-            <View style={{marginLeft:10}}>
+            <View style={{marginLeft:20}}>
               <TouchableOpacity>
                 <Image source={require('../../assets/pantai/Pulisan.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
-          </View>
-          <View style={styles.Fdestination}>
-            <View>
+            <View style={{marginTop:25}}>
               <TouchableOpacity>
                 <Image source={require('../../assets/pantai/Kinunang.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
-            <View>
+            <View style={{marginLeft:20,marginTop:25}}>
               <TouchableOpacity>
                 <Image source={require('../../assets/pantai/Larata.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
-          </View>
         </View>
 
         {/*Trending Restaurant*/}
@@ -257,15 +253,13 @@ const styles = StyleSheet.create({
   },
   Gdestination: {
     flexWrap: 'wrap',
-    flexDirection: 'row',
-    marginHorizontal: 17,
+    flexDirection:'row',
     marginTop: 10,
-    marginLeft: 14
+    width: '100%',
+    justifyContent:'center'
   },
   Fdestination: {
-    justifyContent: 'space-between',
     flexDirection: 'row',
-    width: '100%',
     marginBottom: 17,
   },
   restaurant: {
