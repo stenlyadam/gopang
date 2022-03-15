@@ -26,6 +26,8 @@ export default header;
 
 const styles = StyleSheet.create({
   containter: {
+    width:'100%',
+    height:75,
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 15,

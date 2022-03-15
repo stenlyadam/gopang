@@ -27,7 +27,7 @@ const User = ({navigation}) => {
       </View>
 
       <View>
-        <Text style={styles.fontEnter}>Enter your email and password</Text> 
+        <Text style={styles.textEnter}>Enter your email and password</Text> 
       </View>
 
       {/* Render Text Input yg so props */}
@@ -37,12 +37,12 @@ const User = ({navigation}) => {
       </View>
 
       {/* Forget Password props */}
-      <TextTouchable title={'Forgot Password?'} stylingTitle={styles.textForgot} />
+      <TextTouchable title={'Forgot Password?'} stylingTitle={styles.textForgot} onPress={()=>navigation.navigate('ForgetPassword')} />
 
       {/* Render Button dan dont have an account *button login yang props */}
       <View style={{alignItems:'center'}}>
 
-          <Button title='Login' onPress={()=>navigation.navigate('MenuHome')} />
+          <Button title='Login' onPress={()=>navigation.replace('MenuHome')} />
 
           <Text style={styles.textOr}>Or</Text>
 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
   },
-  fontEnter:{
+  textEnter:{
     fontSize:16,
     fontWeight:'bold',
     color:'#A8A6A7',
