@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image,ScrollView } from 'react-native'
+import { StyleSheet, Text, View,Image,ScrollView,Alert } from 'react-native'
 import React,{useState} from 'react'
 import Header from '../../../components/molecules/header'
 import Input from '../../../components/atoms/Input'
@@ -18,7 +18,7 @@ const ForgetPassword = ({navigation}) => {
             />
             <Text style={styles.textReset}>Provide your account's email for which you want to reset your password</Text>
             <Input placeholder={'Email'} type={text} input={styles.input} />
-            <Button title={'Send intruction'} btnView={styles.btnView} />
+            <Button title={'Send intruction'} btnView={styles.btnView} onPress={()=>Alert.alert('The intruction was send to your Email.')} />
         </View>
     </View>
     </ScrollView>
