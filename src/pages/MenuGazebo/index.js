@@ -12,15 +12,8 @@ const MenuGazebo = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {/* Header */}
-      <Header title="Gazebo Available" navigation={navigation} />
+      <Header title="Gazebo Available" onPress={()=>navigation.navigate('MenuHome')} />
       <View style={{backgroundColor: 'white'}} />
-
-      {/* Search */}
-      <View style={styles.elevation}>
-        <View style={styles.searchBox}>
-          <TextInput placeholder="Search Gazebo you want..." />
-        </View>
-      </View>
     </View>
   );
 };

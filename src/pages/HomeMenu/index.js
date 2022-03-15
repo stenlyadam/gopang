@@ -65,7 +65,7 @@ const HomeMenu = ({navigation}) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.replace('MenuHomestay')}
+            onPress={() => navigation.navigate('MenuHomestay')}
             style={{
               width: '60%',
               alignItems: 'center',
@@ -76,7 +76,7 @@ const HomeMenu = ({navigation}) => {
             <Text style={{fontSize: 15, textAlign: 'center'}}>Homestay</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.replace('MenuGazebo')}
+            onPress={() => navigation.navigate('MenuGazebo')}
             style={{
               width: '60%',
               alignItems: 'center',
