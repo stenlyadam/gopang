@@ -35,8 +35,7 @@ const HomeMenu = ({navigation}) => {
               width: 31,
               position: 'absolute',
               top: 13,
-              left:282,
-              right: 99,
+              left:'68.61%',
             }}
           />
           <Text
@@ -46,8 +45,7 @@ const HomeMenu = ({navigation}) => {
               color: '#000000',
               position: 'absolute',
               top: 21,
-              left: 307,
-              right: 26,
+              left: '74%',
               width:79,
               height:25
             }}>
@@ -60,7 +58,7 @@ const HomeMenu = ({navigation}) => {
           style={{
             flexDirection: 'row',
             marginLeft: 15,
-            marginRight: 240,
+            marginRight: '58.3%',
             marginTop: 27,
             justifyContent: 'space-between',
           }}>
