@@ -2,7 +2,10 @@ import React,{useState} from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Text
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import CardHomestay from '../../components/molecules/CardHomestay';
@@ -19,8 +22,26 @@ const MenuHomestay = ({navigation}) => {
       {/* Container */}
       <ScrollView>
       <View>
-        <View>
-          <Input placeholder={'Search'} type={text} input={styles.searchBox} />
+        <View style={{flexDirection:'row',width:'100%'}}>
+          <View style={{width: '77.8%',marginLeft:10}}>
+            <Input placeholder={'Search'} type={text} input={styles.searchBox} />
+          </View>
+          <View style={{marginLeft:6,marginTop:12}}>
+            <TouchableOpacity
+              // onPress={() => navigation.navigate('MenuGazebo')}
+              style={{
+                width: 63,
+                height:24,
+                alignItems: 'center',
+                flexDirection:'row'
+              }}>
+              <View style={styles.navigation}>
+                <Image source={require('../../assets/icon/filter.png')} />
+              </View>
+              <Text style={{fontSize: 15, textAlign: 'center'}}>Filter</Text>
+            </TouchableOpacity>
+          </View>
+          
         </View>
         <View>
           <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} />
@@ -47,12 +68,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   searchBox: {
-    width: '77.8%',
     height: 45,
     paddingLeft: 23,
     paddingRight: 23,
     borderWidth: 0.3,
     borderRadius: 10,
-    marginLeft:10
   },
 });
