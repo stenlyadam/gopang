@@ -7,7 +7,7 @@ const buttonDetails = (props) => {
     <View
             style={{
               height: 118,
-              width: 371,
+              width: '90.2%',
               marginLeft: 20,
               marginRight:20,
               flexDirection: 'row',
