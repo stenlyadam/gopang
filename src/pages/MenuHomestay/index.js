@@ -20,7 +20,7 @@ const MenuHomestay = ({navigation}) => {
       <Header title="Homestay" onPress={()=>navigation.navigate('MenuHome')} />
       
       {/* Container */}
-      <ScrollView>
+      <ScrollView style={{flex:1}}>
       <View>
         <View style={{flexDirection:'row',width:'100%'}}>
           <View style={{width: '77.8%',marginLeft:10}}>
@@ -53,7 +53,7 @@ const MenuHomestay = ({navigation}) => {
           <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} />
           <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
           <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} />
-          </View>
+        </View>
       </View>
       </ScrollView>
     </View>

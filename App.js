@@ -11,6 +11,7 @@ import ForgetPassword from './src/containers/organisms/Akun/ForgetPassword';
 import MenuHome from './src/pages/HomeMenu'
 import MenuGazebo from './src/pages/MenuGazebo';
 import MenuHomestay from './src/pages/MenuHomestay';
+import OptionMenuPaal from './src/pages/OptionMenuPaal';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const Gopang=()=>{
         <Stack.Screen name='MenuHome' component={MenuHome} />
         <Stack.Screen name='MenuGazebo' component={MenuGazebo} />
         <Stack.Screen name='MenuHomestay' component={MenuHomestay} />
+        <Stack.Screen name='OptionMenuPaal' component={OptionMenuPaal} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -16,7 +16,7 @@ import CardHomestay from '../../components/molecules/CardHomestay';
 const HomeMenu = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+      <ScrollView style={{flex: 1}}>
         {/*Likupang North*/}
         <View>
           <Image
@@ -112,23 +112,23 @@ const HomeMenu = ({navigation}) => {
         </Text>
         <View style={styles.Gdestination}>
             <View>
-              <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Paal.png')} style={{height:170,width:173}} />
+              <TouchableOpacity onPress={()=>navigation.navigate('OptionMenuPaal')} >
+                <Image source={require('../../assets//home/Paal.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
             <View style={{marginLeft:20}}>
               <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Pulisan.png')} style={{height:170,width:173}} />
+                <Image source={require('../../assets/home/Pulisan.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
             <View style={{marginTop:25}}>
               <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Kinunang.png')} style={{height:170,width:173}} />
+                <Image source={require('../../assets/home/Kinunang.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
             <View style={{marginLeft:20,marginTop:25}}>
               <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Larata.png')} style={{height:170,width:173}} />
+                <Image source={require('../../assets/home/Larata.png')} style={{height:170,width:173}} />
               </TouchableOpacity>
             </View>
         </View>
@@ -147,15 +147,15 @@ const HomeMenu = ({navigation}) => {
           <View style={styles.restaurant}>
             <TouchableOpacity style={styles.Trestaurant}>
               <Image
-                source={require('../../assets/pantai/WarungJessica.png')}
+                source={require('../../assets/home/WarungJessica.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image source={require('../../assets/pantai/WarungWahyu.png')} />
+              <Image source={require('../../assets/home/WarungWahyu.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
               <Image
-                source={require('../../assets/pantai/WarungJeniver.png')}
+                source={require('../../assets/home/WarungJeniver.png')}
               />
             </TouchableOpacity>
           </View>
