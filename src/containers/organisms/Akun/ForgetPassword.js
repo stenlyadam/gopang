@@ -3,13 +3,27 @@ import React,{useState} from 'react'
 import Header from '../../../components/molecules/header'
 import Input from '../../../components/atoms/Input'
 import Button from '../../../components/atoms/Button'
+import { setForm } from '../../../redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ForgetPassword = ({navigation}) => {
   const [text] = useState(null);
+
+  const {Email} = useSelector(state=>state.ForgetReducer); //destructuring form dll.
+  const dispatch = useDispatch();
+
+  const onInputChange = (value,inputType) =>{
+    dispatch(setForm(inputType,value));
+  }
+
+  const sendData=()=>{
+    console.log('data yang dikirim',Email);
+  };
+
   return (
     <ScrollView>
     <View style={{flex:1}}>
-        <Header onPress={()=> navigation.navigate('UserScreen')} />
+        <Header onBack={()=> navigation.goBack()} />
         <View style={{flex:1,alignItems:'center', marginTop:16}}>
             <Text style={styles.fontResetPass}>Reset Password</Text>
             <Image 
@@ -17,8 +31,18 @@ const ForgetPassword = ({navigation}) => {
               source={require('../../../assets/image/ImageKeyForget.png')}
             />
             <Text style={styles.textReset}>Provide your account's email for which you want to reset your password</Text>
-            <Input placeholder={'Email'} type={text} input={styles.input} />
-            <Button title={'Send intruction'} btnView={styles.btnView} onPress={()=>Alert.alert('The intruction was send to your Email.')} />
+            <Input 
+            placeholder={'Email'} 
+            type={text} 
+            input={styles.input} 
+            value={Email}
+            onChangeText={(value)=> onInputChange(value, 'Email')}
+            />
+            <Button 
+            title={'Send intruction'} 
+            btnView={styles.btnView} 
+            onPress={()=>console.log('Data terkirim: ',Email)} 
+            />
         </View>
     </View>
     </ScrollView>

@@ -9,14 +9,18 @@ import {
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
 
-const header = ({title,onPress}) => {
+const header = ({title, onBack}) => {
   return (
-    <View style={styles.containter}>
-      <TouchableOpacity
-        style={{position: 'absolute', left: 46}}
-        onPress={onPress}>
-        <Image source={Arrow} style={{height: 22.39, width: 10}} />
-      </TouchableOpacity>
+    <View style={styles.container}>
+      {onBack && (
+        <TouchableOpacity
+          style={{position: 'absolute', left: 46}}
+          onPress={onBack}>
+          <View>
+            <Image source={Arrow} style={{height: 22.39, width: 10}} />
+          </View>
+        </TouchableOpacity>
+      )}
       <Text style={styles.text}>{title}</Text>
     </View>
   );
@@ -25,7 +29,7 @@ const header = ({title,onPress}) => {
 export default header;
 
 const styles = StyleSheet.create({
-  containter: {
+  container: {
     width:'100%',
     height:75,
     flexDirection: 'row',

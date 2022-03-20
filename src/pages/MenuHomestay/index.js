@@ -17,7 +17,10 @@ const MenuHomestay = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {/* Header */}
-      <Header title="Homestay" onPress={()=>navigation.navigate('MenuHome')} />
+      <Header 
+      title="Homestay" 
+      onBack={()=>navigation.goBack()}
+      />
       
       {/* Container */}
       <ScrollView style={{flex:1}}>
@@ -44,7 +47,11 @@ const MenuHomestay = ({navigation}) => {
           
         </View>
         <View>
-          <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} />
+          <CardHomestay 
+          title='Wahyu' 
+          location='Marinsow Village, North Sulawesi' 
+          image={require('../../assets/home/Wahyu.png')} 
+          />
           <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} /> 
           <CardHomestay title='Juniver' location='Pulisan Village, North Sulawesi' image={require('../../assets/home/Juniver.png')} />
           <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />

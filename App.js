@@ -12,12 +12,16 @@ import MenuHome from './src/pages/HomeMenu'
 import MenuGazebo from './src/pages/MenuGazebo';
 import MenuHomestay from './src/pages/MenuHomestay';
 import OptionMenuPaal from './src/pages/OptionMenuPaal';
+import OptionMenuPulisan from './src/pages/OptionMenuPulisan';
+import { Provider } from 'react-redux';
+import {store} from './src/redux';
 
 const Stack = createNativeStackNavigator();
 
 
 const Gopang=()=>{
   return(
+    <Provider store={store} >
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name='Splash' component={Splash} />
@@ -27,12 +31,14 @@ const Gopang=()=>{
         <Stack.Screen name='OwnerScreen' component={OwnerScreen} />
         <Stack.Screen name='SignUpUser' component={SignUpUser} />
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
-        <Stack.Screen name='MenuHome' component={MenuHome} />
+        <Stack.Screen name='MenuHome'  component={MenuHome} />
         <Stack.Screen name='MenuGazebo' component={MenuGazebo} />
         <Stack.Screen name='MenuHomestay' component={MenuHomestay} />
         <Stack.Screen name='OptionMenuPaal' component={OptionMenuPaal} />
+        <Stack.Screen name='OptionMenuPulisan' component={OptionMenuPulisan}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

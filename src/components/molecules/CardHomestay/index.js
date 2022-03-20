@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity,Image} from 'react-native';
 import ButtonDetails from '../../atoms/buttonDetails';
 
-const buttonDetails = (props) => {
+const CardHomestay = (props) => {
   return (
     <View
             style={{
@@ -60,14 +60,14 @@ const buttonDetails = (props) => {
                   </Text>
                   <Text style={{fontWeight: 'bold',fontSize:10,marginTop:1}}>/Night</Text>
                 </View>
-                <ButtonDetails />
+                <ButtonDetails onSubmit={props.onPress}/>
               </View>
             </View>
           </View>
   );
 };
 
-export default buttonDetails;
+export default CardHomestay;
 
 const styles = StyleSheet.create({
  wahyu: {
