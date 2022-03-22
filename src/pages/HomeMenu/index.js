@@ -90,7 +90,7 @@ const HomeMenu = ({navigation}) => {
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
         <View style={{marginTop: 10,width:'100%',justifyContent:'center'}}>
           {/* Wahyu */}
-          <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} onPress={()=>navigation.navigate('MenuGazebo')} />
+          <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} onPress={()=>navigation.navigate('infoHomestay')} />
 
           {/* Juniver */}
           <CardHomestay title='Juniver' location='Pulisan Village, North Sulawesi' image={require('../../assets/home/Juniver.png')} />

@@ -29,9 +29,10 @@ const MenuHomestay = ({navigation}) => {
           <View style={{width: '77.8%',marginLeft:10}}>
             <Input placeholder={'Search'} type={text} input={styles.searchBox} />
           </View>
+          {/* Filter */}
           <View style={{marginLeft:6,marginTop:12}}>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('MenuGazebo')}
+              onPress={() => navigation.navigate('Filter')}
               style={{
                 width: 63,
                 height:24,

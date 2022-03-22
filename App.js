@@ -1,20 +1,22 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OnboardScreen from './src/containers/organisms/Onboarding'
-import LoginOptionsScreen from './src/containers/organisms/LoginOptions';
-import UserScreen from './src/containers/organisms/Akun/User';
-import OwnerScreen from './src/containers/organisms/Akun/Owner';
-import Splash from './src/containers/organisms/Splash'
-import SignUpUser from './src/containers/organisms/Akun/SignUpUser';
+import React from 'react';
+import { Provider } from 'react-redux';
 import ForgetPassword from './src/containers/organisms/Akun/ForgetPassword';
-import MenuHome from './src/pages/HomeMenu'
-import MenuGazebo from './src/pages/MenuGazebo';
+import OwnerScreen from './src/containers/organisms/Akun/Owner';
+import SignUpUser from './src/containers/organisms/Akun/SignUpUser';
+import UserScreen from './src/containers/organisms/Akun/User';
+import LoginOptionsScreen from './src/containers/organisms/LoginOptions';
+import OnboardScreen from './src/containers/organisms/Onboarding';
+import Splash from './src/containers/organisms/Splash';
+import Filter from './src/pages/Filter';
+import Biodata from './src/pages/Biodata';
+import MenuHome from './src/pages/HomeMenu';
+import infoHomestay from './src/pages/infoHomestay';
 import MenuHomestay from './src/pages/MenuHomestay';
 import OptionMenuPaal from './src/pages/OptionMenuPaal';
 import OptionMenuPulisan from './src/pages/OptionMenuPulisan';
-import { Provider } from 'react-redux';
-import {store} from './src/redux';
+import { store } from './src/redux';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,10 +34,12 @@ const Gopang=()=>{
         <Stack.Screen name='SignUpUser' component={SignUpUser} />
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
         <Stack.Screen name='MenuHome'  component={MenuHome} />
-        <Stack.Screen name='MenuGazebo' component={MenuGazebo} />
         <Stack.Screen name='MenuHomestay' component={MenuHomestay} />
         <Stack.Screen name='OptionMenuPaal' component={OptionMenuPaal} />
         <Stack.Screen name='OptionMenuPulisan' component={OptionMenuPulisan}/>
+        <Stack.Screen name='infoHomestay' component={infoHomestay}/>
+        <Stack.Screen name='Filter' component={Filter}/>
+        <Stack.Screen name='Biodata' component={Biodata}/>
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
