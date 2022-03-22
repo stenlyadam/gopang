@@ -7,11 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import iconHome from '../../assets/icon/home.png';
-import iconOrder from '../../assets/icon/order.png';
-import iconChat from '../../assets/icon/chat.png';
-import iconUser from '../../assets/icon/user.png';
 import ButtonDetails from '../../components/atoms/buttonDetails';
+import Navigation from '../../components/molecules/navigationBar';
 
 const HomeMenu = ({navigation}) => {
   return (
@@ -61,7 +58,7 @@ const HomeMenu = ({navigation}) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.replace('MenuHomestay')}
+            onPress={() => navigation.navigate('MenuHomestay')}
             style={{
               width: '60%',
               alignItems: 'center',
@@ -72,7 +69,7 @@ const HomeMenu = ({navigation}) => {
             <Text style={{fontSize: 15, textAlign: 'center'}}>Homestay</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.replace('MenuGazebo')}
+            onPress={() => navigation.navigate('MenuGazebo')}
             style={{
               width: '60%',
               alignItems: 'center',
@@ -117,7 +114,7 @@ const HomeMenu = ({navigation}) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.wahyu}>Wahyu</Text>
+                  <Text style={styles.namaHomestay}>Wahyu</Text>
                   <Image source={require('../../assets/icon/Rating.png')} />
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -173,7 +170,7 @@ const HomeMenu = ({navigation}) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.juniver}>Juniver</Text>
+                  <Text style={styles.namaHomestay}>Juniver</Text>
                   <Image source={require('../../assets/icon/Rating.png')} />
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -229,7 +226,7 @@ const HomeMenu = ({navigation}) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.wahyu}>Komplex Jembatan</Text>
+                  <Text style={styles.namaHomestay}>Komplex Jembatan</Text>
                   <Image source={require('../../assets/icon/Rating.png')} />
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -324,49 +321,11 @@ const HomeMenu = ({navigation}) => {
       </ScrollView>
 
       {/*Navigation*/}
-      <View
-        style={{height: 63, flexDirection: 'row', borderStartColor: '#FFFFFF'}}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconHome} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconOrder} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconChat} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconUser} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Navigation
+        navigateChat={() => navigation.navigate('ChatBox')}
+        navigateOrder={() => navigation.navigate('NavOrder')}
+        navigateUser={() => navigation.navigate('NavProfil')}
+      />
     </View>
   );
 };
@@ -390,21 +349,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginLeft: 25,
   },
-  wahyu: {
+  namaHomestay: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 11,
+    // marginTop: 11,
   },
-  juniver: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 11,
-  },
-  jembatan: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 11,
-  },
+
   Gdestination: {
     flexWrap: 'wrap',
     flexDirection: 'row',

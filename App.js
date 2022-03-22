@@ -10,6 +10,11 @@ import SignUpUser from './src/containers/organisms/Akun/SignUpUser';
 import MenuHome from './src/pages/HomeMenu';
 import MenuHometay from './src/pages/MenuHomestay';
 import MenuGazebo from './src/pages/MenuGazebo';
+import InfoGazebo from './src/pages/InfoGazebo';
+import Chat from './src/pages/Chat';
+import ChatBox from './src/pages/ChatBox';
+import NavOrder from './src/pages/NavOrder';
+import NavProfil from './src/pages/NavProfil';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +34,11 @@ const Gopang = () => {
         <Stack.Screen name="HomeScreen" component={MenuHome} />
         <Stack.Screen name="MenuGazebo" component={MenuGazebo} />
         <Stack.Screen name="MenuHomestay" component={MenuHometay} />
+        <Stack.Screen name="InfoGazebo" component={InfoGazebo} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="NavOrder" component={NavOrder} />
+        <Stack.Screen name="ChatBox" component={ChatBox} />
+        <Stack.Screen name="NavProfil" component={NavProfil} />
       </Stack.Navigator>
     </NavigationContainer>
   );

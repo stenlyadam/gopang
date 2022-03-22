@@ -1,3 +1,5 @@
 import Header from './header';
+import CardGazebo from './CardGazebo';
+import Navigation from './navigationBar';
 
-export {Header};
+export {Header, CardGazebo, Navigation};
