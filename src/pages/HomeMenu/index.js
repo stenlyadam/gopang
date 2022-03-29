@@ -162,7 +162,7 @@ const HomeMenu = ({navigation}) => {
         </View>
       </ScrollView>
 
-      {/*Navigation*/}
+      {/* Navigation */}
       <View
         style={{height: 63, flexDirection: 'row', borderStartColor: '#FFFFFF'}}>
         <View

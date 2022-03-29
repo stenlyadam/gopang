@@ -12,6 +12,8 @@
   "dependencies": {
     "@react-native-elements/base": "github:react-native-elements/react-native-elements#base",
     "@react-native-elements/themed": "github:react-native-elements/react-native-elements#themed",
+    "@react-native-picker/picker": "^2.4.0",
+    "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@reduxjs/toolkit": "^1.8.0",

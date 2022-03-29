@@ -1,8 +1,12 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import Header from '../../components/molecules/header'
+import {Picker} from '@react-native-picker/picker';
 
 const Filter = ({navigation}) => {
+
+    const [selectedValue, setSelectedValue] = useState("Likupang");
+
   return (
     <View style={{flex:1}}>
         <Header 
@@ -15,6 +19,9 @@ const Filter = ({navigation}) => {
             <View>
                 <Image 
                     source={require('../../assets/image/HomestayFilter.png')}
+                    style={{
+                        width:'100%'
+                    }}
                 />
                 <Text
                     style={{
@@ -30,13 +37,29 @@ const Filter = ({navigation}) => {
                     Homestay
                 </Text>
             </View>
+            
+            <View>
+                <Text style={{
+                    marginLeft:20,
+                    marginTop:8,
+                    fontSize:14,
+                    color:'#38A7D0',
+                    }}>
+                    Destination
+                </Text>
+                
+                <View style={{borderWidth:0.3,height: 41,width: 146}}>
+                    <Picker
+                        selectedValue={selectedValue}
+                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        >
+                        <Picker.Item label="Likupang" value="likupang" />
+                        <Picker.Item label="JavaScript" value="js" />
+                    </Picker>
+                </View>
 
-            <Text style={{
-                marginLeft:20,
-                marginTop:8,
-                fontSize:14,
-                color:'#38A7D0',
-                }}>Destination</Text>
+            </View>
+            
             
         </View>
     </View>

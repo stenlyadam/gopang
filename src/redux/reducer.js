@@ -63,11 +63,35 @@ const ForgetReducer=(state = initialForgetPageUser,action)=>{
     return state;
 }
 
+// reducer untuk Biodata
+const initialBiodataPage={
+    form:{
+        FirstName:'',
+        LastName:'',
+        Email:'',
+        MobilePhone:'',
+    }
+}
+const BiodataReducer=(state = initialBiodataPage,action)=>{
+    if(action.type === 'SET_FORM'){
+        return{
+            ...state,
+            form:{
+                ...state.form,
+                [action.inputType]: action.inputValue,
+            }
+            
+        }
+    }
+    return state;
+}
+
 // untuk mengcombine seluruh reducer
 const reducer= combineReducers({
     RegisterReducer,
     LoginReducer,
     ForgetReducer,
+    BiodataReducer,
 })
 
 export default reducer
