@@ -75,7 +75,7 @@ const User = ({navigation}) => {
           <Button title='Login' 
           onPress={()=>{
             if (form.Email==id.Email && form.Password==id.Password) {
-              navigation.replace('MenuHome');
+              navigation.replace('NavigationBar');
             }
             else if(!form.Email && !form.Password){
               Alert.alert('Anda harus mengisi Password&Email !')

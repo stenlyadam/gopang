@@ -23,7 +23,7 @@ const SuccessPage = ({navigation}) => {
         <ButtonTransaction 
             title={'Done'} 
             btnView={styles.btnView} 
-            onPress={()=>navigation.replace('MenuHome')}
+            onPress={()=>navigation.replace('NavigationBar')}
             />
     </View>
     </View>

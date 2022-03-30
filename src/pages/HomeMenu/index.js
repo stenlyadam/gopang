@@ -161,51 +161,6 @@ const HomeMenu = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
-
-      {/* Navigation */}
-      <View
-        style={{height: 63, flexDirection: 'row', borderStartColor: '#FFFFFF'}}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconHome} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconOrder} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconChat} />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <TouchableOpacity>
-            <Image style={{width: 28, height: 28}} source={iconUser} />
-          </TouchableOpacity>
-        </View>
-      </View>
     </View>
   );
 };
