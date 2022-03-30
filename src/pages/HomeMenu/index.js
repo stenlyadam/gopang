@@ -1,14 +1,16 @@
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   Image,
   ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import ButtonDetails from '../../components/atoms/buttonDetails';
-import Navigation from '../../components/molecules/navigationBar';
+
+const Tab = createBottomTabNavigator();
 
 const HomeMenu = ({navigation}) => {
   return (
@@ -319,13 +321,6 @@ const HomeMenu = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
-
-      {/*Navigation*/}
-      <Navigation
-        navigateChat={() => navigation.navigate('ChatBox')}
-        navigateOrder={() => navigation.navigate('NavOrder')}
-        navigateUser={() => navigation.navigate('NavProfil')}
-      />
     </View>
   );
 };

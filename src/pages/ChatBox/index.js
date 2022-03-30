@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Header from '../../components/molecules/header';
-import Navigation from '../../components/molecules/navigationBar';
 import ListChat from '../../components/molecules/ListChat';
 import dummy1 from '../../assets/dummyChat/dummy1.jpg';
 import dummy2 from '../../assets/dummyChat/dummy2.jpg';
@@ -46,13 +45,6 @@ const NavChat = ({navigation}) => {
           );
         })}
       </View>
-
-      {/* Navigation */}
-      <Navigation
-        navigateHome={() => navigation.navigate('HomeScreen')}
-        navigateOrder={() => navigation.navigate('NavOrder')}
-        navigateUser={() => navigation.navigate('NavProfil')}
-      />
     </View>
   );
 };

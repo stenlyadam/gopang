@@ -12,6 +12,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
+import NBar from '../../../pages/navigationBar';
 
 const User = ({navigation}) => {
   const [text] = useState(null);
@@ -62,7 +63,7 @@ const User = ({navigation}) => {
         {/* Render Button dan dont have an account *button login yang props */}
         <View style={{alignItems: 'center'}}>
           <Button
-            onPress={() => navigation.replace('HomeScreen')}
+            onPress={() => navigation.navigate('NavigationBar')}
             title="Login"
           />
 
