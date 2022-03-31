@@ -1,26 +1,28 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-import ButtonDetails from '../../components/atoms/buttonDetails';
-
-const Tab = createBottomTabNavigator();
+import iconHome from '../../assets/icon/home.png';
+import iconOrder from '../../assets/icon/order.png';
+import iconChat from '../../assets/icon/chat.png';
+import iconUser from '../../assets/icon/user.png';
+import CardHomestay from '../../components/molecules/CardHomestay';
 
 const HomeMenu = ({navigation}) => {
   return (
     <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
         <View>
           <Image
             source={require('../../assets/home/Likupang.png')}
             style={{
+              width: '100%',
               height: 229,
               borderBottomLeftRadius: 15,
               borderBottomRightRadius: 15,
@@ -33,7 +35,7 @@ const HomeMenu = ({navigation}) => {
               width: 31,
               position: 'absolute',
               top: 13,
-              right: 99,
+              left: '68.61%',
             }}
           />
           <Text
@@ -43,8 +45,9 @@ const HomeMenu = ({navigation}) => {
               color: '#000000',
               position: 'absolute',
               top: 21,
-              left: 307,
-              right: 25,
+              left: '74%',
+              width: 79,
+              height: 25,
             }}>
             GOPANG
           </Text>
@@ -55,7 +58,7 @@ const HomeMenu = ({navigation}) => {
           style={{
             flexDirection: 'row',
             marginLeft: 15,
-            marginRight: 240,
+            marginRight: '58.3%',
             marginTop: 27,
             justifyContent: 'space-between',
           }}>
@@ -85,175 +88,28 @@ const HomeMenu = ({navigation}) => {
 
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
-        <View style={{marginTop: 31}}>
+        <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
           {/* Wahyu */}
-          <View
-            style={{
-              height: 90,
-              width: 365,
-              marginLeft: 23,
-              marginBottom: 28,
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              padding: 0,
-            }}>
-            <Image source={require('../../assets/home/Wahyu.png')} />
-            <View
-              style={{
-                marginLeft: 12,
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  height: 60,
-                  flexDirection: 'column',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.namaHomestay}>Wahyu</Text>
-                  <Image source={require('../../assets/icon/Rating.png')} />
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image source={require('../../assets/icon/Direction.png')} />
-                  <Text>Marinsow Village, North Sulawesi</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: 245,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: '#38A7D0', fontWeight: 'bold'}}>
-                    IDR 200.000
-                  </Text>
-                  <Text style={{fontWeight: 'bold'}}>/Night</Text>
-                </View>
-                <ButtonDetails title="Details" />
-              </View>
-            </View>
-          </View>
+          <CardHomestay
+            title="Wahyu"
+            location="Marinsow Village, North Sulawesi"
+            image={require('../../assets/home/Wahyu.png')}
+            onPress={() => navigation.navigate('infoHomestay')}
+          />
+
           {/* Juniver */}
-          <View
-            style={{
-              height: 90,
-              width: 365,
-              marginLeft: 23,
-              marginBottom: 28,
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              padding: 0,
-            }}>
-            <Image source={require('../../assets/home/Juniver.png')} />
-            <View
-              style={{
-                marginLeft: 12,
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  height: 60,
-                  flexDirection: 'column',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.namaHomestay}>Juniver</Text>
-                  <Image source={require('../../assets/icon/Rating.png')} />
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image source={require('../../assets/icon/Direction.png')} />
-                  <Text>Marinsow Village, North Sulawesi</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: 245,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: '#38A7D0', fontWeight: 'bold'}}>
-                    IDR 200.000
-                  </Text>
-                  <Text style={{fontWeight: 'bold'}}>/Night</Text>
-                </View>
-                <ButtonDetails title="Details" />
-              </View>
-            </View>
-          </View>
+          <CardHomestay
+            title="Juniver"
+            location="Pulisan Village, North Sulawesi"
+            image={require('../../assets/home/Juniver.png')}
+          />
+
           {/* Komplex Jembatan */}
-          <View
-            style={{
-              height: 90,
-              width: 365,
-              marginLeft: 23,
-              marginBottom: 28,
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              padding: 0,
-            }}>
-            <Image source={require('../../assets/home/Jembatan.png')} />
-            <View
-              style={{
-                marginLeft: 12,
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  height: 60,
-                  flexDirection: 'column',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.namaHomestay}>Komplex Jembatan</Text>
-                  <Image source={require('../../assets/icon/Rating.png')} />
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image source={require('../../assets/icon/Direction.png')} />
-                  <Text>Marinsow Village, North Sulawesi</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: 245,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                }}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: '#38A7D0', fontWeight: 'bold'}}>
-                    IDR 200.000
-                  </Text>
-                  <Text style={{fontWeight: 'bold'}}>/Night</Text>
-                </View>
-                <ButtonDetails title="Details" />
-              </View>
-            </View>
-          </View>
+          <CardHomestay
+            title="Komplex Jembatan"
+            location="Kinunang Village, North Sulawesi"
+            image={require('../../assets/home/Jembatan.png')}
+          />
         </View>
 
         {/*Popular Destinations*/}
@@ -261,35 +117,45 @@ const HomeMenu = ({navigation}) => {
           style={{
             fontSize: 18,
             fontWeight: 'bold',
-            marginTop: 20,
-            marginLeft: 25,
+            marginTop: 14,
+            marginLeft: 20,
           }}>
           Popular Destinations
         </Text>
         <View style={styles.Gdestination}>
-          <View style={styles.Fdestination}>
-            <View>
-              <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Paal.png')} />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Pulisan.png')} />
-              </TouchableOpacity>
-            </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuPaal')}>
+              <Image
+                source={require('../../assets//home/Paal.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
           </View>
-          <View style={styles.Fdestination}>
-            <View>
-              <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Kinunang.png')} />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <TouchableOpacity>
-                <Image source={require('../../assets/pantai/Larata.png')} />
-              </TouchableOpacity>
-            </View>
+          <View style={{marginLeft: 20}}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuPulisan')}>
+              <Image
+                source={require('../../assets/home/Pulisan.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{marginTop: 25}}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/home/Kinunang.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{marginLeft: 20, marginTop: 25}}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/home/Larata.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -299,24 +165,20 @@ const HomeMenu = ({navigation}) => {
             fontSize: 18,
             fontWeight: 'bold',
             marginTop: 15,
-            marginLeft: 25,
+            marginLeft: 20,
           }}>
           Trending Restaurant
         </Text>
         <View>
           <View style={styles.restaurant}>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image
-                source={require('../../assets/pantai/WarungJessica.png')}
-              />
+              <Image source={require('../../assets/home/WarungJessica.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image source={require('../../assets/pantai/WarungWahyu.png')} />
+              <Image source={require('../../assets/home/WarungWahyu.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image
-                source={require('../../assets/pantai/WarungJeniver.png')}
-              />
+              <Image source={require('../../assets/home/WarungJeniver.png')} />
             </TouchableOpacity>
           </View>
         </View>
@@ -342,24 +204,37 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 25,
-    marginLeft: 25,
+    marginLeft: 20,
+    marginBottom: 10,
   },
-  namaHomestay: {
+  wahyu: {
     fontSize: 18,
     fontWeight: 'bold',
-    // marginTop: 11,
+    marginTop: 11,
+    marginBottom: 5,
+    marginLeft: 11,
   },
-
+  juniver: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 11,
+  },
+  jembatan: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 11,
+    marginBottom: 5,
+    marginLeft: 11,
+  },
   Gdestination: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginHorizontal: 17,
-    marginTop: 20,
+    marginTop: 10,
+    width: '100%',
+    justifyContent: 'center',
   },
   Fdestination: {
-    justifyContent: 'space-between',
     flexDirection: 'row',
-    width: '100%',
     marginBottom: 17,
   },
   restaurant: {
@@ -369,5 +244,12 @@ const styles = StyleSheet.create({
   },
   Trestaurant: {
     marginRight: 21,
+  },
+  location: {
+    fontWeight: 'normal',
+    fontSize: 12,
+    width: 187,
+    height: 16,
+    marginLeft: 4,
   },
 });

@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text,View } from 'react-native';
+
 
 const Owner = () => {
   return (
-    <View>
+    <View> 
       <Text>Owner Screen</Text>
     </View>
   );
-};
+}
 export default Owner;

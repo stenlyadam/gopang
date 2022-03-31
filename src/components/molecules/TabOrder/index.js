@@ -1,10 +1,20 @@
 import * as React from 'react';
-import {View, useWindowDimensions, StatusBar} from 'react-native';
+import {View, useWindowDimensions, StatusBar, Text} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import TabOrderOngoing from '../TabOrder2';
+import TabOrderHistory from '../TabOder3';
 
-const FirstRoute = () => <View style={{flex: 1, backgroundColor: 'white'}} />;
+const FirstRoute = () => (
+  <View style={{flex: 1, backgroundColor: 'white'}}>
+    <TabOrderOngoing style={{flex: 1}} />
+  </View>
+);
 
-const SecondRoute = () => <View style={{flex: 1, backgroundColor: 'white'}} />;
+const SecondRoute = () => (
+  <View style={{flex: 1, backgroundColor: 'white'}}>
+    <TabOrderHistory style={{flex: 1}} />
+  </View>
+);
 
 const renderScene = SceneMap({
   first: FirstRoute,

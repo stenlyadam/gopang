@@ -21,7 +21,7 @@ const Tabs = () => {
           marginBottom: 0,
           backgroundColor: 'white',
           elevation: 0,
-          height: 80,
+          height: 63,
           paddingBottom: 20,
           paddingHorizontal: 10,
         },
@@ -34,8 +34,9 @@ const Tabs = () => {
         name="Home"
         component={MenuHome}
         options={{
+          tabBarShowLabel:false,
           tabBarIcon: ({color}) => (
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
                 <Image
                   source={require('../../assets/icon/iconHomeAktif.png')}
@@ -51,8 +52,9 @@ const Tabs = () => {
         name="Order"
         component={NavOrder}
         options={{
+          tabBarShowLabel:false,
           tabBarIcon: ({color}) => (
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
                 <Image
                   source={require('../../assets/icon/iconOrderAktif.png')}
@@ -68,8 +70,9 @@ const Tabs = () => {
         name="Message"
         component={ChatBox}
         options={{
+          tabBarShowLabel:false,
           tabBarIcon: ({color}) => (
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
                 <Image
                   source={require('../../assets/icon/iconChatAktif.png')}
@@ -85,8 +88,9 @@ const Tabs = () => {
         name="Profile"
         component={Profile}
         options={{
+          tabBarShowLabel:false,
           tabBarIcon: ({color}) => (
-            <View style={{marginTop: 10}}>
+            <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
                 <Image
                   source={require('../../assets/icon/iconUserAktif.png')}

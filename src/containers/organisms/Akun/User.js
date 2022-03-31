@@ -1,29 +1,43 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  Text,
-  View,
-  StyleSheet,
+  Alert,
   Image,
-  TextInput,
   ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {useDispatch, useSelector} from 'react-redux';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
-import NBar from '../../../pages/navigationBar';
+import {setForm} from '../../../redux';
 
 const User = ({navigation}) => {
-  const [text] = useState(null);
-  const [number] = useState(null);
+  const id = {
+    Email: 'admin',
+    Password: 'admin',
+  };
+
+  const {form, title, user, desc} = useSelector(state => state.LoginReducer); //destructuring form dll.
+  const dispatch = useDispatch();
+
+  // buat menampilkan data yang dikirim lewat input bisa menggunakan react debugger
+  const sendData = () => {
+    console.log('data yang dikirim', form);
+  };
+
+  const onInputChange = (value, inputType) => {
+    dispatch(setForm(inputType, value));
+  };
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <View>
-          <Text style={styles.fontUser}>User</Text>
-          <Text style={styles.fontSignin}>Sign In</Text>
+          <Text style={styles.fontUser}>{user}</Text>
+          <Text style={styles.fontSignin}>{title}</Text>
         </View>
 
         {/* Render Logo GOPANG */}
@@ -35,7 +49,7 @@ const User = ({navigation}) => {
         </View>
 
         <View>
-          <Text style={styles.fontEnter}>Enter your email and password</Text>
+          <Text style={styles.textEnter}>{desc}</Text>
         </View>
 
         {/* Render Text Input yg so props */}
@@ -43,14 +57,16 @@ const User = ({navigation}) => {
           <Input
             placeholder={'Email'}
             focus={true}
-            type={text}
             input={styles.input}
+            value={form.Email}
+            onChangeText={value => onInputChange(value, 'Email')}
           />
           <Input
             placeholder={'Password'}
-            TextEntry={true}
-            type={number}
             input={styles.input}
+            value={form.Password}
+            onChangeText={value => onInputChange(value, 'Password')}
+            secureTextEntry={true}
           />
         </View>
 
@@ -58,13 +74,26 @@ const User = ({navigation}) => {
         <TextTouchable
           title={'Forgot Password?'}
           stylingTitle={styles.textForgot}
+          onPress={() => navigation.navigate('ForgetPassword')}
         />
 
         {/* Render Button dan dont have an account *button login yang props */}
         <View style={{alignItems: 'center'}}>
           <Button
-            onPress={() => navigation.navigate('NavigationBar')}
             title="Login"
+            onPress={() => {
+              if (form.Email == id.Email && form.Password == id.Password) {
+                navigation.replace('NavigationBar');
+              } else if (!form.Email && !form.Password) {
+                Alert.alert('Anda harus mengisi Password&Email !');
+              } else if (!form.Email) {
+                Alert.alert('Anda harus mengisi Email !');
+              } else if (!form.Password) {
+                Alert.alert('Anda harus mengisi Password !');
+              } else {
+                Alert.alert('Password/Email Anda masukan Salah!!!');
+              }
+            }}
           />
 
           <Text style={styles.textOr}>Or</Text>
@@ -98,7 +127,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  fontEnter: {
+  textEnter: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#A8A6A7',

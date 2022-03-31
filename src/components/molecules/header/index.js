@@ -15,7 +15,9 @@ const header = ({title, onBack}) => {
       {onBack && (
         <TouchableOpacity
           style={{position: 'absolute', left: 46}}
-          onPress={onBack}>
+          onPress={onBack}
+          activeOpacity={1.0}
+          >
           <View>
             <Image source={Arrow} style={{height: 22.39, width: 10}} />
           </View>
@@ -30,16 +32,17 @@ export default header;
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: 75,
+    width:'100%',
+    height:75,
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 15,
-    justifyContent: 'center',
+    justifyContent:'center'
   },
   text: {
     fontSize: 22,
     fontWeight: 'bold',
+    color:'black'
   },
 });

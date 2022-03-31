@@ -12,6 +12,7 @@ const Chat = ({navigation}) => {
         navigation={navigation}
         onBack={() => navigation.goBack()}
       />
+
       <View style={{flex: 1, backgroundColor: '#D3D3D3'}}>
         <Text style={{alignSelf: 'center', paddingBottom: 20}}>
           Senin, 21 Maret, 2022

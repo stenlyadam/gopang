@@ -13,7 +13,6 @@ import {
 
 const {width, height} = Dimensions.get('window');
 
-const COLORS = {primary: '#000000', white: '#fff'};
 
 const slides = [
   {
@@ -41,12 +40,12 @@ const slides = [
 
 const Slide = ({item}) => {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{alignItems: 'center',backgroundColor:'white'}}>
       <Image
         source={item?.image}
-        style={{height: '75%', width, resizeMode: 'cover'}}
+        style={{height: '83%', width}}
       />
-      <View>
+      <View style={{alignItems:'center'}}>
         <Text style={styles.title}>{item?.title}</Text>
         <Text style={styles.subtitle}>{item?.subtitle}</Text>
       </View>
@@ -83,7 +82,6 @@ const OnboardingScreen = ({navigation}) => {
     return (
       <View
         style={{
-          height: height * 0.25,
           justifyContent: 'space-between',
           paddingHorizontal: 20,
         }}>
@@ -92,7 +90,7 @@ const OnboardingScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 20,
+            marginBottom:40
           }}>
           {/* Render indicator */}
           {slides.map((_, index) => (
@@ -138,7 +136,7 @@ const OnboardingScreen = ({navigation}) => {
                   style={{
                     fontWeight: 'bold',
                     fontSize: 15,
-                    color: COLORS.black,
+                    color: 'black',
                   }}>
                   SKIP
                 </Text>
@@ -164,12 +162,11 @@ const OnboardingScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <StatusBar backgroundColor={COLORS.primary} />
+    <View style={{flex:1,backgroundColor:'white'}}>
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
-        contentContainerStyle={{height: height * 0.75}}
+        contentContainerStyle={{height: height * 0.80}}
         showsHorizontalScrollIndicator={false}
         horizontal
         data={slides}
@@ -177,7 +174,7 @@ const OnboardingScreen = ({navigation}) => {
         renderItem={({item}) => <Slide item={item} />}
       />
       <Footer />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -185,22 +182,19 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'black',
     fontSize: 13,
-    marginTop: 10,
-    width: 276,
+    width: 239,
     textAlign: 'center',
-    lineHeight: 23,
-    justifyContent: 'center',
+    lineHeight: 20,
   },
   title: {
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 20,
     textAlign: 'center',
   },
   image: {
-    height: 276,
-    width: 412,
+    height: 535,
+    width: '100%',
     resizeMode: 'contain',
     marginTop: 132,
   },

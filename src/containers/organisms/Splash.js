@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View,Image } from 'react-native'
-import React, {useEffect} from 'react'
+import { StyleSheet, Text, View,Image,Dimensions } from 'react-native'
+import React, {useEffect} from 'react';
+
+const {height,width}= Dimensions.get('window');
 
 const Splash = ({navigation}) => {
     useEffect(()=>{
@@ -19,10 +21,15 @@ export default Splash
 
 const styles = StyleSheet.create({
     logo:{
-        marginTop:306,
+        height:height-326,
+        width:width-200,
+        marginLeft:75,
         resizeMode: 'contain',
     },
     container:{
-        marginLeft:128,
+      flex:1,
+      alignItems:'center',
+      justifyContent:'center',
     }
+    
 })
