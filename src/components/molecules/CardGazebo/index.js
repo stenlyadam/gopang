@@ -37,9 +37,6 @@ const CardGazebo = props => {
             <View style={styles.containerTitle}>
               <Text style={styles.wahyu}>{props.title}</Text>
             </View>
-            <View>
-              <Image source={require('../../../assets/icon/Rating.png')} />
-            </View>
           </View>
           <View style={{flexDirection: 'row', marginLeft: 11}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
@@ -59,7 +56,7 @@ const CardGazebo = props => {
           <Text style={{fontWeight: 'bold', fontSize: 12}}>Size: 4x4</Text>
 
           <View style={styles.button}>
-            <ButtonDetails title="Details" onSubmit={props.onPress} />
+            <ButtonDetails onSubmit={props.onPress} />
           </View>
         </View>
       </View>
@@ -90,6 +87,6 @@ const styles = StyleSheet.create({
     marginRight: 55,
   },
   button: {
-    marginLeft: 156,
+    marginLeft: '37.9%',
   },
 });

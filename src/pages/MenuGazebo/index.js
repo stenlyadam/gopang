@@ -29,7 +29,7 @@ const MenuGazebo = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* Gazebo 1 */}
         <CardGazebo
           title="Gazebo Wahyu"

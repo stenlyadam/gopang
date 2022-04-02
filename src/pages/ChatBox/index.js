@@ -29,7 +29,7 @@ const NavChat = ({navigation}) => {
   ]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white'}}>
       <Header title="Chat" />
 
       <View style={styles.container}>

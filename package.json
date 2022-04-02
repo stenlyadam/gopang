@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^6.1.1",
     "@react-native-elements/base": "github:react-native-elements/react-native-elements#base",
     "@react-native-elements/themed": "github:react-native-elements/react-native-elements#themed",
     "@react-native-picker/picker": "^2.4.0",

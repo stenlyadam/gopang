@@ -1475,6 +1475,13 @@
     "sudo-prompt" "^9.0.0"
     "wcwidth" "^1.0.1"
 
+"@react-native-community/datetimepicker@^6.1.1":
+  "integrity" "sha512-/ZYDcxMEM/LoTvf4tk1bheaK/yZu3UPPSlolz3RgUDFWixiNacDWu1ZiW8LOhaWs8PnfyGH47xQtEmTxW41mZw=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-6.1.1.tgz"
+  "version" "6.1.1"
+  dependencies:
+    "invariant" "^2.2.4"
+
 "@react-native-community/eslint-config@^3.0.1":
   "integrity" "sha512-h0MRsaHkyfoQjEiTjG3a+Ie/p6AmQNAHXpYrVhtYMZNRF26TCwNOsQNp4/13QhKAq6vhS8EJppge0P43GnPmfQ=="
   "resolved" "https://registry.npmjs.org/@react-native-community/eslint-config/-/eslint-config-3.0.1.tgz"

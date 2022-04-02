@@ -15,14 +15,14 @@ import CardHomestay from '../../components/molecules/CardHomestay';
 
 const HomeMenu = ({navigation}) => {
   return (
-    <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white'}}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
         <View>
           <Image
             source={require('../../assets/home/Likupang.png')}
             style={{
-              width:'100%',
+              width: '100%',
               height: 229,
               borderBottomLeftRadius: 15,
               borderBottomRightRadius: 15,
@@ -35,7 +35,7 @@ const HomeMenu = ({navigation}) => {
               width: 31,
               position: 'absolute',
               top: 13,
-              left:'68.61%',
+              left: '68.61%',
             }}
           />
           <Text
@@ -46,8 +46,8 @@ const HomeMenu = ({navigation}) => {
               position: 'absolute',
               top: 21,
               left: '74%',
-              width:79,
-              height:25
+              width: 79,
+              height: 25,
             }}>
             GOPANG
           </Text>
@@ -88,16 +88,28 @@ const HomeMenu = ({navigation}) => {
 
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
-        <View style={{marginTop: 10,width:'100%',justifyContent:'center'}}>
+        <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
           {/* Wahyu */}
-          <CardHomestay title='Wahyu' location='Marinsow Village, North Sulawesi' image={require('../../assets/home/Wahyu.png')} onPress={()=>navigation.navigate('infoHomestay')} />
+          <CardHomestay
+            title="Wahyu"
+            location="Marinsow Village, North Sulawesi"
+            image={require('../../assets/home/Wahyu.png')}
+            onPress={() => navigation.navigate('infoHomestay')}
+          />
 
           {/* Juniver */}
-          <CardHomestay title='Juniver' location='Pulisan Village, North Sulawesi' image={require('../../assets/home/Juniver.png')} />
+          <CardHomestay
+            title="Juniver"
+            location="Pulisan Village, North Sulawesi"
+            image={require('../../assets/home/Juniver.png')}
+          />
 
           {/* Komplex Jembatan */}
-          <CardHomestay title='Komplex Jembatan' location='Kinunang Village, North Sulawesi' image={require('../../assets/home/Jembatan.png')} />
-
+          <CardHomestay
+            title="Komplex Jembatan"
+            location="Kinunang Village, North Sulawesi"
+            image={require('../../assets/home/Jembatan.png')}
+          />
         </View>
 
         {/*Popular Destinations*/}
@@ -111,26 +123,40 @@ const HomeMenu = ({navigation}) => {
           Popular Destinations
         </Text>
         <View style={styles.Gdestination}>
-            <View>
-              <TouchableOpacity onPress={()=>navigation.navigate('OptionMenuPaal')} >
-                <Image source={require('../../assets//home/Paal.png')} style={{height:170,width:173}} />
-              </TouchableOpacity>
-            </View>
-            <View style={{marginLeft:20}}>
-              <TouchableOpacity onPress={()=>navigation.navigate('OptionMenuPulisan')}>
-                <Image source={require('../../assets/home/Pulisan.png')} style={{height:170,width:173}} />
-              </TouchableOpacity>
-            </View>
-            <View style={{marginTop:25}}>
-              <TouchableOpacity>
-                <Image source={require('../../assets/home/Kinunang.png')} style={{height:170,width:173}} />
-              </TouchableOpacity>
-            </View>
-            <View style={{marginLeft:20,marginTop:25}}>
-              <TouchableOpacity>
-                <Image source={require('../../assets/home/Larata.png')} style={{height:170,width:173}} />
-              </TouchableOpacity>
-            </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuPaal')}>
+              <Image
+                source={require('../../assets//home/Paal.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{marginLeft: 20}}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuPulisan')}>
+              <Image
+                source={require('../../assets/home/Pulisan.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{marginTop: 25}}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/home/Kinunang.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{marginLeft: 20, marginTop: 25}}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/home/Larata.png')}
+                style={{height: 170, width: 173}}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/*Trending Restaurant*/}
@@ -146,17 +172,13 @@ const HomeMenu = ({navigation}) => {
         <View>
           <View style={styles.restaurant}>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image
-                source={require('../../assets/home/WarungJessica.png')}
-              />
+              <Image source={require('../../assets/home/WarungJessica.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
               <Image source={require('../../assets/home/WarungWahyu.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>
-              <Image
-                source={require('../../assets/home/WarungJeniver.png')}
-              />
+              <Image source={require('../../assets/home/WarungJeniver.png')} />
             </TouchableOpacity>
           </View>
         </View>
@@ -183,14 +205,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 25,
     marginLeft: 20,
-    marginBottom:10
+    marginBottom: 10,
   },
   wahyu: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 11,
-    marginBottom:5,
-    marginLeft:11,
+    marginBottom: 5,
+    marginLeft: 11,
   },
   juniver: {
     fontSize: 18,
@@ -201,15 +223,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 11,
-    marginBottom:5,
-    marginLeft:11,
+    marginBottom: 5,
+    marginLeft: 11,
   },
   Gdestination: {
     flexWrap: 'wrap',
-    flexDirection:'row',
+    flexDirection: 'row',
     marginTop: 10,
     width: '100%',
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   Fdestination: {
     flexDirection: 'row',
@@ -223,11 +245,11 @@ const styles = StyleSheet.create({
   Trestaurant: {
     marginRight: 21,
   },
-  location:{
+  location: {
     fontWeight: 'normal',
-    fontSize:12,
-    width:187,
-    height:16,
-    marginLeft:4
-  }
+    fontSize: 12,
+    width: 187,
+    height: 16,
+    marginLeft: 4,
+  },
 });
