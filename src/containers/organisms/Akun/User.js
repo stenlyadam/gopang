@@ -1,21 +1,36 @@
-import React, {useState} from 'react';
-import { Text,View,StyleSheet,Image, ScrollView,TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
-
+import { setForm } from '../../../redux';
 
 
 const User = ({navigation}) => {
-  const [text] = useState(null);
-  const [number] = useState(null);
+  const id={
+        Email:'Admin',
+        Password:'Admin'
+  };
+
+  const {form,title,user,desc} = useSelector(state=>state.LoginReducer); //destructuring form dll.
+  const dispatch = useDispatch();
+
+  // buat menampilkan data yang dikirim lewat input bisa menggunakan react debugger
+  const sendData=()=>{
+    console.log('data yang dikirim',form);
+  };
+  
+  const onInputChange = (value,inputType) =>{
+    dispatch(setForm(inputType,value));
+  }
 
   return (
     <ScrollView>
     <View style={styles.container}>
       <View> 
-        <Text style={styles.fontUser}>User</Text> 
-        <Text style={styles.fontSignin}>Sign In</Text>
+        <Text style={styles.fontUser}>{user}</Text> 
+        <Text style={styles.fontSignin}>{title}</Text>
       </View>
 
       {/* Render Logo GOPANG */}
@@ -26,25 +41,56 @@ const User = ({navigation}) => {
       </View>
 
       <View>
-        <Text style={styles.fontEnter}>Enter your email and password</Text> 
+        <Text style={styles.textEnter}>{desc}</Text> 
       </View>
 
       {/* Render Text Input yg so props */}
       <View style={{alignItems:'center'}}>
-        <Input placeholder={'Email'} focus={true} type={text} input={styles.input} />
-        <Input placeholder={'Password'} TextEntry={true} type={number} input={styles.input} />
+        <Input 
+          placeholder={'Email'} 
+          focus={true}
+          input={styles.input} 
+          value={form.Email}
+          onChangeText={(value)=> onInputChange(value, 'Email')}
+        />
+        <Input 
+          placeholder={'Password'}
+          input={styles.input} 
+          value={form.Password}
+          onChangeText={(value)=> onInputChange(value, 'Password')}
+          secureTextEntry={true}
+        />
       </View>
 
       {/* Forget Password props */}
       <TextTouchable 
       title={'Forgot Password?'} 
-      stylingTitle={styles.textForgot}  
-      onPress={()=>navigation.navigate('ForgetPassword')}
+      stylingTitle={styles.textForgot} 
+      onPress={()=>navigation.navigate('ForgetPassword')} 
       />
 
       {/* Render Button dan dont have an account *button login yang props */}
       <View style={{alignItems:'center'}}>
-          <Button title='Login' />
+
+          <Button title='Login' 
+          onPress={()=>{
+            if (form.Email==id.Email && form.Password==id.Password) {
+              navigation.replace('NavigationBar');
+            }
+            else if(!form.Email && !form.Password){
+              Alert.alert('Anda harus mengisi Password&Email !')
+            }
+            else if(!form.Email){
+              Alert.alert('Anda harus mengisi Email !')
+            }
+            else if(!form.Password){
+              Alert.alert('Anda harus mengisi Password !')
+            }
+            else{
+              Alert.alert('Password/Email Anda masukan Salah!!!')
+            }
+          }}
+          />
 
           <Text style={styles.textOr}>Or</Text>
 
@@ -63,6 +109,7 @@ const User = ({navigation}) => {
           onPress={()=>navigation.replace('SignUpUser')}
           title={'Sign Up'}
           />
+
       </View>
     </View>
     </ScrollView> 
@@ -74,7 +121,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
   },
-  fontEnter:{
+  textEnter:{
     fontSize:16,
     fontWeight:'bold',
     color:'#A8A6A7',
@@ -91,7 +138,7 @@ const styles = StyleSheet.create({
   fontUser:{
     fontSize:17,
     fontWeight:'bold',
-    marginTop:69,
+    marginTop:90,
     marginLeft:183,
     color:'#000000'
   },
@@ -101,6 +148,14 @@ const styles = StyleSheet.create({
     marginTop:4,
     marginLeft:130
   },
+  Button:{
+    paddingTop:15,
+    alignItems:'center',
+    borderRadius:20,
+    backgroundColor: "#38A7D0",
+    width:353.92,
+    height:61.73,
+  },
   input:{
     height: 54,
     width:343,
@@ -109,15 +164,15 @@ const styles = StyleSheet.create({
     borderRadius:6,
     borderWidth:0.3,
     backgroundColor:'#EDEDF0',
-    marginTop:20.29,
+    marginTop:20,
   },
   ButtonGoogle:{
     color:'#C7C8C8',
     alignItems:'center',
     borderRadius:20,
     backgroundColor: "#C7C8C8",
-    width:353.92,
-    height:61.73,
+    width:323.72,
+    height:61,
   },
   textButtonGoogle:{
     fontSize:18,
@@ -147,6 +202,9 @@ const styles = StyleSheet.create({
   titleSignup:{ 
     color:'#007AFF',
     fontWeight:'bold'
+  },
+  tcbSignup:{
+    marginLeft:7,
   },
   textDont:{
     fontSize:16,
