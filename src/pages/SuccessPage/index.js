@@ -14,7 +14,7 @@ const {height, width} = Dimensions.get('window');
 const SuccessPage = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <View style={{marginTop: 196}}>
+      <View style={{marginTop: 150}}>
         <Image source={require('../../assets/image/SuccessPage.png')} />
         <Text
           style={{
@@ -22,8 +22,20 @@ const SuccessPage = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 27,
             alignSelf: 'center',
+            color: '#38A7D0',
           }}>
-          SUCCESS !!!
+          It's Ordered
+        </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            alignSelf: 'center',
+            textAlign: 'center',
+            width: 250,
+            color: '#A8A6A7',
+          }}>
+          Hai Reyner - thanks for your order, we hope you enjoyed booking with
+          us.
         </Text>
       </View>
 

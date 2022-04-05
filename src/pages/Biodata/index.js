@@ -124,7 +124,7 @@ const Biodata = ({navigation}) => {
             </View>
 
             <ButtonTransaction
-              title={'Next'}
+              title={'Confirm'}
               btnView={styles.btnView}
               onPress={() => navigation.navigate('OverviewPage')}
             />

@@ -15,7 +15,7 @@ import CardHomestay from '../../components/molecules/CardHomestay';
 
 const HomeMenu = ({navigation}) => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white'}}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
         <View>
