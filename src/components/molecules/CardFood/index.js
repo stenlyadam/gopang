@@ -1,13 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import ButtonDetails from '../../atoms/buttonDetails';
 
-const buttonDetails = props => {
+const RecomFood = props => {
+  //console.log(props)
+
   return (
     <View
       style={{
-        height: 118,
-        width: 371,
+        height: 100,
+        width: '90%',
         marginLeft: 20,
         marginRight: 20,
         flexDirection: 'row',
@@ -33,16 +34,34 @@ const buttonDetails = props => {
               alignItems: 'center',
             }}>
             <View style={styles.containerTitle}>
-              <Text style={styles.wahyu}>{props.title}</Text>
-            </View>
-            <View>
-              <Image source={require('../../../assets/icon/Rating.png')} />
+              <Text style={styles.namaMakanan}>{props.title}</Text>
             </View>
           </View>
+
           <View style={{flexDirection: 'row', marginLeft: 11}}>
+            <Text style={styles.harga}>{props.harga}</Text>
+          </View>
+
+          <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 6}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
             <Text style={styles.location}>{props.location}</Text>
           </View>
+
+            {/* {
+              props.myCondition == 1?
+
+              
+              :
+              <TouchableOpacity onPress={
+                () =>{
+                  alert("ok")
+                }
+                 }>
+                   <Text>button</Text>
+                   
+              </TouchableOpacity>
+
+            } */}
         </View>
         <View
           style={{
@@ -54,33 +73,33 @@ const buttonDetails = props => {
             marginTop: 29,
             marginLeft: 11,
           }}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
-              IDR 200.000
-            </Text>
-            <Text style={{fontWeight: 'bold', fontSize: 10, marginTop: 1}}>
-              /Night
-            </Text>
-          </View>
-          <ButtonDetails />
         </View>
       </View>
     </View>
+    
   );
 };
 
-export default buttonDetails;
+export default RecomFood;
 
 const styles = StyleSheet.create({
-  wahyu: {
-    fontSize: 18,
+  namaMakanan: {
+    fontSize: 15,
     fontWeight: 'bold',
+    height: 30,
+  },
+  harga: {
+    fontWeight: 'normal',
+    fontSize: 15,
+    width: 187,
+    height: 25,
   },
   location: {
+    flexDirection: 'row',
     fontWeight: 'normal',
-    fontSize: 12,
+    fontSize: 13,
     width: 187,
-    height: 16,
+    height: 50,
     marginLeft: 4,
   },
   containerTitle: {

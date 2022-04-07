@@ -1,3 +1,3 @@
 import Header from './header';
-
-export {Header};
+import buttonAdd from '../atoms/buttonAdd';
+export {Header,buttonAdd};
