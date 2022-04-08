@@ -25,6 +25,7 @@ import SuccessPage from '../SuccessPage';
 import OptionMenuPaal from '../OptionMenuPaal';
 import OptionMenuPulisan from '../OptionMenuPulisan';
 import EditProfile from '../EditProfile';
+import AboutApp from '../AboutApp';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,7 @@ const Router = () => {
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="AboutApp" component={AboutApp} />
     </Stack.Navigator>
   );
 };

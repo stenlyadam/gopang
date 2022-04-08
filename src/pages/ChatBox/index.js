@@ -29,7 +29,7 @@ const NavChat = ({navigation}) => {
   ]);
 
   return (
-    <View style={{flex: 1,backgroundColor:'white'}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="Chat" />
 
       <View style={styles.container}>
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 10,
+    backgroundColor: 'white',
   },
 });

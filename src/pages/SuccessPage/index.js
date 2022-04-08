@@ -22,7 +22,7 @@ const SuccessPage = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 27,
             alignSelf: 'center',
-            color:'#38A7D0'
+            color: '#38A7D0',
           }}>
           It's Ordered
         </Text>
@@ -30,17 +30,18 @@ const SuccessPage = ({navigation}) => {
           style={{
             fontSize: 18,
             alignSelf: 'center',
-            textAlign:'center',
-            width:250,
-            color:'#A8A6A7'
+            textAlign: 'center',
+            width: 250,
+            color: '#A8A6A7',
           }}>
-          Hai Reyner - thanks for your order, we hope you enjoyed booking with us.
+          Hai Reyner - thanks for your order, we hope you enjoyed booking with
+          us.
         </Text>
       </View>
 
       <View>
         <ButtonTransaction
-          title={'Continue'}
+          title={'Done'}
           btnView={styles.btnView}
           onPress={() => navigation.replace('NavigationBar')}
         />
