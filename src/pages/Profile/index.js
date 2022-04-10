@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext,useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,8 +8,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Header from '../../components/molecules/header';
+import firebase from '../../config/Firebase';
+
 
 const Profile = ({navigation}) => {
+
+
+  const handleSubmit = () => {
+      firebase.database().ref('users').once('value',(data)=>{
+        const users=data.toJSON();
+        console.log(users);
+      })
+    };
+    
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="My Profile" />
@@ -18,20 +29,33 @@ const Profile = ({navigation}) => {
       <View style={{flex: 1}}>
         {/* Photo Profile */}
         <View style={{alignItems: 'center'}}>
-          <Image source={require('../../assets/image/myProfile.png')} />
+          <TouchableOpacity onPress={()=>{handleSubmit()}}>
+          <Image 
+          source={require('../../assets/image/DefaultProfile.jpg')} 
+          style={{height:200,width:200,borderRadius:200/2}}
+          />
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 16,
               fontWeight: 'bold',
             }}>
-            Reyner H. Senduk
+            Reyner Senduk
           </Text>
+          
           <Text
             style={{
               fontSize: 13,
               color: '#ABABAB',
             }}>
             Reyner.senduk01@gmail.com
+          </Text>
+          <Text
+            style={{
+              fontSize: 13,
+              color: '#ABABAB',
+            }}>
+            085245635363
           </Text>
         </View>
 
