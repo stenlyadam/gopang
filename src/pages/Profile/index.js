@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,8 +8,32 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Header from '../../components/molecules/header';
+import firebase from '../../config/Firebase';
 
-const Profile = ({navigation}) => {
+const Profile = ({navigation, route}) => {
+  const {uid} = route.params;
+  const [users, setUsers] = useState({});
+  const [onPhoto, setOnPhoto] = useState(false);
+
+  const getUser = () => {
+    firebase
+
+      .database()
+      .ref(`users/pelanggan/${uid}`)
+      .on('value', res => {
+        if (res.val()) {
+          setUsers(res.val());
+          setOnPhoto(true);
+          console.log(users.photo);
+        }
+        console.log('ini user', users);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="My Profile" />
@@ -18,28 +42,50 @@ const Profile = ({navigation}) => {
       <View style={{flex: 1}}>
         {/* Photo Profile */}
         <View style={{alignItems: 'center'}}>
-          <Image source={require('../../assets/image/myProfile.png')} />
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-            }}>
-            Reyner H. Senduk
-          </Text>
-          <Text
-            style={{
-              fontSize: 13,
-              color: '#ABABAB',
-            }}>
-            Reyner.senduk01@gmail.com
-          </Text>
+          {onPhoto ? (
+            <Image
+              source={{uri: `data:image/jpeg;base64, ${users.photo}`}}
+              style={styles.imageStyle}
+            />
+          ) : (
+            <View
+              style={{
+                width: 168,
+                height: 168,
+                borderRadius: 168 / 2,
+                backgroundColor: '#C4C4C4',
+              }}></View>
+          )}
+          <View style={{top: 14, alignItems: 'center'}}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              {users.name}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                color: '#ABABAB',
+              }}>
+              {users.email}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                color: '#ABABAB',
+              }}>
+              {users.number}
+            </Text>
+          </View>
         </View>
 
         <View style={{alignItems: 'center', marginTop: 79}}>
           <View style={{height: 128, width: 343, alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.buttonEditProfile}
-              onPress={() => navigation.navigate('EditProfile')}>
+              onPress={() => navigation.navigate('EditProfile', {uid: uid})}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/iconProfile.png')}
               />
@@ -53,11 +99,11 @@ const Profile = ({navigation}) => {
               </View>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 103}}
+                style={{marginTop: 13, marginLeft: 110}}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.buttonLogout}
+              style={styles.buttonEditProfile}
               onPress={() => navigation.replace('UserScreen')}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/Logout.png')}
@@ -70,14 +116,14 @@ const Profile = ({navigation}) => {
               </View>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 57}}
+                style={{marginTop: 13, marginLeft: 70}}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{alignItems: 'center', marginTop: 17}}>
+        <View style={{alignItems: 'center', marginTop: 10}}>
           <View style={{height: 128, width: 343, alignItems: 'center'}}>
-            <TouchableOpacity style={styles.buttonEditProfile}>
+            <TouchableOpacity style={styles.buttonLogout}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/Help.png')}
               />
@@ -92,7 +138,7 @@ const Profile = ({navigation}) => {
               </Text>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 220}}
+                style={{marginTop: 13, marginLeft: 217}}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -128,13 +174,18 @@ const styles = StyleSheet.create({
   buttonEditProfile: {
     flexDirection: 'row',
     height: 40,
-    width: 310,
+    width: '90%',
     marginTop: 13,
   },
   buttonLogout: {
     flexDirection: 'row',
     height: 40,
-    width: 310,
+    width: '90%',
     marginTop: 21,
+  },
+  imageStyle: {
+    width: 168,
+    height: 168,
+    borderRadius: 168 / 2,
   },
 });
