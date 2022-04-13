@@ -23,7 +23,7 @@ const MenuHomestay = ({navigation}) => {
       />
       
       {/* Container */}
-      <ScrollView style={{flex:1}}>
+      <ScrollView style={{flex:1}} showsVerticalScrollIndicator={false}>
       <View>
         <View style={{flexDirection:'row',width:'100%'}}>
           <View style={{width: '77.8%',marginLeft:10}}>

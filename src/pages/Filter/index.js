@@ -54,7 +54,9 @@ const Filter = ({navigation}) => {
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                         >
                         <Picker.Item label="Likupang" value="likupang" />
-                        <Picker.Item label="JavaScript" value="js" />
+                        <Picker.Item label="Marinsow" value="marinsow" />
+                        <Picker.Item label="Pulisan" value="pulisan" />
+                        <Picker.Item label="Kinunang" value="kinunang" />
                     </Picker>
                 </View>
 

@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection:'row',
     marginTop: 10,
-    width: '100%',
+    width: '80%',
     justifyContent:'center'
   },
   Fdestination: {

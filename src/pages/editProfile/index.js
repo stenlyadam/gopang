@@ -5,7 +5,8 @@ import {
     View,
     Image,
     ScrollView,
-    Alert
+    Alert,
+    TouchableOpacity
  } from 'react-native'
 import Header from '../../components/molecules/header';
 import Button from '../../components/atoms/Button';
@@ -29,6 +30,14 @@ const EditProfile = ({navigation}) => {
         width:170,
         height:150,
       }} />
+      <TouchableOpacity
+      style={{
+          position: 'absolute',
+          top: 130,
+          left: 220
+      }}>
+          <Image source={require('../../assets/image/kamera.png')}/>
+      </TouchableOpacity>
         </View>
 
         <View style={styles.InputContainer}>
@@ -49,7 +58,7 @@ const EditProfile = ({navigation}) => {
 export default EditProfile
 
 const styles = StyleSheet.create({
-    InputContainer:{
+    InputContainer:{    
         marginTop:70,
         alignItems:'center'
     },

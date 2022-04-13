@@ -35,32 +35,42 @@ const Profile = ({navigation}) => {
       <View style={{flexDirection: 'row', marginLeft: 20, marginTop: 50}}>
         <Image source={require('../../assets/image/userbody.png')} />
         <Text style={{flexDirection: 'row',marginLeft: 10, marginTop: 10}}>Edit Profile</Text>
-        {/* <Icon name='Arrow' size={20} /> */}
+        {/* <Text style={{fontSize: 11,color: '#ABABAB'}}>Make changes to your profile</Text> */}
+        <View style={{paddingLeft: 140}}>
+        <Image source={require('../../assets/icon/ArrowRight.png')}/>
+        </View>
       </View>
       </TouchableOpacity>
       <TouchableOpacity>
       <View style={{flexDirection: 'row', marginLeft: 20, marginTop: 25}}>
         <Image source={require('../../assets/image/iconLogout.png')} />
         <Text style={{flexDirection: 'row',marginLeft: 10, marginTop: 10}}>Logout</Text>
-        {/* <Icon name='Arrow' size={20} /> */}
+        {/* <Text style={{fontSize:11, color:'#ABABAB'}}>Further secure your account for safety</Text> */}
+        <View style={{paddingLeft: 163}}> 
+        <Image source={require('../../assets/icon/ArrowRight.png')}/>
+        </View>
       </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=>navigation.navigate('Help')}>
+      <TouchableOpacity onPress={()=>navigation.navigate('ProfileOwner')}>
       <View style={{flexDirection: 'row', marginLeft: 20, marginTop: 25}}>
         <Image source={require('../../assets/image/iconBell.png')} />
         <Text style={{flexDirection: 'row',marginLeft: 10, marginTop: 10}}>Help</Text>
-        {/* <Icon name='Arrow' size={20} /> */}
+        <View style={{paddingLeft: 175}}>
+        <Image source={require('../../assets/icon/ArrowRight.png')}/>
+        </View>
       </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=>navigation.navigate('aboutApp')}>
       <View style={{flexDirection: 'row', marginLeft: 20, marginTop: 25}}>
         <Image source={require('../../assets/image/iconHeart.png')} />
         <Text style={{flexDirection: 'row',marginLeft: 10, marginTop: 10}}>About App</Text>
-        {/* <Icon name='Arrow' size={20} /> */}
+        <View style={{paddingLeft: 135}}>
+        <Image source={require('../../assets/icon/ArrowRight.png')}/>
+        </View>
       </View>
       </TouchableOpacity>
-      </View>
-      </View>
+    </View>
+</View>
   );
 };
 

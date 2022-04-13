@@ -26,7 +26,8 @@ import OptionMenuPulisan from '../OptionMenuPulisan';
 import editProfile from '../editProfile';
 import aboutApp from '../aboutApp';
 import Help from '../Help';
-
+import profileOwner from '../ProfileOwner';
+import addFood from '../addFood';
 const Stack = createNativeStackNavigator();
 
 const Router = () => {
@@ -56,6 +57,8 @@ const Router = () => {
       <Stack.Screen name='editProfile' component={editProfile}/>
       <Stack.Screen name='aboutApp' component={aboutApp}/>
       <Stack.Screen name='Help' component={Help}/>
+      <Stack.Screen name='ProfileOwner' component={profileOwner}/>
+      <Stack.Screen name='addFood' component={addFood}/>
     </Stack.Navigator>
   );
 };
