@@ -25,6 +25,9 @@ import SuccessPage from '../SuccessPage';
 import OptionMenuPaal from '../OptionMenuPaal';
 import OptionMenuPulisan from '../OptionMenuPulisan';
 import EditProfile from '../EditProfile';
+import AboutApp from '../AboutApp';
+import SignUpOwner from '../../containers/organisms/Akun/SignUpOwner';
+import AddFood from '../AddFood';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +40,7 @@ const Router = () => {
       <Stack.Screen name="UserScreen" component={UserScreen} />
       <Stack.Screen name="OwnerScreen" component={OwnerScreen} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <Stack.Screen name="SignUpOwner" component={SignUpOwner} />
       <Stack.Screen name="SignUpUser" component={SignUpUser} />
       <Stack.Screen name="NavigationBar" component={NavigationBar} />
       <Stack.Screen name="MenuHome" component={MenuHome} />
@@ -54,6 +58,8 @@ const Router = () => {
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="AboutApp" component={AboutApp} />
+      <Stack.Screen name="AddFood" component={AddFood} />
     </Stack.Navigator>
   );
 };

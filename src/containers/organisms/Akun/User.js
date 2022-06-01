@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,31 +14,41 @@ import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
 import {setForm} from '../../../redux';
+import firebase from '../../../config/Firebase';
+import {showMessage} from 'react-native-flash-message';
 
 const User = ({navigation}) => {
-  const id = {
-    Email: 'admin',
-    Password: 'admin',
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const {form, title, user, desc} = useSelector(state => state.LoginReducer); //destructuring form dll.
-  const dispatch = useDispatch();
-
-  // buat menampilkan data yang dikirim lewat input bisa menggunakan react debugger
-  const sendData = () => {
-    console.log('data yang dikirim', form);
-  };
-
-  const onInputChange = (value, inputType) => {
-    dispatch(setForm(inputType, value));
+  const handleSubmit = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        const uid = res.user.uid;
+        navigation.replace('NavigationBar', {uid: res.user.uid});
+        // console.log(uid);
+      })
+      .catch(error =>
+        showMessage({
+          message: error.message,
+          type: 'default',
+          backgroundColor: 'red', // background color
+          color: 'white', // text color
+        }),
+      );
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
+      <View>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <View>
-          <Text style={styles.fontUser}>{user}</Text>
-          <Text style={styles.fontSignin}>{title}</Text>
+          <Text style={styles.fontUser}>User</Text>
+          <Text style={styles.fontSignin}>Sign In</Text>
         </View>
 
         {/* Render Logo GOPANG */}
@@ -49,7 +60,7 @@ const User = ({navigation}) => {
         </View>
 
         <View>
-          <Text style={styles.textEnter}>{desc}</Text>
+          <Text style={styles.textEnter}>Enter your email and password</Text>
         </View>
 
         {/* Render Text Input yg so props */}
@@ -58,14 +69,15 @@ const User = ({navigation}) => {
             placeholder={'Email'}
             focus={true}
             input={styles.input}
-            value={form.Email}
-            onChangeText={value => onInputChange(value, 'Email')}
+            value={email}
+            onChangeText={value => setEmail(value)}
+            keyboardType="email-address"
           />
           <Input
             placeholder={'Password'}
             input={styles.input}
-            value={form.Password}
-            onChangeText={value => onInputChange(value, 'Password')}
+            value={password}
+            onChangeText={value => setPassword(value)}
             secureTextEntry={true}
           />
         </View>
@@ -82,17 +94,7 @@ const User = ({navigation}) => {
           <Button
             title="Login"
             onPress={() => {
-              if (form.Email == id.Email && form.Password == id.Password) {
-                navigation.replace('NavigationBar');
-              } else if (!form.Email && !form.Password) {
-                Alert.alert('Anda harus mengisi Password&Email !');
-              } else if (!form.Email) {
-                Alert.alert('Anda harus mengisi Email !');
-              } else if (!form.Password) {
-                Alert.alert('Anda harus mengisi Password !');
-              } else {
-                Alert.alert('Password/Email Anda masukan Salah!!!');
-              }
+              handleSubmit();
             }}
           />
 
@@ -126,6 +128,7 @@ export default User;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   textEnter: {
     fontSize: 16,

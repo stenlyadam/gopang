@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   Image,
-  ScrollView,
-  TouchableOpacity,
+  ScrollView, StyleSheet,
+  Text, TouchableOpacity, View
 } from 'react-native';
-import iconHome from '../../assets/icon/home.png';
-import iconOrder from '../../assets/icon/order.png';
-import iconChat from '../../assets/icon/chat.png';
-import iconUser from '../../assets/icon/user.png';
 import CardHomestay from '../../components/molecules/CardHomestay';
+import firebase from '../../config/Firebase';
 
-const HomeMenu = ({navigation}) => {
+
+const HomeMenu = ({navigation,route}) => {
+  const {uid} = route.params;
+  const [homestay, setUsers] = useState({});
+
+  const getUser = () => {
+    firebase
+
+      .database()
+      .ref(`homestay/${uid}`)
+      .on('value', res => {
+        if (res.val()) {
+          setUsers(res.val());
+          setOnPhoto(true);
+          console.log(homestay.photo);
+        }
+        console.log('ini homestay', homestay);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <View style={{flex: 1,backgroundColor:'white'}}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -91,7 +108,7 @@ const HomeMenu = ({navigation}) => {
         <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
           {/* Wahyu */}
           <CardHomestay
-            title="Wahyu"
+            title={homestay.name}
             location="Marinsow Village, North Sulawesi"
             image={require('../../assets/home/Wahyu.png')}
             onPress={() => navigation.navigate('infoHomestay')}

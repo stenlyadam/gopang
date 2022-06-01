@@ -19,7 +19,10 @@ const SignUpUser = ({navigation, route}) => {
   const {uid} = route.params;
   const [users, setUsers] = useState({});
   const [name, setEmail] = useState(null);
-  const [number, setNumber] = useState(null);
+  const [desc,setDesc] = useState(null);
+  const [location,setLocation] = useState(null);
+  const [facility,setFacility] = useState(null);
+  const [price, setPrice] = useState(null);
   const [photo, setPhoto] = useState('');
   const [hasPohto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
@@ -60,14 +63,15 @@ const SignUpUser = ({navigation, route}) => {
   };
 
   const handleSumbit = () => {
-    if (number && name && photoBase64) {
+    if (price) {
       const data = {
-        email: users.email,
-        number: number,
+        price: price,
         name: name,
+        description:desc,
+        location:location,
         photo: photoBase64,
       };
-      firebase.database().ref(`users/pelanggan/${uid}`).set(data);
+      firebase.database().ref(`homestay/${uid}`).set(data);
       showMessage({
         message: 'Perubahan berhasil dilakukan',
         type: 'default',
@@ -75,113 +79,6 @@ const SignUpUser = ({navigation, route}) => {
         color: 'white',
       });
     }
-
-    if (!number) {
-      const dataWithoutNumber = {
-        email: users.email,
-        number: users.number,
-        name: name,
-        photo: photoBase64,
-      };
-      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutNumber);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    if (!name) {
-      const dataWithoutName = {
-        email: users.email,
-        number: number,
-        name: users.name,
-        photo: photoBase64,
-      };
-      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutName);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    if (!photoBase64) {
-      const dataWithoutPhoto = {
-        email: users.email,
-        number: number,
-        name: name,
-        photo: users.photo,
-      };
-      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutPhoto);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    if (!number && !name) {
-      const dataWithoutNumberName = {
-        email: users.email,
-        number: users.number,
-        name: users.name,
-        photo: photoBase64,
-      };
-      firebase
-        .database()
-        .ref(`users/pelanggan/${uid}`)
-        .set(dataWithoutNumberName);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    if (!number && !photoBase64) {
-      const dataWithoutNumberPhoto = {
-        email: users.email,
-        number: users.number,
-        name: name,
-        photo: users.photo,
-      };
-      firebase
-        .database()
-        .ref(`users/pelanggan/${uid}`)
-        .set(dataWithoutNumberPhoto);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    if (!name && !photoBase64) {
-      const dataWithoutNamePhoto = {
-        email: users.email,
-        number: number,
-        name: users.name,
-        photo: users.photo,
-      };
-      firebase
-        .database()
-        .ref(`users/pelanggan/${uid}`)
-        .set(dataWithoutNamePhoto);
-      showMessage({
-        message: 'Perubahan berhasil dilakukan',
-        type: 'default',
-        backgroundColor: 'green',
-        color: 'white',
-      });
-    }
-
-    navigation.goBack({uid: uid});
   };
 
   useEffect(() => {
@@ -203,7 +100,7 @@ const SignUpUser = ({navigation, route}) => {
             )}
             {!hasPohto && (
               <View style={styles.addPhoto}>
-                <Text style={styles.textAddPhoto}>Add Photo</Text>
+                <Text style={styles.textAddPhoto}>Add Photo Homestay</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -212,21 +109,33 @@ const SignUpUser = ({navigation, route}) => {
         {/* Render TextInput */}
         <View style={styles.InputContainer}>
           <View>
-            <Text style={{marginLeft: 10}}>Full Name</Text>
+            <Text style={{marginLeft: 10}}>Nama Homestay</Text>
             <Input
-              placeholder={users.name}
+              placeholder='Enter your homestay name...'
               input={styles.inputName}
               value={name}
               onChangeText={value => setEmail(value)}
             />
-            {/* <Input placeholder={'Email'} type={text} input={styles.input} /> */}
-            <Text style={{marginLeft: 10, marginTop: 15}}>Phone Number</Text>
+            <Text style={{marginLeft: 10, marginTop: 15}}>Description</Text>
             <Input
-              placeholder={users.number}
-              type={number}
-              value={number}
+              placeholder='Enter your homestay description...'
+              value={desc}
               input={styles.inputNumber}
-              onChangeText={value => setNumber(value)}
+              onChangeText={value => setDesc(value)}
+            />
+            <Text style={{marginLeft: 10, marginTop: 15}}>Location</Text>
+            <Input
+              placeholder='Enter your homestay location...'
+              value={location}
+              input={styles.inputNumber}
+              onChangeText={value => setLocation(value)}
+            />
+            <Text style={{marginLeft: 10, marginTop: 15}}>Price</Text>
+            <Input
+              placeholder='Enter your homestay price...'
+              value={price}
+              input={styles.inputNumber}
+              onChangeText={value => setPrice(value)}
               keyboardType="number-pad"
             />
             {/* <Input placeholder={'Password'} type={number} TextEntry={true} input={styles.input} />
@@ -326,7 +235,7 @@ const styles = StyleSheet.create({
   },
   textAddPhoto: {
     fontSize: 15,
-    maxWidth: 45,
+    maxWidth: 100,
     textAlign: 'center',
     fontWeight: '400',
   },

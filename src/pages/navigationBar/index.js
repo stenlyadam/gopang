@@ -9,7 +9,8 @@ import NavOrder from '../NavOrder';
 import Profile from '../Profile';
 import {View, Image} from 'react-native';
 
-const Tabs = () => {
+const Tabs = ({navigation, route}) => {
+  const {uid} = route.params;
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,8 +34,9 @@ const Tabs = () => {
       <Tab.Screen
         name="Home"
         component={MenuHome}
+        initialParams={{uid: uid}}
         options={{
-          tabBarShowLabel:false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
@@ -51,8 +53,9 @@ const Tabs = () => {
       <Tab.Screen
         name="Order"
         component={NavOrder}
+        initialParams={{uid: uid}}
         options={{
-          tabBarShowLabel:false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
@@ -69,8 +72,9 @@ const Tabs = () => {
       <Tab.Screen
         name="Message"
         component={ChatBox}
+        initialParams={{uid: uid}}
         options={{
-          tabBarShowLabel:false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
@@ -87,8 +91,9 @@ const Tabs = () => {
       <Tab.Screen
         name="Profile"
         component={Profile}
+        initialParams={{uid: uid}}
         options={{
-          tabBarShowLabel:false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <View style={{marginTop: 16}}>
               {color == '#28384D' ? (
