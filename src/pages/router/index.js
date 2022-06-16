@@ -27,7 +27,12 @@ import OptionMenuPulisan from '../OptionMenuPulisan';
 import EditProfile from '../EditProfile';
 import AboutApp from '../AboutApp';
 import SignUpOwner from '../../containers/organisms/Akun/SignUpOwner';
-import AddFood from '../AddFood';
+import OwnerMenu from '../OwnerMenu';
+import AddHomestay from '../OAddHomestay';
+import DetailsOwner from '../ODetails';
+import EditHomestay from '../OEditHomestay';
+import OnavigationBar from '../OnavigationBar';
+import OEditProfile from '../OEditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,7 +64,12 @@ const Router = () => {
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
-      <Stack.Screen name="AddFood" component={AddFood} />
+      <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
+      <Stack.Screen name="OwnerMenu" component={OwnerMenu} />
+      <Stack.Screen name="OEditProfile" component={OEditProfile} />
+      <Stack.Screen name="AddHomestay" component={AddHomestay} />
+      <Stack.Screen name="DetailsOwner" component={DetailsOwner} />
+      <Stack.Screen name="EditHomestay" component={EditHomestay} />
     </Stack.Navigator>
   );
 };

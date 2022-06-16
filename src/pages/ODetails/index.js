@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -10,20 +10,16 @@ import {
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 
-const MenuGazebo = ({navigation, route}) => {
-  const {uid, homestayID} = route.params;
+const ODetails = ({navigation, route}) => {
+  const {uid} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
-
-  const handleSubmit = () => {
-    navigation.navigate('Biodata', {uid: uid, homestayID: homestayID});
-  };
 
   const getHomestay = () => {
     firebase
 
       .database()
-      .ref(`homestay/${homestayID}`)
+      .ref(`homestay/${uid}`)
       .on('value', res => {
         if (res.val()) {
           setHomestay(res.val());
@@ -105,10 +101,10 @@ const MenuGazebo = ({navigation, route}) => {
               height: 58,
               alignItems: 'center',
               marginTop: 10,
-              justifyContent: 'center',
             }}>
+            {/* Fasilitas Bedroom */}
             {homestay.bedroom === true && (
-              <View style={{width: 65, alignItems: 'center', marginLeft: 15}}>
+              <View style={{width: 65, alignItems: 'center', marginLeft: 60}}>
                 <Image
                   source={require('../../assets/icon/Bedroom.png')}
                   style={styles.Fasilitas}
@@ -116,6 +112,7 @@ const MenuGazebo = ({navigation, route}) => {
                 <Text style={styles.TFasilitas}>BEDROOM</Text>
               </View>
             )}
+
             {/* Fasilitas Bathroom */}
             {homestay.bathroom === true && (
               <View style={{width: 65, alignItems: 'center', marginLeft: 15}}>
@@ -159,65 +156,18 @@ const MenuGazebo = ({navigation, route}) => {
             }}>
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: 'bold',
                 marginBottom: 12,
               }}>
-              Overview
+              Description
             </Text>
             <Text style={{fontSize: 17}}>{homestay.description}</Text>
           </View>
 
           {/* Check in/out */}
-          <View style={{marginLeft: 37, marginTop: 22}}>
-            <Text style={{marginBottom: 6.37, fontSize: 14, color: '#38A7D0'}}>
-              Check-in
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: '#F9F9F9',
-                height: 40.54,
-                marginRight: 121,
-              }}>
-              <Image
-                source={require('../../assets/icon/Kalender.png')}
-                style={{marginLeft: 13.18}}
-              />
-              <Text style={{fontSize: 18, marginLeft: 5}}>
-                Sunday, 6 February 2022
-              </Text>
-            </View>
-
-            <Text
-              style={{
-                marginBottom: 6.37,
-                marginTop: 15.68,
-                fontSize: 14,
-                color: '#38A7D0',
-              }}>
-              Check-out
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: '#F9F9F9',
-                height: 40.54,
-                marginRight: 121,
-              }}>
-              <Image
-                source={require('../../assets/icon/Kalender.png')}
-                style={{marginLeft: 13.18}}
-              />
-              <Text style={{fontSize: 18, marginLeft: 5}}>
-                Monday, 7 February 2022
-              </Text>
-            </View>
-            <Text style={{fontSize: 12}}>Max.31 Days</Text>
-            <Text style={{fontSize: 18, marginTop: 7.34}}>1 Malam</Text>
-
+          <View style={{marginLeft: 25, marginTop: 36}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>Price</Text>
             <View
               style={{
                 flexDirection: 'row',
@@ -228,15 +178,15 @@ const MenuGazebo = ({navigation, route}) => {
               }}>
               <Text
                 style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 20}}>
-                IDR {harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                IDR{harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
               </Text>
               <Text style={{fontWeight: 'bold', fontSize: 12, marginTop: 7}}>
                 /Night
               </Text>
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => handleSubmit(homestayID)}>
-                <Text style={styles.textButton}>Booking Now</Text>
+                onPress={() => navigation.navigate('EditHomestay')}>
+                <Text style={styles.textButton}>Edit</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -246,7 +196,7 @@ const MenuGazebo = ({navigation, route}) => {
   );
 };
 
-export default MenuGazebo;
+export default ODetails;
 
 const styles = StyleSheet.create({
   elevation: {
@@ -266,17 +216,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   button: {
-    paddingTop: 15,
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
-    width: 191,
-    height: 57.35,
-    marginLeft: 14,
+    width: 120,
+    height: 38,
+    position: 'absolute',
+    right: '12%',
+    justifyContent: 'center',
   },
   textButton: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: 'center',
   },
 });

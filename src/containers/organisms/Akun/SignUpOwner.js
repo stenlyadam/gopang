@@ -30,7 +30,7 @@ const SignUpUser = ({navigation}) => {
           firebase.database().ref(`users/owner/${uid}`).set(data);
           navigation.replace('OwnerScreen');
           showMessage({
-            message: 'Your Registration Is Successfullly',
+            message: 'Your Registration Is Successful',
             type: 'default',
             backgroundColor: 'green', // background color
             color: 'white', // text color

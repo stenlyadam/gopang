@@ -6,14 +6,18 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/molecules/header';
 import {setForm} from '../../redux';
 import {useDispatch, useSelector} from 'react-redux';
 import Input from '../../components/atoms/Input';
 import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 
-const Biodata = ({navigation}) => {
+const Biodata = ({navigation, route}) => {
+  const {uid, homestayID} = route.params;
+
+  console.log(homestayID);
+
   const [text] = useState(null);
 
   const form = useSelector(state => state.BiodataReducer); //destructuring form dll.

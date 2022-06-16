@@ -16,111 +16,122 @@ import TextTouchable from '../../../components/atoms/TextTouchable';
 import {setForm} from '../../../redux';
 import firebase from '../../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
+import Header from '../../../components/molecules/header';
+import Loading from '../../../components/molecules/Loading';
 
 const User = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(res => {
+        setLoading(false);
         const uid = res.user.uid;
         navigation.replace('NavigationBar', {uid: res.user.uid});
         // console.log(uid);
       })
-      .catch(error =>
+      .catch(error => {
+        setLoading(false);
         showMessage({
           message: error.message,
           type: 'default',
           backgroundColor: 'red', // background color
           color: 'white', // text color
-        }),
-      );
+        });
+      });
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
-      <View>
-        <StatusBar backgroundColor="white" barStyle="dark-content" />
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{flexGrow: 1, backgroundColor: 'white'}}>
+        <Header onBack={() => navigation.goBack()} />
         <View>
-          <Text style={styles.fontUser}>User</Text>
-          <Text style={styles.fontSignin}>Sign In</Text>
-        </View>
+          <StatusBar backgroundColor="white" barStyle="dark-content" />
+          <View>
+            <Text style={styles.fontUser}>User</Text>
+            <Text style={styles.fontSignin}>Sign In</Text>
+          </View>
 
-        {/* Render Logo GOPANG */}
-        <View>
-          <Image
-            source={require('../../../assets/logo/LogoGOPANG.png')}
-            style={styles.logo}
-          />
-        </View>
+          {/* Render Logo GOPANG */}
+          <View>
+            <Image
+              source={require('../../../assets/logo/LogoGOPANG.png')}
+              style={styles.logo}
+            />
+          </View>
 
-        <View>
-          <Text style={styles.textEnter}>Enter your email and password</Text>
-        </View>
+          <View>
+            <Text style={styles.textEnter}>Enter your email and password</Text>
+          </View>
 
-        {/* Render Text Input yg so props */}
-        <View style={{alignItems: 'center'}}>
-          <Input
-            placeholder={'Email'}
-            focus={true}
-            input={styles.input}
-            value={email}
-            onChangeText={value => setEmail(value)}
-            keyboardType="email-address"
-          />
-          <Input
-            placeholder={'Password'}
-            input={styles.input}
-            value={password}
-            onChangeText={value => setPassword(value)}
-            secureTextEntry={true}
-          />
-        </View>
+          {/* Render Text Input yg so props */}
+          <View style={{alignItems: 'center'}}>
+            <Input
+              placeholder={'Email'}
+              focus={true}
+              input={styles.input}
+              value={email}
+              onChangeText={value => setEmail(value)}
+              keyboardType="email-address"
+            />
+            <Input
+              placeholder={'Password'}
+              input={styles.input}
+              value={password}
+              onChangeText={value => setPassword(value)}
+              secureTextEntry={true}
+            />
+          </View>
 
-        {/* Forget Password props */}
-        <TextTouchable
-          title={'Forgot Password?'}
-          stylingTitle={styles.textForgot}
-          onPress={() => navigation.navigate('ForgetPassword')}
-        />
-
-        {/* Render Button dan dont have an account *button login yang props */}
-        <View style={{alignItems: 'center'}}>
-          <Button
-            title="Login"
-            onPress={() => {
-              handleSubmit();
-            }}
-          />
-
-          <Text style={styles.textOr}>Or</Text>
-
-          <TouchableOpacity style={styles.ButtonGoogle}>
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={require('../../../assets/logo/logoGoogle.png')}
-                style={styles.logoGoogle}
-              />
-              <Text style={styles.textButtonGoogle}>Continue with Google</Text>
-            </View>
-          </TouchableOpacity>
-
+          {/* Forget Password props */}
           <TextTouchable
-            ViewContainer={styles.ContainertxtSignUp}
-            txtStyling={styles.textDont}
-            text={'Dont have an account?'}
-            stylingTitle={styles.titleSignup}
-            onPress={() => navigation.replace('SignUpUser')}
-            title={'Sign Up'}
+            title={'Forgot Password?'}
+            stylingTitle={styles.textForgot}
+            onPress={() => navigation.navigate('ForgetPassword')}
           />
+
+          {/* Render Button dan dont have an account *button login yang props */}
+          <View style={{alignItems: 'center'}}>
+            <Button
+              title="Login"
+              onPress={() => {
+                handleSubmit();
+              }}
+            />
+
+            {/* <Text style={styles.textOr}>Or</Text>
+
+            <TouchableOpacity style={styles.ButtonGoogle}>
+              <View style={{flexDirection: 'row'}}>
+                <Image
+                  source={require('../../../assets/logo/logoGoogle.png')}
+                  style={styles.logoGoogle}
+                />
+                <Text style={styles.textButtonGoogle}>
+                  Continue with Google
+                </Text>
+              </View>
+            </TouchableOpacity> */}
+
+            <TextTouchable
+              ViewContainer={styles.ContainertxtSignUp}
+              txtStyling={styles.textDont}
+              text={'Dont have an account?'}
+              stylingTitle={styles.titleSignup}
+              onPress={() => navigation.replace('SignUpUser')}
+              title={'Sign Up'}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      {loading && <Loading />}
+    </>
   );
 };
 export default User;
