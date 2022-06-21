@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,9 +10,36 @@ import {
 import Header from '../../components/molecules/header';
 import CardHomestay from '../../components/molecules/CardHomestay';
 import Input from '../../components/atoms/Input';
+import firebase from '../../config/Firebase';
 
-const MenuHomestay = ({navigation}) => {
-  const [text] = useState(null);
+const MenuHomestay = ({navigation, route}) => {
+  const uid = route.params;
+  const [pictures, setPictures] = useState([]);
+
+  const handleSubmit = key => {
+    navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
+  };
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`homestay`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          // console.log(keranjang[0].namaProduk);
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setPictures(productArray);
+        }
+      });
+  }, []);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -26,7 +53,7 @@ const MenuHomestay = ({navigation}) => {
             <View style={{width: '77.8%', marginLeft: 10}}>
               <Input
                 placeholder={'Search'}
-                type={text}
+                // type={text}
                 input={styles.searchBox}
               />
             </View>
@@ -48,13 +75,20 @@ const MenuHomestay = ({navigation}) => {
             </View>
           </View>
           <View>
-            <CardHomestay
-              title="Wahyu"
-              location="Marinsow Village, North Sulawesi"
-              image={require('../../assets/home/Wahyu.png')}
-              onPress={() => navigation.navigate('infoHomestay')}
-            />
-            <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
+            <View>
+              {pictures.map(key => (
+                <View style={{flexDirection: 'row'}}>
+                  <CardHomestay
+                    title={key.name}
+                    location={key.location}
+                    image={`${key.photo}`}
+                    onPress={() => handleSubmit(key.id)}
+                  />
+                </View>
+              ))}
+            </View>
+
+            {/* <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
             <CardHomestay
               title="Juniver"
               location="Pulisan Village, North Sulawesi"
@@ -77,7 +111,7 @@ const MenuHomestay = ({navigation}) => {
               title="Wahyu"
               location="Marinsow Village, North Sulawesi"
               image={require('../../assets/home/Wahyu.png')}
-            />
+            /> */}
           </View>
         </View>
       </ScrollView>

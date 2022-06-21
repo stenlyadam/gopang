@@ -6,7 +6,7 @@ import dummy1 from '../../assets/dummyChat/dummy1.jpg';
 import dummy2 from '../../assets/dummyChat/dummy2.jpg';
 import dummy3 from '../../assets/dummyChat/dummy3.jpg';
 
-const NavChat = ({navigation}) => {
+const ChatBox = ({navigation}) => {
   const [inbox] = useState([
     {
       id: 1,
@@ -30,7 +30,7 @@ const NavChat = ({navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header title="Chat" />
+      <Header title="Messege" />
 
       <View style={styles.container}>
         {inbox.map(Inbox => {
@@ -49,7 +49,7 @@ const NavChat = ({navigation}) => {
   );
 };
 
-export default NavChat;
+export default ChatBox;
 
 const styles = StyleSheet.create({
   container: {

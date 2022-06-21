@@ -11,7 +11,9 @@ import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 
 const {height, width} = Dimensions.get('window');
 
-const SuccessPage = ({navigation}) => {
+const SuccessPage = ({navigation, route}) => {
+  const uid = route.params;
+
   return (
     <View style={styles.container}>
       <View style={{marginTop: 150}}>

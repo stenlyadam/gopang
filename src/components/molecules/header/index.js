@@ -8,8 +8,9 @@ import {
   Image,
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
+import Chart from '../../../assets/icon/chart.png';
 
-const header = ({title, onBack}) => {
+const header = ({title, onBack, onCharts}) => {
   return (
     <View style={styles.container}>
       {onBack && (

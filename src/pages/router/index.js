@@ -29,6 +29,16 @@ import AboutApp from '../AboutApp';
 import SignUpOwner from '../../containers/organisms/Akun/SignUpOwner';
 import OwnerMenu from '../OwnerMenu';
 import AddHomestay from '../OAddHomestay';
+import DetailsOwner from '../ODetails';
+import EditHomestay from '../OEditHomestay';
+import ProfilWarung from '../ProfilWarung';
+import MenuFood from '../MenuFood';
+import ChartFood from '../ChartFood';
+import TotalFood from '../TotalFood';
+import DetailOrderDone from '../DetailOrderDone';
+import DetailOrderDelivered from '../DetailOrderDelivered';
+import OProfile from '../OProfile';
+import OnavigationBar from '../OnavigationBar';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +72,19 @@ const Router = () => {
       <Stack.Screen name="AboutApp" component={AboutApp} />
       <Stack.Screen name="OwnerMenu" component={OwnerMenu} />
       <Stack.Screen name="AddHomestay" component={AddHomestay} />
+      <Stack.Screen name="DetailsOwner" component={DetailsOwner} />
+      <Stack.Screen name="EditHomestay" component={EditHomestay} />
+      <Stack.Screen name="ProfilWarung" component={ProfilWarung} />
+      <Stack.Screen name="MenuFood" component={MenuFood} />
+      <Stack.Screen name="ChartFood" component={ChartFood} />
+      <Stack.Screen name="TotalFood" component={TotalFood} />
+      <Stack.Screen name="DetailOrderDone" component={DetailOrderDone} />
+      <Stack.Screen
+        name="DetailOrderDelivered"
+        component={DetailOrderDelivered}
+      />
+      <Stack.Screen name="OProfile" component={OProfile} />
+      <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
     </Stack.Navigator>
   );
 };

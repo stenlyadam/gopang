@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,15 +7,41 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import iconHome from '../../assets/icon/home.png';
-import iconOrder from '../../assets/icon/order.png';
-import iconChat from '../../assets/icon/chat.png';
-import iconUser from '../../assets/icon/user.png';
+import firebase from '../../config/Firebase';
+
 import CardHomestay from '../../components/molecules/CardHomestay';
 
-const HomeMenu = ({navigation}) => {
+const HomeMenu = ({navigation, route}) => {
+  const {uid} = route.params;
+  const [pictures, setPictures] = useState([]);
+
+  const handleSubmit = key => {
+    navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
+  };
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`homestay`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          // console.log(keranjang[0].namaProduk);
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setPictures(productArray);
+        }
+      });
+  }, []);
+
   return (
-    <View style={{flex: 1,backgroundColor:'white'}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
         <View>
@@ -89,27 +115,16 @@ const HomeMenu = ({navigation}) => {
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
         <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
-          {/* Wahyu */}
-          <CardHomestay
-            title="Wahyu"
-            location="Marinsow Village, North Sulawesi"
-            image={require('../../assets/home/Wahyu.png')}
-            onPress={() => navigation.navigate('infoHomestay')}
-          />
-
-          {/* Juniver */}
-          <CardHomestay
-            title="Juniver"
-            location="Pulisan Village, North Sulawesi"
-            image={require('../../assets/home/Juniver.png')}
-          />
-
-          {/* Komplex Jembatan */}
-          <CardHomestay
-            title="Komplex Jembatan"
-            location="Kinunang Village, North Sulawesi"
-            image={require('../../assets/home/Jembatan.png')}
-          />
+          {pictures.map(key => (
+            <View style={{flexDirection: 'row'}}>
+              <CardHomestay
+                title={key.name}
+                location={key.alamat}
+                image={`${key.photo}`}
+                onPress={() => handleSubmit(key.id)}
+              />
+            </View>
+          ))}
         </View>
 
         {/*Popular Destinations*/}
@@ -171,7 +186,9 @@ const HomeMenu = ({navigation}) => {
         </Text>
         <View>
           <View style={styles.restaurant}>
-            <TouchableOpacity style={styles.Trestaurant}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ProfilWarung')}
+              style={styles.Trestaurant}>
               <Image source={require('../../assets/home/WarungJessica.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.Trestaurant}>

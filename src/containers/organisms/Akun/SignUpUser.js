@@ -5,6 +5,7 @@ import Button from '../../../components/atoms/Button';
 import TextTouchable from '../../../components/atoms/TextTouchable';
 import firebase from '../../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
+import Loading from '../../../components/molecules/Loading';
 
 const SignUpUser = ({navigation}) => {
   const [name, setName] = useState('');
@@ -13,12 +14,16 @@ const SignUpUser = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = () => {
     if (password === confirmPassword) {
+      setLoading(true);
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, confirmPassword)
         .then(res => {
+          setLoading(false);
           const data = {
             name: name,
             number: number,
@@ -36,90 +41,94 @@ const SignUpUser = ({navigation}) => {
             color: 'white', // text color
           });
         })
-        .catch(error =>
+        .catch(error => {
+          setLoading(false);
           showMessage({
             message: error.message,
             type: 'default',
             backgroundColor: 'red', // background color
             color: 'white', // text color
-          }),
-        );
+          });
+        });
     } else {
       Alert.alert('Salah');
     }
   };
 
   return (
-    <ScrollView>
-      <View style={{flex: 1}}>
-        <View style={{alignItems: 'center'}}>
-          <Text style={styles.fontUser}>User</Text>
-          <Text style={styles.fontSignup}>Sign Up</Text>
-          <Text style={styles.fontCreate}>First create your account</Text>
+    <>
+      <ScrollView>
+        <View style={{flex: 1}}>
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.fontUser}>User</Text>
+            <Text style={styles.fontSignup}>Sign Up</Text>
+            <Text style={styles.fontCreate}>First create your account</Text>
+          </View>
+
+          {/* Render TextInput */}
+          <View style={styles.InputContainer}>
+            <Input
+              placeholder={'Full Name'}
+              input={styles.input}
+              value={name}
+              onChangeText={value => setName(value)}
+            />
+            <Input
+              placeholder={'Email'}
+              input={styles.input}
+              value={email}
+              onChangeText={value => setEmail(value)}
+              keyboardType="email-address"
+            />
+            <Input
+              placeholder={'Phone Number'}
+              type={number}
+              input={styles.input}
+              value={number}
+              onChangeText={value => setNumber(value)}
+              keyboardType="number-pad"
+            />
+            <Input
+              placeholder={'Password'}
+              type={number}
+              TextEntry={true}
+              input={styles.input}
+              value={password}
+              onChangeText={value => setPassword(value)}
+              secureTextEntry={true}
+            />
+            <Input
+              placeholder={'Confirm your password'}
+              type={number}
+              TextEntry={true}
+              input={styles.input}
+              value={confirmPassword}
+              onChangeText={value => setConfirmPassword(value)}
+              secureTextEntry={true}
+            />
+          </View>
+
+          {/* Render Button Sign Up dan Touchable Sign In */}
+          <Button
+            title={'Sign Up'}
+            btnView={styles.btnSignUp}
+            onPress={() => {
+              handleSubmit();
+            }}
+          />
+
+          <TextTouchable
+            ViewContainer={styles.ContainertxtSignIn}
+            txtStyling={styles.textAlready}
+            text={'Already Have an Account'}
+            stylingTitle={styles.titleSignin}
+            onPress={() => navigation.replace('UserScreen')}
+            title={'Sign In'}
+          />
         </View>
-
-        {/* Render TextInput */}
-        <View style={styles.InputContainer}>
-          <Input
-            placeholder={'Full Name'}
-            input={styles.input}
-            value={name}
-            onChangeText={value => setName(value)}
-          />
-          <Input
-            placeholder={'Email'}
-            input={styles.input}
-            value={email}
-            onChangeText={value => setEmail(value)}
-            keyboardType="email-address"
-          />
-          <Input
-            placeholder={'Phone Number'}
-            type={number}
-            input={styles.input}
-            value={number}
-            onChangeText={value => setNumber(value)}
-            keyboardType="number-pad"
-          />
-          <Input
-            placeholder={'Password'}
-            type={number}
-            TextEntry={true}
-            input={styles.input}
-            value={password}
-            onChangeText={value => setPassword(value)}
-            secureTextEntry={true}
-          />
-          <Input
-            placeholder={'Confirm your password'}
-            type={number}
-            TextEntry={true}
-            input={styles.input}
-            value={confirmPassword}
-            onChangeText={value => setConfirmPassword(value)}
-            secureTextEntry={true}
-          />
-        </View>
-
-        {/* Render Button Sign Up dan Touchable Sign In */}
-        <Button
-          title={'Sign Up'}
-          btnView={styles.btnSignUp}
-          onPress={() => {
-            handleSubmit();
-          }}
-        />
-
-        <TextTouchable
-          ViewContainer={styles.ContainertxtSignIn}
-          txtStyling={styles.textAlready}
-          text={'Already Have an Account'}
-          stylingTitle={styles.titleSignin}
-          onPress={() => navigation.replace('UserScreen')}
-          title={'Sign In'}
-        />
-      </View>
-    </ScrollView>
+      </ScrollView>
+      {loading && <Loading />}
+    </>
   );
 };
 

@@ -30,10 +30,10 @@ const OptionMenuPaal = ({navigation}) => {
           <Text style={{fontSize: 30, fontWeight: 'bold', marginLeft: '5.1%'}}>
             Paal Beach
           </Text>
-          <Image
+          {/* <Image
             source={require('../../assets/icon/Rating.png')}
             style={{width: 51, height: 17, marginTop: 12, marginLeft: '38.9%'}}
-          />
+          /> */}
         </View>
         <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}}>
           <Image
@@ -62,6 +62,7 @@ const OptionMenuPaal = ({navigation}) => {
         <CategoryFeature
           onPress1={() => navigation.navigate('MenuHomestay')}
           onPress2={() => navigation.navigate('MenuGazebo')}
+          onPress3={() => navigation.navigate('MenuFood')}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>
           <Text
