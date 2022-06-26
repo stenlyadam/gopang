@@ -16,15 +16,14 @@ export default ButtonChat;
 
 const styles = StyleSheet.create({
   Button: {
-    marginTop: 5,
     //alignItems: 'center',
-    marginLeft: 25,
+    marginLeft: '25%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 40,
     backgroundColor: '#38A7D0',
-    width: 355,
-    height: 46,
+    width: 186,
+    height: 50,
   },
   textButton: {
     fontSize: 18,

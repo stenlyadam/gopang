@@ -17,8 +17,27 @@ const OverviewPage = ({navigation, route}) => {
   const [harga, setHarga] = useState('');
 
   const [users, setUsers] = useState({});
+  const [userss, setUserss] = useState({});
+
+  console.log('id', homestayID);
 
   const handleSubmit = () => {
+    const data = {
+      status: 'unpaid',
+      namaPenyewa: users.name,
+      namaHomestay: homestay.name,
+      IDhomestay: homestayID,
+      IDpenyewa: uid,
+      emailPenyewa: users.email,
+      phonePenyewa: users.number,
+      alamatHomestay: homestay.alamat,
+      fotoHomestay: homestay.photo,
+      harga: homestay.price,
+      total: homestay.price,
+      kategori: 'homestay',
+    };
+
+    firebase.database().ref(`transaksi`).push(data);
     navigation.navigate('TransactionDetails', {
       uid: uid,
       homestayID: homestayID,
@@ -61,23 +80,56 @@ const OverviewPage = ({navigation, route}) => {
     getUser();
   }, []);
 
+  const getUserr = () => {
+    firebase
+
+      .database()
+      .ref(`users/owner/${homestayID}`)
+      .on('value', res => {
+        if (res.val()) {
+          setUserss(res.val());
+          //   setOnPhoto(true);
+          console.log(users.photo);
+        }
+        console.log('ini user', users);
+      });
+  };
+
+  useEffect(() => {
+    getUserr();
+  }, []);
+
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Header title="Booking overview" onBack={() => navigation.goBack()} />
+        <Header title="Booking overview" />
 
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 49}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
               {homestay.name}
             </Text>
-            <Text style={{fontSize: 15, marginTop: 3}}>
-              {homestay.location}
-            </Text>
+            <Text style={{fontSize: 15, marginTop: 3}}>{homestay.alamat}</Text>
             <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
             />
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginTop: 18,
+              }}>
+              Owner : {userss.name}
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginTop: 8,
+              }}>
+              {userss.number}
+            </Text>
           </View>
           <Image
             style={{
@@ -91,10 +143,11 @@ const OverviewPage = ({navigation, route}) => {
             source={{uri: `data:image/jpeg;base64, ${homestay.photo}`}}
           />
         </View>
+
         <View
           style={{
             height: 1,
-            marginTop: 26,
+            marginTop: 18,
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             width: 371,
             alignSelf: 'center',
@@ -256,9 +309,9 @@ const OverviewPage = ({navigation, route}) => {
         </View>
 
         <ButtonTransaction
-          title={'Next'}
+          title={'Pay'}
           btnView={styles.btnView}
-          onPress={() => handleSubmit(homestayID)}
+          onPress={() => handleSubmit()}
         />
       </View>
     </ScrollView>

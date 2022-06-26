@@ -43,7 +43,11 @@ const Chat = ({navigation, route}) => {
           <ChatItem isMe />
         </ScrollView>
       </View>
-      <InputChat />
+      <InputChat
+        value="OI"
+        onChangeText={() => alert('test')}
+        onButtonPress={() => alert('press')}
+      />
     </View>
   );
 };

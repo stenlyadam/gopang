@@ -19,6 +19,8 @@ import ButtonChat from '../../components/atoms/ButtonChat';
 const TransactionDetails = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
+  const [users, setUsers] = useState({});
+  const [userss, setUserss] = useState({});
 
   const handleSubmit = () => {
     navigation.navigate('TransactionDetails', {
@@ -44,9 +46,51 @@ const TransactionDetails = ({navigation, route}) => {
     getHomestay();
   }, []);
 
+  useEffect(() => {
+    getHomestay();
+  }, []);
+
+  const getUser = () => {
+    firebase
+
+      .database()
+      .ref(`users/pelanggan/${uid}`)
+      .on('value', res => {
+        if (res.val()) {
+          setUsers(res.val());
+          //   setOnPhoto(true);
+          console.log(users.photo);
+        }
+        console.log('ini user', users);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUserr = () => {
+    firebase
+
+      .database()
+      .ref(`users/owner/${homestayID}`)
+      .on('value', res => {
+        if (res.val()) {
+          setUserss(res.val());
+          //   setOnPhoto(true);
+          console.log(users.photo);
+        }
+        console.log('ini user', users);
+      });
+  };
+
+  useEffect(() => {
+    getUserr();
+  }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header title="Transaction" onBack={() => navigation.goBack()} />
+      <Header title="Transaction" />
 
       <View style={{flexDirection: 'row'}}>
         <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
@@ -54,10 +98,26 @@ const TransactionDetails = ({navigation, route}) => {
             {homestay.name}
           </Text>
           <Text style={{fontSize: 15, marginTop: 3}}>{homestay.location}</Text>
-          <Image
+          {/* <Image
             style={{width: 51, height: 20, marginTop: 7}}
             source={require('../../assets/icon/Rating.png')}
-          />
+          /> */}
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginTop: 18,
+            }}>
+            Owner : {userss.name}
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginTop: 8,
+            }}>
+            {userss.number}
+          </Text>
         </View>
         <Image
           style={{
@@ -74,7 +134,41 @@ const TransactionDetails = ({navigation, route}) => {
       <View
         style={{
           height: 1,
-          marginTop: 45,
+          marginTop: 18,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: 371,
+          alignSelf: 'center',
+        }}
+      />
+
+      <View style={{marginTop: 13, marginBottom: 13, marginLeft: 20}}>
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: 'bold',
+          }}>
+          {users.name}
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
+            marginTop: 12,
+          }}>
+          {users.email}
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
+            marginTop: 12,
+          }}>
+          {users.number}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          height: 1,
+
           backgroundColor: 'rgba(0, 0, 0, 0.3)',
           width: 371,
           alignSelf: 'center',
@@ -132,26 +226,11 @@ const TransactionDetails = ({navigation, route}) => {
           // marginLeft: 20,
           flexDirection: 'row',
         }}>
-        {/* <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}>
-          Estimation
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            marginRight: 20,
-            fontWeight: 'bold',
-          }}>
-          23.30.15
-        </Text> */}
         <CountDown
-          until={50}
+          until={2400000}
           digitStyle={{backgroundColor: 'white'}}
           onFinish={() => alert('finished')}
-          onPress={() => alert('hello')}
+          // onPress={() => alert('hello')}
           size={15}
         />
       </View>
@@ -167,7 +246,7 @@ const TransactionDetails = ({navigation, route}) => {
       />
 
       <ButtonChat
-        title="Start Chatting"
+        title="Chat Owner"
         onPress={() => navigation.navigate('Chat', uid)}
       />
 
@@ -182,7 +261,7 @@ const TransactionDetails = ({navigation, route}) => {
       />
 
       <ButtonTransaction
-        title={'Book Now'}
+        title={'Paid'}
         btnView={styles.btnView}
         // onPress={() => navigation.replace('SuccessPage')}
       />
@@ -194,7 +273,7 @@ export default TransactionDetails;
 
 const styles = StyleSheet.create({
   btnView: {
-    marginTop: 338,
+    marginTop: '20%',
     marginBottom: 57.69,
     alignItems: 'center',
   },
