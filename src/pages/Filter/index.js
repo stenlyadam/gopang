@@ -1,29 +1,37 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View,TouchableOpacity,Platform} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
+import { Button } from 'react-native-paper';
 
 const Filter = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState('Likupang');
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [textIn, setTextIn] = useState('Click Here');
+  const [text, setText] = useState('Empty');
 
-  const onChange = (event, selectedDate) => {
+  const onChange = (event, selectedDate) =>{
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
-    let fDate = tempDate.toUTCString(); // + '-' + (tempDate.getMonth() + 1) +'-' + tempDate.getFullYear()
-    setTextIn(fDate);
-
-    console.log(fDate)
+    let fDate = moment(tempDate).format('dddd, DD MMMM YYYY');
+    setText(fDate)
+    console.log(fDate);
   }
 
-  const showMode = (currentMode) => {
+  const showMode =(currentMode)=> {
     setShow(true);
     setMode(currentMode);
   }
@@ -32,7 +40,7 @@ const Filter = ({navigation}) => {
     <View style={{flex: 1}}>
       <Header title="Filter" onBack={() => navigation.goBack()} />
 
-      {/* Container */}
+      {/* Container */} 
       <View style={{flex: 1}}>
         <View>
           <Image
@@ -84,8 +92,8 @@ const Filter = ({navigation}) => {
                 setSelectedValue(itemValue)
               }>
               <Picker.Item
-                label="Likupang"
-                value="Likupang"
+                label="Paal"
+                value="Paal"
                 style={{fontSize: 14}}
               />
               <Picker.Item
@@ -99,28 +107,11 @@ const Filter = ({navigation}) => {
                 style={{fontSize: 14}}
               />
             </Picker>
+
           </View>
 
           {/* Check-In/Out */}
-          
-          <View style={{backgroundColor:'#EDEDF0',height:64,borderRadius:0.3}}>
-            <Text style={{fontSize:14,color:'#38A7D0'}}>Check-in</Text>
-            <TouchableOpacity style={styles.ButtonDate} onPress={()=>showMode('date')} >
-              <Text style={{fontWeight:'bold',fontSize:20}}>{textIn}</Text>
-              <Image source={require('../../assets/icon/Kalender.png')} />
-            </TouchableOpacity>
-          </View>
-          {show && (
-              <DateTimePicker
-              testID='dateTimePicker'
-              minimumDate={date}
-              dateFormat='day month year'
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display='default'
-              onChange={onChange}
-          />)}
+
         </View>
       </View>
     </View>
@@ -130,11 +121,26 @@ const Filter = ({navigation}) => {
 export default Filter;
 
 const styles = StyleSheet.create({
-  ButtonDate:{
-    fontWeight:'bold',
-    fontSize:20,
-    flexDirection:'row'
+  ButtonDate: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    flexDirection: 'row',
   },
-
-  
+  picker:{
+    backgroundColor:'grey'
+  },
+  checkIn:{
+    backgroundColor:'#EDEDF0',
+    marginTop:30,
+    alignSelf:'center',
+    width:371,
+    height:64
+  },
+  checkOut:{
+    backgroundColor:'#EDEDF0',
+    alignSelf:'center',
+    marginTop:18,
+    width:371,
+    height:64
+  }
 });

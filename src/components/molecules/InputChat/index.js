@@ -2,11 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import ButtonIcon from '../../atoms/ButtonIcon';
 
-const InputChat = ({navigation}) => {
+const InputChat = ({value, onChangeText, onButtonPress}) => {
   return (
     <View style={{padding: 16, flexDirection: 'row'}}>
-      <TextInput style={styles.input} placeholder="Massage..." />
-      <ButtonIcon disable />
+      <TextInput
+        style={styles.input}
+        placeholder="Massage..."
+        value={value}
+        onChangeText={onChangeText}
+      />
+      <ButtonIcon disable onPress={onButtonPress} />
     </View>
   );
 };

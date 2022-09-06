@@ -2,14 +2,13 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
   Image,
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
 
-const header = ({title, onBack}) => {
+const header = ({title, onBack, onCharts}) => {
   return (
     <View style={styles.container}>
       {onBack && (

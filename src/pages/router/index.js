@@ -27,7 +27,20 @@ import OptionMenuPulisan from '../OptionMenuPulisan';
 import EditProfile from '../EditProfile';
 import AboutApp from '../AboutApp';
 import SignUpOwner from '../../containers/organisms/Akun/SignUpOwner';
-import AddFood from '../AddFood';
+import OwnerMenu from '../OwnerMenu';
+import AddHomestay from '../OAddHomestay';
+import DetailsOwner from '../ODetails';
+import EditHomestay from '../OEditHomestay';
+import ProfilWarung from '../ProfilWarung';
+import MenuFood from '../MenuFood';
+import ChartFood from '../ChartFood';
+import TotalFood from '../TotalFood';
+import DetailOrderDone from '../DetailOrderDone';
+import DetailOrderDelivered from '../DetailOrderDelivered';
+import OProfile from '../OProfile';
+import OnavigationBar from '../OnavigationBar';
+import OptionMenuKinunang from '../OptionMenuKinunang';
+import OptionMenuLarata from '../OptionMenuLarata';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,9 +70,25 @@ const Router = () => {
       <Stack.Screen name="SuccessPage" component={SuccessPage} />
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
+      <Stack.Screen name="OptionMenuKinunang" component={OptionMenuKinunang} />
+      <Stack.Screen name="OptionMenuLarata" component={OptionMenuLarata} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
-      <Stack.Screen name="AddFood" component={AddFood} />
+      <Stack.Screen name="OwnerMenu" component={OwnerMenu} />
+      <Stack.Screen name="AddHomestay" component={AddHomestay} />
+      <Stack.Screen name="DetailsOwner" component={DetailsOwner} />
+      <Stack.Screen name="EditHomestay" component={EditHomestay} />
+      <Stack.Screen name="ProfilWarung" component={ProfilWarung} />
+      <Stack.Screen name="MenuFood" component={MenuFood} />
+      <Stack.Screen name="ChartFood" component={ChartFood} />
+      <Stack.Screen name="TotalFood" component={TotalFood} />
+      <Stack.Screen name="DetailOrderDone" component={DetailOrderDone} />
+      <Stack.Screen
+        name="DetailOrderDelivered"
+        component={DetailOrderDelivered}
+      />
+      <Stack.Screen name="OProfile" component={OProfile} />
+      <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
     </Stack.Navigator>
   );
 };

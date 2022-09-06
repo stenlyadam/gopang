@@ -14,7 +14,16 @@ const CardHomestay = props => {
         alignItems: 'flex-start',
         padding: 0,
       }}>
-      <Image source={props.image} style={{marginTop: 14, marginBottom: 14}} />
+      <Image
+        source={{uri: `data:image/jpeg;base64, ${props.image}`}}
+        style={{
+          marginTop: 14,
+          marginBottom: 14,
+          width: 80,
+          height: 90,
+          borderRadius: 10,
+        }}
+      />
       <View
         style={{
           marginLeft: 12,
@@ -53,7 +62,7 @@ const CardHomestay = props => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
-              IDR 200.000
+              IDR {props.price}
             </Text>
             <Text style={{fontWeight: 'bold', fontSize: 10, marginTop: 1}}>
               /Night
