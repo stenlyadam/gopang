@@ -62,7 +62,7 @@ const CardHomestay = props => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
-              IDR 200.000
+              IDR {props.price}
             </Text>
             <Text style={{fontWeight: 'bold', fontSize: 10, marginTop: 1}}>
               /Night

@@ -1,10 +1,19 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View,TouchableOpacity,Platform} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import CardHomestay from '../../components/molecules/CardHomestay';
+import firebase from '../../config/Firebase';
 
-const Filter = ({navigation}) => {
+const Filter = ({navigation, route}) => {
   const [selectedValue, setSelectedValue] = useState('Likupang');
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -20,13 +29,41 @@ const Filter = ({navigation}) => {
     let fDate = tempDate.toUTCString(); // + '-' + (tempDate.getMonth() + 1) +'-' + tempDate.getFullYear()
     setTextIn(fDate);
 
-    console.log(fDate)
-  }
+    console.log(fDate);
+  };
 
-  const showMode = (currentMode) => {
+  const showMode = currentMode => {
     setShow(true);
     setMode(currentMode);
-  }
+  };
+
+  const uid = route.params;
+  const [pictures, setPictures] = useState([]);
+
+  const handleSubmit = key => {
+    navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
+  };
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`homestay`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          // console.log(keranjang[0].namaProduk);
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setPictures(productArray);
+        }
+      });
+  }, []);
 
   return (
     <View style={{flex: 1}}>
@@ -83,11 +120,7 @@ const Filter = ({navigation}) => {
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedValue(itemValue)
               }>
-              <Picker.Item
-                label="Likupang"
-                value="Likupang"
-                style={{fontSize: 14}}
-              />
+              <Picker.Item label="Paal" value="Paal" style={{fontSize: 14}} />
               <Picker.Item
                 label="Pulisan"
                 value="Pulisan"
@@ -101,9 +134,22 @@ const Filter = ({navigation}) => {
             </Picker>
           </View>
 
+          <View>
+            {pictures.map(key => (
+              <View style={{flexDirection: 'row'}}>
+                <CardHomestay
+                  title={key.name}
+                  alamat={key.alamat}
+                  image={`${key.photo}`}
+                  onPress={() => handleSubmit(key.id)}
+                />
+              </View>
+            ))}
+          </View>
+
           {/* Check-In/Out */}
-          
-          <View style={{backgroundColor:'#EDEDF0',height:64,borderRadius:0.3}}>
+
+          {/* <View style={{backgroundColor:'#EDEDF0',height:64,borderRadius:0.3}}>
             <Text style={{fontSize:14,color:'#38A7D0'}}>Check-in</Text>
             <TouchableOpacity style={styles.ButtonDate} onPress={()=>showMode('date')} >
               <Text style={{fontWeight:'bold',fontSize:20}}>{textIn}</Text>
@@ -120,7 +166,7 @@ const Filter = ({navigation}) => {
               is24Hour={true}
               display='default'
               onChange={onChange}
-          />)}
+          />)} */}
         </View>
       </View>
     </View>
@@ -130,11 +176,9 @@ const Filter = ({navigation}) => {
 export default Filter;
 
 const styles = StyleSheet.create({
-  ButtonDate:{
-    fontWeight:'bold',
-    fontSize:20,
-    flexDirection:'row'
+  ButtonDate: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    flexDirection: 'row',
   },
-
-  
 });

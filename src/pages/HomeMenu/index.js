@@ -120,6 +120,7 @@ const HomeMenu = ({navigation, route}) => {
               <CardHomestay
                 title={key.name}
                 location={key.alamat}
+                price={key.price}
                 image={`${key.photo}`}
                 onPress={() => handleSubmit(key.id)}
               />

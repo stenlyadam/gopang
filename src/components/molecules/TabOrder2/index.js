@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HCardTransaksi from '../HCardTransaksi';
@@ -45,24 +46,26 @@ const TabOrderr = ({uid}) => {
     }, []);
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        {/* transaksi
+        <ScrollView>
+          {/* transaksi
             .filter((item) => item.idPenyewa.includes(uid)) */}
-        {transaksi
-          .filter(
-            item =>
-              item.IDpenyewa.includes(uid) &&
-              item.status !== 'completed' &&
-              item.kategori.includes('homestay'),
-          )
-          .map(key => (
-            <HCardTransaksi
-              nama={key.namaHomestay}
-              alamat={key.alamatHomestay}
-              harga={key.total}
-              status={key.status}
-              photo={key.fotoHomestay}
-            />
-          ))}
+          {transaksi
+            .filter(
+              item =>
+                item.IDpenyewa.includes(uid) &&
+                item.status !== 'completed' &&
+                item.kategori.includes('homestay'),
+            )
+            .map(key => (
+              <HCardTransaksi
+                nama={key.namaHomestay}
+                alamat={key.alamatHomestay}
+                harga={key.total}
+                status={key.status}
+                photo={key.fotoHomestay}
+              />
+            ))}
+        </ScrollView>
       </View>
     );
   };

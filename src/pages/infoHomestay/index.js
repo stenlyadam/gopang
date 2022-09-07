@@ -15,11 +15,26 @@ const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
+  const [status, setStatus] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     setLoading(true);
+    const data = {
+      price: homestay.price,
+      name: homestay.name,
+      description: homestay.description,
+      alamat: homestay.alamat,
+      location: homestay.location,
+      photo: homestay.photo,
+      bedroom: homestay.bedroom,
+      bathroom: homestay.bathroom,
+      AC: homestay.AC,
+      wifi: homestay.wifi,
+      status: 'unavailable',
+    };
+    firebase.database().ref(`homestay/${homestayID}`).set(data);
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('OverviewPage', {uid: uid, homestayID: homestayID});
@@ -35,6 +50,7 @@ const MenuGazebo = ({navigation, route}) => {
           // setLoading(false);
           setHomestay(res.val());
           setHarga(res.val().price);
+          setStatus(res.val().status);
         }
       });
   };
@@ -92,8 +108,8 @@ const MenuGazebo = ({navigation, route}) => {
               <Image
                 source={require('../../assets/icon/Direction.png')}
                 style={{
-                  width: 20,
-                  height: 29,
+                  width: 15,
+                  height: 20,
                 }}
               />
               <Text
@@ -242,11 +258,17 @@ const MenuGazebo = ({navigation, route}) => {
                 <Text style={{fontWeight: 'bold', fontSize: 12, marginTop: 7}}>
                   /Night
                 </Text>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleSubmit(homestayID)}>
-                  <Text style={styles.textButton}>Booking</Text>
-                </TouchableOpacity>
+                {status == 'available' ? (
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => handleSubmit(homestayID)}>
+                    <Text style={styles.textButton}>Booking</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button2}>
+                    <Text style={styles.textButton}>Booked</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           </View>
@@ -281,6 +303,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
+    width: 191,
+    height: 57.35,
+    marginLeft: 14,
+  },
+  button2: {
+    paddingTop: 15,
+    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor: 'grey',
     width: 191,
     height: 57.35,
     marginLeft: 14,

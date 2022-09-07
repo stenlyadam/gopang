@@ -95,6 +95,7 @@ const OAddHomestay = ({navigation, route}) => {
         bathroom: Bathroom,
         AC: AC,
         wifi: Wifi,
+        status: 'available',
       };
       firebase.database().ref(`homestay/${uid}`).set(data);
       navigation.navigate('OnavigationBar', {uid: uid});

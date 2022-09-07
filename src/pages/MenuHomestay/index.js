@@ -80,8 +80,9 @@ const MenuHomestay = ({navigation, route}) => {
                 <View style={{flexDirection: 'row'}}>
                   <CardHomestay
                     title={key.name}
-                    location={key.location}
+                    location={key.alamat}
                     image={`${key.photo}`}
+                    price={key.price}
                     onPress={() => handleSubmit(key.id)}
                   />
                 </View>
