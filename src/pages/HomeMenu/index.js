@@ -42,42 +42,42 @@ const HomeMenu = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{position: 'relative'}}>
+        <Image
+          source={require('../../assets/home/Likupang.png')}
+          style={{
+            width: '100%',
+            height: 229,
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15,
+          }}
+        />
+        <Image
+          source={require('../../assets/home/Logo.png')}
+          style={{
+            height: 34,
+            width: 31,
+            position: 'absolute',
+            top: 13,
+            left: '68.61%',
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: '#000000',
+            position: 'absolute',
+            top: 21,
+            left: '74%',
+            width: 79,
+            height: 25,
+          }}>
+          GOPANG
+        </Text>
+      </View>
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
-        <View>
-          <Image
-            source={require('../../assets/home/Likupang.png')}
-            style={{
-              width: '100%',
-              height: 229,
-              borderBottomLeftRadius: 15,
-              borderBottomRightRadius: 15,
-            }}
-          />
-          <Image
-            source={require('../../assets/home/Logo.png')}
-            style={{
-              height: 34,
-              width: 31,
-              position: 'absolute',
-              top: 13,
-              left: '68.61%',
-            }}
-          />
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: '#000000',
-              position: 'absolute',
-              top: 21,
-              left: '74%',
-              width: 79,
-              height: 25,
-            }}>
-            GOPANG
-          </Text>
-        </View>
 
         {/*Kategori*/}
         <View
@@ -120,8 +120,8 @@ const HomeMenu = ({navigation, route}) => {
               <CardHomestay
                 title={key.name}
                 location={key.alamat}
-                price={key.price}
                 image={`${key.photo}`}
+                price={key.price}
                 onPress={() => handleSubmit(key.id)}
               />
             </View>
@@ -141,36 +141,122 @@ const HomeMenu = ({navigation, route}) => {
         <View style={styles.Gdestination}>
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('OptionMenuPaal')}>
+              onPress={() => navigation.navigate('OptionMenuPaal')}
+              activeOpacity={0.8}>
               <Image
-                source={require('../../assets//home/Paal.png')}
-                style={{height: 170, width: 173}}
+                source={require('../../assets/pantai/Paal/Paal4.png')}
+                style={{height: 170, width: 173, borderRadius: 20}}
               />
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '40%',
+                  fontSize: 20,
+                  color: 'white',
+                }}>
+                Paal Beach
+              </Text>
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '53%',
+                  fontSize: 13,
+                  color: 'white',
+                }}>
+                Homestay • Gazebo • Food
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={{marginLeft: 20}}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('OptionMenuPulisan')}>
+              onPress={() => navigation.navigate('OptionMenuPulisan')}
+              activeOpacity={0.8}>
               <Image
-                source={require('../../assets/home/Pulisan.png')}
-                style={{height: 170, width: 173}}
+                source={require('../../assets/pantai/Pulisan/Pulisan5.jpg')}
+                style={{height: 170, width: 173, borderRadius: 20}}
               />
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '40%',
+                  fontSize: 20,
+                  color: 'white',
+                }}>
+                Pulisan Beach
+              </Text>
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '53%',
+                  fontSize: 13,
+                  color: 'white',
+                }}>
+                Homestay • Gazebo • Food
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={{marginTop: 25}}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuKinunang')}
+              activeOpacity={0.8}>
               <Image
-                source={require('../../assets/home/Kinunang.png')}
-                style={{height: 170, width: 173}}
+                source={require('../../assets/pantai/Kinunang/Kinunang1.jpg')}
+                style={{height: 170, width: 173, borderRadius: 20}}
               />
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '40%',
+                  fontSize: 20,
+                  color: 'white',
+                }}>
+                Kinunang Beach
+              </Text>
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '53%',
+                  fontSize: 13,
+                  color: 'white',
+                }}>
+                Homestay • Gazebo • Food
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={{marginLeft: 20, marginTop: 25}}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OptionMenuLarata')}
+              activeOpacity={0.8}>
               <Image
-                source={require('../../assets/home/Larata.png')}
-                style={{height: 170, width: 173}}
+                source={require('../../assets/pantai/Larata/Larata1.jpg')}
+                style={{height: 170, width: 173, borderRadius: 20}}
               />
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '40%',
+                  fontSize: 20,
+                  color: 'white',
+                }}>
+                Larata Hill
+              </Text>
+              <Text
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '53%',
+                  fontSize: 13,
+                  color: 'white',
+                }}>
+                Homestay • Food
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -185,20 +271,24 @@ const HomeMenu = ({navigation, route}) => {
           }}>
           Trending Restaurant
         </Text>
-        <View>
-          <View style={styles.restaurant}>
+        <View style={styles.restaurant}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <TouchableOpacity
               onPress={() => navigation.navigate('ProfilWarung')}
-              style={styles.Trestaurant}>
+              style={styles.Trestaurant}
+              activeOpacity={1.0}>
               <Image source={require('../../assets/home/WarungJessica.png')} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Trestaurant}>
+            <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
               <Image source={require('../../assets/home/WarungWahyu.png')} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Trestaurant}>
+            <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
               <Image source={require('../../assets/home/WarungJeniver.png')} />
             </TouchableOpacity>
-          </View>
+            <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
+              <Image source={require('../../assets/home/WarungJeniver.png')} />
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </ScrollView>
     </View>

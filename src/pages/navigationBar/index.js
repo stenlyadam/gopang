@@ -69,7 +69,7 @@ const Tabs = ({navigation, route}) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Message"
         component={ChatBox}
         initialParams={{uid: uid}}
@@ -87,7 +87,7 @@ const Tabs = ({navigation, route}) => {
             </View>
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Profile"
         component={Profile}

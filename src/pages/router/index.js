@@ -38,7 +38,11 @@ import TotalFood from '../TotalFood';
 import DetailOrderDone from '../DetailOrderDone';
 import DetailOrderDelivered from '../DetailOrderDelivered';
 import OProfile from '../OProfile';
+import OEditProfil from '../OEditProfil';
 import OnavigationBar from '../OnavigationBar';
+import AddWarung from '../OAddWarung';
+import Warung from '../OWarung';
+import AddFood from '../OAddFood';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,7 +88,11 @@ const Router = () => {
         component={DetailOrderDelivered}
       />
       <Stack.Screen name="OProfile" component={OProfile} />
+      <Stack.Screen name="OEditProfil" component={OEditProfil} />
       <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
+      <Stack.Screen name="AddWarung" component={AddWarung} />
+      <Stack.Screen name="Warung" component={Warung} />
+      <Stack.Screen name="AddFood" component={AddFood} />
     </Stack.Navigator>
   );
 };

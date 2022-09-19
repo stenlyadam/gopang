@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
@@ -135,16 +136,53 @@ const Filter = ({navigation, route}) => {
           </View>
 
           <View>
-            {pictures.map(key => (
-              <View style={{flexDirection: 'row'}}>
-                <CardHomestay
-                  title={key.name}
-                  alamat={key.alamat}
-                  image={`${key.photo}`}
-                  onPress={() => handleSubmit(key.id)}
-                />
-              </View>
-            ))}
+            <ScrollView>
+              {Homestay.length === 0 ? (
+                <View>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                    Semua Item
+                  </Text>
+                  <View style={styles.list}>
+                    {products
+                      .filter(produk => produk.kategori.includes(kategori))
+                      .map(key => (
+                        <View style={{flexDirection: 'row'}}>
+                          <CardHomestay
+                            title={key.name}
+                            alamat={key.alamat}
+                            image={`${key.photo}`}
+                            price={key.price}
+                            onPress={() => handleSubmit(key.id)}
+                          />
+                        </View>
+                      ))}
+                  </View>
+                </View>
+              ) : (
+                products
+                  .filter(
+                    produk =>
+                      produk.kategori.includes(kategori) &&
+                      produk.namaProduk
+                        .toLowerCase()
+                        .includes(search.toLowerCase()),
+                  )
+                  .map(key => (
+                    <View style={{flexDirection: 'row'}}>
+                      <CardHomestay
+                        title={key.name}
+                        alamat={key.alamat}
+                        image={`${key.photo}`}
+                        price={key.price}
+                        onPress={() => handleSubmit(key.id)}
+                      />
+                    </View>
+                  ))
+              )}
+            </ScrollView>
+            {/* {pictures.map(key => (
+              
+            ))} */}
           </View>
 
           {/* Check-In/Out */}

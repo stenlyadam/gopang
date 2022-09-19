@@ -6,26 +6,41 @@ import {
   Image,
   ScrollView,
   Alert,
+  Linking
 } from 'react-native';
-import React from 'react';
+import React,{useCallback} from 'react';
 import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
 
 const OptionMenuPulisan = ({navigation}) => {
+
+  const supportedURL = "https://goo.gl/maps/uww8dpFt4wBJufEY6";
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        await Linking.openURL(url);
+      }
+    }, [url]);
+
+    return <Button title={children} onPress={handlePress} />;
+  };
+
   return (
     <View style={{flex: 1}}>
       {/* Header */}
-      <Header
-        title={'Pulisan Beach'}
-        onPress={() => navigation.replace('MenuHome')}
-      />
+      <Header title={'Pulisan Beach'} onBack={() => navigation.goBack()} />
 
       {/* Container */}
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <Image
-          source={require('../../assets/pantai/PaalBeach.png')}
-          style={{width: '100%'}}
+          source={require('../../assets/pantai/Pulisan/Pulisan5.jpg')}
+          style={{width: '100%',height:253,borderBottomLeftRadius:20,borderBottomRightRadius:20}}
         />
 
         {/* Describe */}
@@ -35,7 +50,7 @@ const OptionMenuPulisan = ({navigation}) => {
           </Text>
           <Image
             source={require('../../assets/icon/Rating.png')}
-            style={{width: 51, height: 17, marginTop: 12, marginLeft: '38.9%'}}
+            style={{width: 51, height: 17, marginTop: 12, marginLeft: '34%'}}
           />
         </View>
         <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}}>
@@ -63,8 +78,9 @@ const OptionMenuPulisan = ({navigation}) => {
 
         {/* Category */}
         <CategoryFeature
-          onPress1={() => navigation.replace('MenuHomestay')}
-          onPress2={() => navigation.replace('MenuGazebo')}
+          onPress1={() => navigation.navigate('MenuHomestay')}
+          onPress2={() => navigation.navigate('MenuGazebo')}
+          onPress3={() => navigation.navigate('MenuFood')}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>
           <Text
@@ -76,13 +92,19 @@ const OptionMenuPulisan = ({navigation}) => {
             }}>
             Galery
           </Text>
-          <Image source={require('../../assets/pantai/GPaal.png')} />
+          <View style={styles.GaleryPhotos}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <Image style={styles.Photos1} source={require('../../assets/pantai/Pulisan/Pulisan1.jpg')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai//Pulisan/Pulisan2.jpg')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Pulisan/Pulisan3.jpg')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Pulisan/Pulisan4.jpg')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Pulisan/Pulisan5.jpg')}/>
+            </ScrollView>
+          </View>
         </View>
-        <Button
-          title={'Get Direction'}
-          btnView={styles.btnView}
-          onPress={() => Alert.alert('Go to the map')}
-        />
+        <View style={{alignSelf:'center', marginBottom:19.27}}>
+          <OpenURLButton url={supportedURL} btnView={styles.btnView}>Get Directions</OpenURLButton>
+        </View>
       </ScrollView>
     </View>
   );
@@ -106,4 +128,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 19.27,
   },
+  GaleryPhotos:{
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  Photos1:{
+    width:160,
+    height:160,
+    borderRadius:20,
+    resizeMode:'cover'
+  },
+  Photos:{
+    width:160,
+    height:160,
+    borderRadius:20,
+    marginLeft:20,
+  }
 });

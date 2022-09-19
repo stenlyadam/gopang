@@ -25,11 +25,11 @@ const EditHomestay = ({navigation}) => {
       <TouchableOpacity>
         <Image
           source={require('../../assets/owner/ButtonAddFood.png')}
-          style={{margin: 32, width: 347, height: 152}}
+          style={{marginTop: 10, alignSelf: 'center', width: 347, height: 152}}
         />
       </TouchableOpacity>
-      <View>
-        <Text style={{marginLeft: 40, fontWeight: 'bold', fontSize: 16}}>
+      <View style={{top: 15}}>
+        <Text style={{marginLeft: 25, fontWeight: 'bold', fontSize: 16}}>
           Homestay Name
         </Text>
         <View style={{alignItems: 'center', marginTop: 5}}>
@@ -42,7 +42,7 @@ const EditHomestay = ({navigation}) => {
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -113,7 +113,7 @@ const EditHomestay = ({navigation}) => {
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -130,7 +130,7 @@ const EditHomestay = ({navigation}) => {
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -146,7 +146,7 @@ const EditHomestay = ({navigation}) => {
           />
         </View>
         <View
-          style={{marginTop: 63, marginBottom: 57.69, alignItems: 'center'}}>
+          style={{marginTop: 50, marginBottom: 57.69, alignItems: 'center'}}>
           <Button
             title={'Update'}
             // onPress={() => navigation.navigate('DetailsOwner')}

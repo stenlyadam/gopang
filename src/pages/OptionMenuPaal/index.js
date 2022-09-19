@@ -6,13 +6,31 @@ import {
   Image,
   ScrollView,
   Alert,
+  Linking
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
 
 const OptionMenuPaal = ({navigation}) => {
+
+  const supportedURL = "https://goo.gl/maps/77NtLwHhC4E5bc4w7";
+
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        await Linking.openURL(url);
+      }
+    }, [url]);
+
+    return <Button title={children} onPress={handlePress} />;
+  };
+
   return (
     <View style={{flex: 1}}>
       {/* Header */}
@@ -21,8 +39,8 @@ const OptionMenuPaal = ({navigation}) => {
       {/* Container */}
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         <Image
-          source={require('../../assets/pantai/PaalBeach.png')}
-          style={{width: '100%'}}
+          source={require('../../assets/pantai/Paal/Paal4.png')}
+          style={{width: '100%',height:253,borderBottomLeftRadius:20,borderBottomRightRadius:20}}
         />
 
         {/* Describe */}
@@ -30,12 +48,12 @@ const OptionMenuPaal = ({navigation}) => {
           <Text style={{fontSize: 30, fontWeight: 'bold', marginLeft: '5.1%'}}>
             Paal Beach
           </Text>
-          {/* <Image
+          <Image
             source={require('../../assets/icon/Rating.png')}
             style={{width: 51, height: 17, marginTop: 12, marginLeft: '38.9%'}}
-          /> */}
+          />
         </View>
-        <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}}>
+        <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}} >
           <Image
             source={require('../../assets/icon/Direction.png')}
             style={{width: 20, height: 29}}
@@ -74,13 +92,23 @@ const OptionMenuPaal = ({navigation}) => {
             }}>
             Galery
           </Text>
-          <Image source={require('../../assets/pantai/GPaal.png')} />
-        </View>
-        <Button
+          <View style={styles.GaleryPhotos}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <Image style={styles.Photos1} source={require('../../assets/pantai/Paal/Paal1.png')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Paal/Paal2.png')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Paal/Paal3.png')}/>
+            <Image style={styles.Photos} source={require('../../assets/pantai/Paal/Paal4.png')}/>
+            </ScrollView>
+          </View>
+        </View> 
+        {/* <Button
           title={'Get Direction'}
           btnView={styles.btnView}
-          onPress={() => Alert.alert('Go to the map')}
-        />
+        /> */}
+        <View style={{alignSelf:'center', marginBottom:19.27}}>
+          <OpenURLButton url={supportedURL} btnView={styles.btnView}>Get Directions</OpenURLButton>
+        </View>
+        
       </ScrollView>
     </View>
   );
@@ -103,5 +131,22 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     marginBottom: 19.27,
+    marginTop:20
   },
+  GaleryPhotos:{
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  Photos1:{
+    width:160,
+    height:160,
+    borderRadius:20,
+    resizeMode:'cover'
+  },
+  Photos:{
+    width:160,
+    height:160,
+    borderRadius:20,
+    marginLeft:20,
+  }
 });
