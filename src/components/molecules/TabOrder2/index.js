@@ -10,8 +10,9 @@ import {
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HCardTransaksi from '../HCardTransaksi';
 import firebase from '../../../config/Firebase';
+import infoHomestay from '../../../pages/infoHomestay';
 
-const TabOrderr = ({uid}) => {
+const TabOrderr = ({navigation,uid}) => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
@@ -20,9 +21,11 @@ const TabOrderr = ({uid}) => {
     {key: 'second', title: 'Food'},
   ]);
 
-  const FirstRoute = props => {
-    console.log('ini uid taborder2', uid);
+
+  const FirstRoute = () => {
     const [transaksi, setTransaksi] = useState([]);
+
+    
     useEffect(() => {
       firebase
         .database()
@@ -43,6 +46,12 @@ const TabOrderr = ({uid}) => {
           }
         });
     }, []);
+
+    
+  const handleSubmit = key => {
+    navigation.navigate('TransactionDetails', {uid: uid, homestayID: key});
+  };
+
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         {/* transaksi
@@ -61,6 +70,7 @@ const TabOrderr = ({uid}) => {
               harga={key.total}
               status={key.status}
               photo={key.fotoHomestay}
+              onPress={() => handleSubmit(key)}
             />
           ))}
       </View>

@@ -34,6 +34,11 @@ const Profile = ({navigation, route}) => {
     getUser();
   }, []);
 
+  const onSignoutPress=()=>{
+    firebase.auth().signOut();
+    return navigation.replace('UserScreen');
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="My Profile" />
@@ -104,7 +109,7 @@ const Profile = ({navigation, route}) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonEditProfile}
-              onPress={() => navigation.replace('UserScreen')}>
+              onPress={onSignoutPress}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/Logout.png')}
               />

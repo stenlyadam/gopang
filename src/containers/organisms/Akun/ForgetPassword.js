@@ -3,22 +3,9 @@ import React, {useState} from 'react';
 import Header from '../../../components/molecules/header';
 import Input from '../../../components/atoms/Input';
 import Button from '../../../components/atoms/Button';
-import {setForm} from '../../../redux';
-import {useDispatch, useSelector} from 'react-redux';
 
 const ForgetPassword = ({navigation}) => {
-  const [text] = useState(null);
 
-  const {form} = useSelector(state => state.ForgetReducer); //destructuring form dll.
-  const dispatch = useDispatch();
-
-  const onInputChange = (value, inputType) => {
-    dispatch(setForm(inputType, value));
-  };
-
-  const sendData = () => {
-    console.log('data yang dikirim', Email);
-  };
 
   return (
     <ScrollView>
@@ -35,16 +22,16 @@ const ForgetPassword = ({navigation}) => {
             password
           </Text>
           <Input
-            placeholder={'Email'}
-            type={text}
-            input={styles.input}
-            value={form.FrgtEmail}
-            onChangeText={value => onInputChange(value, 'FrgtEmail')}
-          />
+              placeholder={'Email'}
+              focus={true}
+              input={styles.input}
+              value={email}
+              // onChangeText={value => setEmail(value)}
+              keyboardType="email-address"
+            />
           <Button
             title={'Send intruction'}
             btnView={styles.btnView}
-            onPress={() => console.log('Data terkirim: ', form.FrgtEmail)}
           />
         </View>
       </View>

@@ -50,7 +50,6 @@ const CardHomestay = props => {
             <Text style={styles.location}>{props.location}</Text>
           </View>
         </View>
-        
         <View
           style={{
             width: 110,
@@ -63,21 +62,13 @@ const CardHomestay = props => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
-              IDR {props.price}
+              IDR 200.000
             </Text>
             <Text style={{fontWeight: 'bold', fontSize: 10, marginTop: 1}}>
               /Night
             </Text>
           </View>
-          <View style={{position:'absolute', marginLeft:80,marginBottom:50}}>
-            {props.status === 'available' &&(
-              <Text style={styles.status}>{props.status}</Text>
-            )}
-            {props.status === 'unavailable' &&(
-              <Text style={styles.status1}>{props.status}</Text>
-            )}
-            <ButtonDetails onSubmit={props.onPress} />
-          </View>
+          <ButtonDetails onSubmit={props.onPress} />
         </View>
       </View>
     </View>
@@ -105,19 +96,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 11,
     marginRight: 55,
-    flexDirection:'row'
-  },
-  status:{
-    fontSize:10,
-    marginLeft:'69%',
-    marginTop:-12,
-    color:'green',
-  },
-  status1:{
-    fontSize:10,
-    marginTop:3,
-    marginTop:-12,
-    marginLeft:'66%',
-    color:'black'
   },
 });

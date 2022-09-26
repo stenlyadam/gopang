@@ -5,7 +5,7 @@ const HCardTransaksi = props => {
   //   const price = this.props.harga;
   return (
     <View>
-      <TouchableOpacity style={{flexDirection: 'row'}}>
+      <TouchableOpacity style={{flexDirection: 'row'}} onPress={props.onPress}>
         <Image
           style={{
             // position: 'absolute',

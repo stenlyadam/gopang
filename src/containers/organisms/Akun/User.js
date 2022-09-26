@@ -106,20 +106,6 @@ const User = ({navigation}) => {
               }}
             />
 
-            {/* <Text style={styles.textOr}>Or</Text>
-
-            <TouchableOpacity style={styles.ButtonGoogle}>
-              <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={require('../../../assets/logo/logoGoogle.png')}
-                  style={styles.logoGoogle}
-                />
-                <Text style={styles.textButtonGoogle}>
-                  Continue with Google
-                </Text>
-              </View>
-            </TouchableOpacity> */}
-
             <TextTouchable
               ViewContainer={styles.ContainertxtSignUp}
               txtStyling={styles.textDont}

@@ -46,9 +46,6 @@ const TransactionDetails = ({navigation, route}) => {
     getHomestay();
   }, []);
 
-  useEffect(() => {
-    getHomestay();
-  }, []);
 
   const getUser = () => {
     firebase
@@ -59,7 +56,7 @@ const TransactionDetails = ({navigation, route}) => {
         if (res.val()) {
           setUsers(res.val());
           //   setOnPhoto(true);
-          console.log(users.photo);
+          // console.log(users.photo);
         }
         console.log('ini user', users);
       });
@@ -263,7 +260,7 @@ const TransactionDetails = ({navigation, route}) => {
       <ButtonTransaction
         title={'Paid'}
         btnView={styles.btnView}
-        // onPress={() => navigation.replace('SuccessPage')}
+        onPress={() => navigation.replace('NavigationBar', {uid: uid})}
       />
     </View>
   );

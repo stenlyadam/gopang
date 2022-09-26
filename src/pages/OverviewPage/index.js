@@ -17,9 +17,9 @@ const OverviewPage = ({navigation, route}) => {
   const [harga, setHarga] = useState('');
 
   const [users, setUsers] = useState({});
-  const [userss, setUserss] = useState({});
+  const [owner, setOwner] = useState({});
 
-  console.log('id', homestayID);
+  console.log('id', uid);
 
   const handleSubmit = () => {
     const data = {
@@ -30,6 +30,8 @@ const OverviewPage = ({navigation, route}) => {
       IDpenyewa: uid,
       emailPenyewa: users.email,
       phonePenyewa: users.number,
+      noHandphoneOwner: owner.number,
+      namaOwner: owner.name,
       alamatHomestay: homestay.alamat,
       fotoHomestay: homestay.photo,
       harga: homestay.price,
@@ -70,9 +72,7 @@ const OverviewPage = ({navigation, route}) => {
         if (res.val()) {
           setUsers(res.val());
           //   setOnPhoto(true);
-          console.log(users.photo);
         }
-        console.log('ini user', users);
       });
   };
 
@@ -80,25 +80,23 @@ const OverviewPage = ({navigation, route}) => {
     getUser();
   }, []);
 
-  const getUserr = () => {
+  const getOwner = () => {
     firebase
 
       .database()
       .ref(`users/owner/${homestayID}`)
       .on('value', res => {
         if (res.val()) {
-          setUserss(res.val());
+          setOwner(res.val());
           //   setOnPhoto(true);
-          console.log(users.photo);
         }
-        console.log('ini user', users);
       });
   };
 
   useEffect(() => {
-    getUserr();
+    getOwner();
   }, []);
-
+console.log(users)
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -120,7 +118,7 @@ const OverviewPage = ({navigation, route}) => {
                 fontWeight: 'bold',
                 marginTop: 18,
               }}>
-              Owner : {userss.name}
+              Owner : {owner.name}
             </Text>
             <Text
               style={{
@@ -128,7 +126,7 @@ const OverviewPage = ({navigation, route}) => {
                 fontWeight: 'bold',
                 marginTop: 8,
               }}>
-              {userss.number}
+              {owner.number}
             </Text>
           </View>
           <Image
