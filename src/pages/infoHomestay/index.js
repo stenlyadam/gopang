@@ -10,16 +10,37 @@ import {
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
+import Calenders from 'react-native-modal-datetime-picker';
+import Button from '../../components/atoms/Button';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment/moment';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
+  const [status, setStatus] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [Date,setDate] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     setLoading(true);
+    const data = {
+      price: homestay.price,
+      name: homestay.name,
+      description: homestay.description,
+      alamat: homestay.alamat,
+      location: homestay.location,
+      photo: homestay.photo,
+      bedroom: homestay.bedroom,
+      bathroom: homestay.bathroom,
+      AC: homestay.AC,
+      wifi: homestay.wifi,
+      status: 'unavailable',
+    };
+    firebase.database().ref(`homestay/${homestayID}`).set(data);
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('OverviewPage', {uid: uid, homestayID: homestayID});
@@ -35,6 +56,7 @@ const MenuGazebo = ({navigation, route}) => {
           // setLoading(false);
           setHomestay(res.val());
           setHarga(res.val().price);
+          setStatus(res.val().status);
         }
       });
   };
@@ -42,6 +64,19 @@ const MenuGazebo = ({navigation, route}) => {
   useEffect(() => {
     getHomestay();
   }, []);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("", moment(date).format('dddd, LL'));
+    hideDatePicker();
+  };
 
   return (
     <>
@@ -92,8 +127,8 @@ const MenuGazebo = ({navigation, route}) => {
               <Image
                 source={require('../../assets/icon/Direction.png')}
                 style={{
-                  width: 20,
-                  height: 29,
+                  width: 15,
+                  height: 20,
                 }}
               />
               <Text
@@ -178,54 +213,17 @@ const MenuGazebo = ({navigation, route}) => {
 
             {/* Check in/out */}
             <View style={{marginLeft: 37, marginTop: 22}}>
-              <Text
-                style={{marginBottom: 6.37, fontSize: 14, color: '#38A7D0'}}>
-                Check-in
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#F9F9F9',
-                  height: 40.54,
-                  marginRight: 121,
-                }}>
-                <Image
-                  source={require('../../assets/icon/Kalender.png')}
-                  style={{marginLeft: 13.18}}
-                />
-                <Text style={{fontSize: 18, marginLeft: 5}}>
-                  Sunday, 6 February 2022
-                </Text>
-              </View>
-
-              <Text
-                style={{
-                  marginBottom: 6.37,
-                  marginTop: 15.68,
-                  fontSize: 14,
-                  color: '#38A7D0',
-                }}>
-                Check-out
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#F9F9F9',
-                  height: 40.54,
-                  marginRight: 121,
-                }}>
-                <Image
-                  source={require('../../assets/icon/Kalender.png')}
-                  style={{marginLeft: 13.18}}
-                />
-                <Text style={{fontSize: 18, marginLeft: 5}}>
-                  Monday, 7 February 2022
-                </Text>
-              </View>
-              <Text style={{fontSize: 12}}>Max.31 Days</Text>
-              <Text style={{fontSize: 18, marginTop: 7.34}}>1 Malam</Text>
+            <View>
+              <Button title={'Check in'} onPress={showDatePicker} />
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+                onChange={value => setDate(value)}
+              />
+              <Text>{Date}</Text>
+            </View>
 
               <View
                 style={{
@@ -242,11 +240,17 @@ const MenuGazebo = ({navigation, route}) => {
                 <Text style={{fontWeight: 'bold', fontSize: 12, marginTop: 7}}>
                   /Night
                 </Text>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleSubmit(homestayID)}>
-                  <Text style={styles.textButton}>Booking</Text>
-                </TouchableOpacity>
+                {status == 'available' ? (
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => handleSubmit(homestayID)}>
+                    <Text style={styles.textButton}>Booking</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.button2}>
+                    <Text style={styles.textButton}>Booked</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           </View>
@@ -281,6 +285,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
+    width: 191,
+    height: 57.35,
+    marginLeft: 14,
+  },
+  button2: {
+    paddingTop: 15,
+    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor: 'grey',
     width: 191,
     height: 57.35,
     marginLeft: 14,

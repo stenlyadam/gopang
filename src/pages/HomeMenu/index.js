@@ -8,18 +8,50 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import firebase from '../../config/Firebase';
-
+import FoodCardHome from '../../components/molecules/FoodCardHome';
 import CardHomestay from '../../components/molecules/CardHomestay';
 
 const HomeMenu = ({navigation, route}) => {
   const {uid} = route.params;
   const [pictures, setPictures] = useState([]);
+  const [onWarung, setOnWarung] = useState([]);
+  const [selectedValue] = useState('Paal');
+  const [locationPaal] = useState('Paal');
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
   };
+  const handleWarung = key => {
+    navigation.navigate('ProfilWarung', {uid: uid, WarungID: key});
+  };
 
   useEffect(() => {
+    getHomestay();
+    getWarung();
+  }, []);
+
+  const getWarung=()=>{
+    firebase
+      .database()
+      .ref(`warung`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          // console.log(keranjang[0].namaProduk);
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setOnWarung(productArray);
+        }
+      });
+  }
+
+  const getHomestay=()=>{
     firebase
       .database()
       .ref(`homestay`)
@@ -38,11 +70,14 @@ const HomeMenu = ({navigation, route}) => {
           setPictures(productArray);
         }
       });
-  }, []);
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <View style={{position:'relative'}}>
+      
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        {/*Likupang North*/}
+        <View style={{position:'relative'}}>
           <Image
             source={require('../../assets/home/Likupang.png')}
             style={{
@@ -76,9 +111,6 @@ const HomeMenu = ({navigation, route}) => {
             GOPANG
           </Text>
         </View>
-      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-        {/*Likupang North*/}
-        
 
         {/*Kategori*/}
         <View
@@ -95,7 +127,7 @@ const HomeMenu = ({navigation, route}) => {
               width: '60%',
               alignItems: 'center',
             }}>
-            <View style={styles.navigation}>
+            <View style={styles.pindah}>
               <Image source={require('../../assets/icon/Homestay.png')} />
             </View>
             <Text style={{fontSize: 15, textAlign: 'center'}}>Homestay</Text>
@@ -106,7 +138,7 @@ const HomeMenu = ({navigation, route}) => {
               width: '60%',
               alignItems: 'center',
             }}>
-            <View style={styles.navigation}>
+            <View style={styles.pindah}>
               <Image source={require('../../assets/icon/Gazebo.png')} />
             </View>
             <Text style={{fontSize: 15, textAlign: 'center'}}>Gazebo</Text>
@@ -116,17 +148,24 @@ const HomeMenu = ({navigation, route}) => {
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
         <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
-          {pictures.map(key => (
-            <View style={{flexDirection: 'row'}}>
-              <CardHomestay
-                title={key.name}
-                location={key.alamat}
-                image={`${key.photo}`}
-                price={key.price}
-                onPress={() => handleSubmit(key.id)}
-              />
-            </View>
-          ))}
+          {selectedValue === "Paal" &&(
+                  <View>
+                    {pictures
+                    .filter(homestay => homestay.location.includes(locationPaal))
+                    .map(key => (
+                        <View>
+                          <CardHomestay
+                            title={key.name}
+                            image={`${key.photo}`}
+                            location={key.location}
+                            price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                            // status={`${key.status}`}
+                            onPress={() => handleSubmit(key.id)}
+                          />
+                        </View>
+                      ))}
+                  </View>
+              )}
         </View>
 
         {/*Popular Destinations*/}
@@ -248,21 +287,16 @@ const HomeMenu = ({navigation, route}) => {
         </Text>
           <View style={styles.restaurant}>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ProfilWarung')}
-                style={styles.Trestaurant}
-                activeOpacity={1.0}>
-                <Image source={require('../../assets/home/WarungJessica.png')} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
-                <Image source={require('../../assets/home/WarungWahyu.png')} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
-                <Image source={require('../../assets/home/WarungJeniver.png')} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.Trestaurant} activeOpacity={1.0}>
-                <Image source={require('../../assets/home/WarungJeniver.png')} />
-              </TouchableOpacity>
+            {onWarung.map(key => (
+              <View style={{flexDirection: 'row'}}>
+                <FoodCardHome
+                  name={key.name}
+                  location={key.alamat}
+                  image={`${key.photo}`}
+                  onPress={() => handleWarung(key.id)}
+                />
+              </View>
+            ))}
             </ScrollView>
           </View>
       </ScrollView>
@@ -273,7 +307,7 @@ const HomeMenu = ({navigation, route}) => {
 export default HomeMenu;
 
 const styles = StyleSheet.create({
-  navigation: {
+  pindah: {
     width: 50,
     height: 50,
     borderWidth: 1,
@@ -324,6 +358,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 17,
     marginTop: 15,
+    marginBottom:55
   },
   Trestaurant: {
     marginRight: 21,
@@ -335,4 +370,9 @@ const styles = StyleSheet.create({
     height: 16,
     marginLeft: 4,
   },
+  foodStyle:{
+    width:112,
+    height:124,
+    borderRadius:5
+  }
 });

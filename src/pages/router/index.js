@@ -41,6 +41,9 @@ import OProfile from '../OProfile';
 import OnavigationBar from '../OnavigationBar';
 import OptionMenuKinunang from '../OptionMenuKinunang';
 import OptionMenuLarata from '../OptionMenuLarata';
+import TabOrderr from '../../components/molecules/TabOrder2';
+import TabOrder from '../../components/molecules/TabOrder';
+import TD from '../../pages/TD';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +70,7 @@ const Router = () => {
       <Stack.Screen name="Biodata" component={Biodata} />
       <Stack.Screen name="OverviewPage" component={OverviewPage} />
       <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
+      <Stack.Screen name="TD" component={TD} />
       <Stack.Screen name="SuccessPage" component={SuccessPage} />
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
@@ -83,6 +87,8 @@ const Router = () => {
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
       <Stack.Screen name="DetailOrderDone" component={DetailOrderDone} />
+      <Stack.Screen name="TabOrderr" component={TabOrderr} />
+      <Stack.Screen name="TabOrder" component={TabOrder} />
       <Stack.Screen
         name="DetailOrderDelivered"
         component={DetailOrderDelivered}
