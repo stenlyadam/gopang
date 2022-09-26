@@ -15,20 +15,13 @@ import firebase from '../../config/Firebase';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
 
-const OAddHomestay = ({navigation, route}) => {
-  const [Bedroom, setBedroom] = useState(false);
-  const [Bathroom, setBathroom] = useState(false);
-  const [AC, setAC] = useState(false);
-  const [Wifi, setWifi] = useState(false);
-
+const OAddWarung = ({navigation, route}) => {
   const {uid} = route.params;
   const [users, setUsers] = useState({});
   const [name, setName] = useState('');
-  const [desc, setDesc] = useState('');
   const [alamat, setAlamat] = useState('');
-  const [location, setLocation] = useState('');
+  const [delivery, setDelivery] = useState('');
   //const [facility, setFacility] = useState('');
-  const [price, setPrice] = useState('');
   const [photo, setPhoto] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
@@ -49,7 +42,7 @@ const OAddHomestay = ({navigation, route}) => {
 
   const getImage = () => {
     launchImageLibrary(
-      {maxHeight: 720, maxWidth: 1280, includeBase64: true},
+      {maxHeight: 200, maxWidth: 200, includeBase64: true},
       res => {
         if (res.didCancel) {
           setHasPhoto(false);
@@ -72,35 +65,26 @@ const OAddHomestay = ({navigation, route}) => {
     if (
       name.length == 0 ||
       alamat.length == 0 ||
-      location.length == 0 ||
-      desc.length == 0 ||
-      price.length == 0 ||
+      delivery.length == 0 ||
       hasPhoto == false
     ) {
       showMessage({
-        message: 'mana mana jo dang dulu',
+        message: 'All data must be filled!!',
         type: 'default',
         backgroundColor: '#D9435E',
         color: 'white',
       });
     } else {
       const data = {
-        price: price,
         name: name,
-        description: desc,
         alamat: alamat,
-        location: location,
+        delivery: delivery,
         photo: photoBase64,
-        bedroom: Bedroom,
-        bathroom: Bathroom,
-        AC: AC,
-        wifi: Wifi,
-        status: 'available',
       };
-      firebase.database().ref(`homestay/${uid}`).set(data);
+      firebase.database().ref(`warung/${uid}`).set(data);
       navigation.navigate('OnavigationBar', {uid: uid});
       showMessage({
-        message: 'Sucsess Add Homestay',
+        message: 'Sucsess Add Warung',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -132,7 +116,7 @@ const OAddHomestay = ({navigation, route}) => {
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
       <Header
-        title="Add Homestay"
+        title="Add Warung"
         navigation={navigation}
         onBack={() => navigation.goBack()}
       />
@@ -155,7 +139,7 @@ const OAddHomestay = ({navigation, route}) => {
           )}
           {!hasPhoto && (
             <View style={styles.addPhoto}>
-              <Text style={styles.textAddPhoto}>Add Photo Homestay</Text>
+              <Text style={styles.textAddPhoto}>Add Photo Warung</Text>
             </View>
           )}
         </TouchableOpacity>
@@ -163,11 +147,11 @@ const OAddHomestay = ({navigation, route}) => {
 
       <View style={{marginTop: 15}}>
         <Text style={{marginLeft: 40, fontWeight: 'bold', fontSize: 16}}>
-          Homestay Name
+          Warung Name
         </Text>
         <View style={{alignItems: 'center', marginTop: 5}}>
           <Input
-            placeholder={'Full Name'}
+            placeholder={'Warung Name'}
             input={styles.input}
             value={name}
             onChangeText={value => setName(value)}
@@ -190,6 +174,7 @@ const OAddHomestay = ({navigation, route}) => {
             onChangeText={value => setAlamat(value)}
           />
         </View>
+
         <Text
           style={{
             marginLeft: 40,
@@ -197,109 +182,20 @@ const OAddHomestay = ({navigation, route}) => {
             fontWeight: 'bold',
             fontSize: 16,
           }}>
-          Location
+          Delivery Time
         </Text>
         <View style={{alignItems: 'center', marginTop: 5}}>
           <Input
-            placeholder={'Location'}
+            placeholder={'Delivery Time'}
             input={styles.input}
-            value={location}
-            onChangeText={value => setLocation(value)}
+            value={delivery}
+            onChangeText={value => setDelivery(value)}
           />
         </View>
-        <View style={styles.fasilitas}>
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Image
-              source={require('../../assets/owner/Doublebed.png')}
-              style={{height: 28, width: 28}}
-            />
-            <Text>Bedroom</Text>
-            <CheckBox
-              disabled={false}
-              value={Bedroom}
-              onValueChange={newValue => setBedroom(newValue)}
-            />
-          </View>
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Image
-              source={require('../../assets/owner/bathtub.png')}
-              style={{height: 28, width: 28}}
-            />
-            <Text>Bathroom</Text>
-            <CheckBox
-              disabled={false}
-              value={Bathroom}
-              onValueChange={newValue => setBathroom(newValue)}
-            />
-          </View>
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Image
-              source={require('../../assets/owner/AC.png')}
-              style={{height: 28, width: 28}}
-            />
-            <Text>AC</Text>
-            <CheckBox
-              disabled={false}
-              value={AC}
-              onValueChange={newValue => setAC(newValue)}
-            />
-          </View>
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Image
-              source={require('../../assets/owner/wifi.png')}
-              style={{height: 28, width: 28}}
-            />
-            <Text>Wifi</Text>
-            <CheckBox
-              disabled={false}
-              value={Wifi}
-              onValueChange={newValue => setWifi(newValue)}
-            />
-          </View>
-        </View>
-        <Text
-          style={{
-            marginLeft: 40,
-            paddingTop: 15,
-            fontWeight: 'bold',
-            fontSize: 16,
-          }}>
-          Description
-        </Text>
-        <View style={{alignItems: 'center', marginTop: 5}}>
-          <Input
-            placeholder={'Description'}
-            input={styles.input}
-            value={desc}
-            onChangeText={value => setDesc(value)}
-          />
-        </View>
-        <Text
-          style={{
-            marginLeft: 40,
-            paddingTop: 15,
-            fontWeight: 'bold',
-            fontSize: 16,
-          }}>
-          Price
-        </Text>
-        <View style={{alignItems: 'center', marginTop: 5}}>
-          <Input
-            placeholder={'Price'}
-            keyboardType="number-pad"
-            input={styles.input}
-            value={price}
-            onChangeText={value => setPrice(value)}
-          />
-        </View>
-        <View
-          style={{marginTop: 63, marginBottom: 57.69, alignItems: 'center'}}>
+
+        <View style={{marginTop: 63, alignItems: 'center'}}>
           <Button
-            title={'Add Homestay'}
+            title={'Add Warung'}
             onPress={() => {
               handleSubmit();
             }}
@@ -311,7 +207,7 @@ const OAddHomestay = ({navigation, route}) => {
   );
 };
 
-export default OAddHomestay;
+export default OAddWarung;
 
 const styles = StyleSheet.create({
   input: {

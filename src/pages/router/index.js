@@ -44,6 +44,10 @@ import OptionMenuLarata from '../OptionMenuLarata';
 import TabOrderr from '../../components/molecules/TabOrder2';
 import TabOrder from '../../components/molecules/TabOrder';
 import TD from '../../pages/TD';
+import OAddWarung from '../../pages/OAddWarung';
+import OWarung from '../../pages/OWarung';
+import OAddFood from '../../pages/OAddFood';
+import OEditFood from '../../pages/OEditFood';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,6 +99,10 @@ const Router = () => {
       />
       <Stack.Screen name="OProfile" component={OProfile} />
       <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
+      <Stack.Screen name="OAddWarung" component={OAddWarung} />
+      <Stack.Screen name="OWarung" component={OWarung} />
+      <Stack.Screen name="OAddFood" component={OAddFood} />
+      <Stack.Screen name="OEditFood" component={OEditFood} />
     </Stack.Navigator>
   );
 };

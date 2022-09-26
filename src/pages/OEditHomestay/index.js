@@ -13,7 +13,11 @@ import CheckBox from '@react-native-community/checkbox';
 import Button from '../../components/atoms/Button';
 
 const EditHomestay = ({navigation}) => {
-  const [centang, setCentang] = useState(false);
+  const [Bedroom, setBedroom] = useState(false);
+  const [Bathroom, setBathroom] = useState(false);
+  const [AC, setAC] = useState(false);
+  const [Wifi, setWifi] = useState(false);
+
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
       <Header
@@ -25,11 +29,11 @@ const EditHomestay = ({navigation}) => {
       <TouchableOpacity>
         <Image
           source={require('../../assets/owner/ButtonAddFood.png')}
-          style={{margin: 32, width: 347, height: 152}}
+          style={{marginTop: 10, alignSelf: 'center', width: 347, height: 152}}
         />
       </TouchableOpacity>
-      <View>
-        <Text style={{marginLeft: 40, fontWeight: 'bold', fontSize: 16}}>
+      <View style={{top: 15}}>
+        <Text style={{marginLeft: 25, fontWeight: 'bold', fontSize: 16}}>
           Homestay Name
         </Text>
         <View style={{alignItems: 'center', marginTop: 5}}>
@@ -42,7 +46,7 @@ const EditHomestay = ({navigation}) => {
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -67,8 +71,8 @@ const EditHomestay = ({navigation}) => {
             <Text>bedroom</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Bedroom}
+              onValueChange={newValue => setBedroom(newValue)}
             />
           </View>
           <View
@@ -77,11 +81,11 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/bathtub.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>bathroom</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Bathroom}
+              onValueChange={newValue => setBathroom(newValue)}
             />
           </View>
           <View
@@ -90,11 +94,11 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/AC.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>AC</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={AC}
+              onValueChange={newValue => setAC(newValue)}
             />
           </View>
           <View
@@ -103,17 +107,17 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/wifi.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>Wifi</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Wifi}
+              onValueChange={newValue => setWifi(newValue)}
             />
           </View>
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -130,7 +134,7 @@ const EditHomestay = ({navigation}) => {
         </View>
         <Text
           style={{
-            marginLeft: 40,
+            marginLeft: 25,
             paddingTop: 15,
             fontWeight: 'bold',
             fontSize: 16,
@@ -146,7 +150,7 @@ const EditHomestay = ({navigation}) => {
           />
         </View>
         <View
-          style={{marginTop: 63, marginBottom: 57.69, alignItems: 'center'}}>
+          style={{marginTop: 50, marginBottom: 57.69, alignItems: 'center'}}>
           <Button
             title={'Update'}
             // onPress={() => navigation.navigate('DetailsOwner')}
