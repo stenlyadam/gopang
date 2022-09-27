@@ -8,6 +8,7 @@ import {
   Touchable,
   TouchableHighlight,
   Alert,
+  Linking,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/molecules/header';
@@ -16,7 +17,7 @@ import firebase from '../../config/Firebase';
 import CountDown from 'react-native-countdown-component';
 import ButtonChat from '../../components/atoms/ButtonChat';
 
-const TransactionDetails = ({navigation, route}) => {
+const TransactionDetails = ({navigation, route, props}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
   const [users, setUsers] = useState({});
@@ -46,6 +47,9 @@ const TransactionDetails = ({navigation, route}) => {
     getHomestay();
   }, []);
 
+  useEffect(() => {
+    getHomestay();
+  }, []);
 
   const getUser = () => {
     firebase
@@ -56,7 +60,7 @@ const TransactionDetails = ({navigation, route}) => {
         if (res.val()) {
           setUsers(res.val());
           //   setOnPhoto(true);
-          // console.log(users.photo);
+          console.log(users.photo);
         }
         console.log('ini user', users);
       });
@@ -84,6 +88,23 @@ const TransactionDetails = ({navigation, route}) => {
   useEffect(() => {
     getUserr();
   }, []);
+
+  const sendOnWa = () => {
+    let mobile = userss.number;
+    if (mobile) {
+      // Kode negara 62 = Indonesia
+      let url = 'whatsapp://send?text=' + '&phone=62' + userss.number;
+      Linking.openURL(url)
+        .then(data => {
+          console.log('WhatsApp Opened');
+        })
+        .catch(() => {
+          alert('Make sure Whatsapp installed on your device');
+        });
+    } else {
+      alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
+    }
+  };
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -224,7 +245,7 @@ const TransactionDetails = ({navigation, route}) => {
           flexDirection: 'row',
         }}>
         <CountDown
-          until={2400000}
+          until={86400}
           digitStyle={{backgroundColor: 'white'}}
           onFinish={() => alert('finished')}
           // onPress={() => alert('hello')}
@@ -242,10 +263,7 @@ const TransactionDetails = ({navigation, route}) => {
         }}
       />
 
-      <ButtonChat
-        title="Chat Owner"
-        onPress={() => navigation.navigate('Chat', uid)}
-      />
+      <ButtonChat title="Chat Owner" onPress={() => sendOnWa()} />
 
       <View
         style={{
@@ -275,3 +293,83 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+// import {
+//   StyleSheet,
+//   Text,
+//   View,
+//   Image,
+//   Dimensions,
+//   ScrollView,
+//   Touchable,
+//   TouchableHighlight,
+//   Alert,
+//   Linking,
+// } from 'react-native';
+// import React, {useState, useEffect} from 'react';
+// import Header from '../../components/molecules/header';
+// import ButtonTransaction from '../../components/atoms/ButtonTransaction';
+// import firebase from '../../config/Firebase';
+// import CountDown from 'react-native-countdown-component';
+// import ButtonChat from '../../components/atoms/ButtonChat';
+
+// const TransactionDetails = () => {
+//   return (
+//     <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
+//       <Header title="Transaction" />
+//       <View>
+//         <View style={{flexDirection: 'row'}}>
+//           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
+//             <Text style={{fontSize: 20, fontWeight: 'bold'}}>marinsow</Text>
+//             <Text style={{fontSize: 15, marginTop: 3}}>paal</Text>
+//             <Image
+//               style={{width: 51, height: 20, marginTop: 7}}
+//               source={require('../../assets/icon/Rating.png')}
+//             />
+//             <Text
+//               style={{
+//                 fontSize: 15,
+//                 fontWeight: 'bold',
+//                 marginTop: 18,
+//               }}>
+//               Owner :
+//             </Text>
+//             <Text
+//               style={{
+//                 fontSize: 15,
+//                 fontWeight: 'bold',
+//                 marginTop: 8,
+//               }}>
+//               012310
+//             </Text>
+//           </View>
+//           <Image
+//             style={{
+//               position: 'absolute',
+//               marginTop: 30,
+//               marginLeft: '65.1%',
+//               width: 111,
+//               height: 106,
+//               borderRadius: 20,
+//             }}
+//             source={require('../../assets/home/Juniver.png')}
+//             // source={{uri: `data:image/jpeg;base64, ${homestay.photo}`}}
+//           />
+//         </View>
+//         <View
+//           style={{
+//             height: 1,
+//             marginTop: 18,
+//             backgroundColor: 'rgba(0, 0, 0, 0.3)',
+//             width: 371,
+//             alignSelf: 'center',
+//           }}
+//         />
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// export default TransactionDetails;
+
+// const styles = StyleSheet.create({});
