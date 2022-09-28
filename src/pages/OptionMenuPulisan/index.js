@@ -13,8 +13,8 @@ import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
 
-const OptionMenuPulisan = ({navigation}) => {
-
+const OptionMenuPulisan = ({navigation,route}) => {
+  const {uid} = route.params;
   const supportedURL = "https://goo.gl/maps/uww8dpFt4wBJufEY6";
 
   const OpenURLButton = ({ url, children }) => {
@@ -79,7 +79,7 @@ const OptionMenuPulisan = ({navigation}) => {
         {/* Category */}
         <CategoryFeature
           onPress1={() => navigation.navigate('MenuHomestay')}
-          onPress2={() => navigation.navigate('MenuGazebo')}
+          onPress2={() => navigation.navigate('MenuGazebo',{uid:uid})}
           onPress3={() => navigation.navigate('MenuFood')}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>

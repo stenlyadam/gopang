@@ -56,17 +56,6 @@ const MenuGazebo = ({navigation, route}) => {
       <Header title="Gazebo" onBack={() => navigation.goBack()} />
       <View style={{backgroundColor: 'white'}} />
 
-      {/* Search */}
-      {/* <View style={styles.elevation}>
-        <View style={styles.searchBox}>
-          <TextInput placeholder="Search Gazebo you want..." />
-          <Image
-            source={require('../../assets/icon/search.png')}
-            style={styles.search}
-          />
-        </View>
-      </View> */}
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.elevation}>
