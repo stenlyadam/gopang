@@ -122,7 +122,7 @@ const HomeMenu = ({navigation, route}) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MenuHomestay',{uid:uid})}
+            onPress={() => navigation.navigate('MenuHomestay')}
             style={{
               width: '60%',
               alignItems: 'center',

@@ -13,7 +13,7 @@ import Input from '../../components/atoms/Input';
 import firebase from '../../config/Firebase';
 
 const MenuHomestay = ({navigation, route}) => {
-  const {uid} = route.params;
+  const uid = route.params;
   const [pictures, setPictures] = useState([]);
   const [search, setSearch] = useState('');
 

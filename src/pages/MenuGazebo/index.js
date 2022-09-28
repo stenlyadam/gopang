@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,16 +10,47 @@ import {
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import CardGazebo from '../../components/molecules/CardGazebo';
+import firebase from '../../config/Firebase';
 
-const MenuGazebo = ({navigation}) => {
+const MenuGazebo = ({navigation, route}) => {
+  const {uid} = route.params;
+  const [pictures, setPictures] = useState([]);
+
+  const handleSubmit = key => {
+    navigation.navigate('InfoGazebo', {uid: uid, gazeboID: key});
+    console.log('ini gazebo', uid);
+  };
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`gazebo`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setPictures(productArray);
+          // console.log(productArray);
+        }
+      });
+  }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       {/* Header */}
-      <Header title="Gazebo Available" onBack={() => navigation.goBack()} />
+      <Header title="Gazebo" onBack={() => navigation.goBack()} />
       <View style={{backgroundColor: 'white'}} />
 
       {/* Search */}
-      <View style={styles.elevation}>
+      {/* <View style={styles.elevation}>
         <View style={styles.searchBox}>
           <TextInput placeholder="Search Gazebo you want..." />
           <Image
@@ -27,30 +58,21 @@ const MenuGazebo = ({navigation}) => {
             style={styles.search}
           />
         </View>
-      </View>
+      </View> */}
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.elevation}>
         {/* Gazebo 1 */}
-        <CardGazebo
-          title="Gazebo Wahyu"
-          location="Marinsow Village, North Sulawesi"
-          image={require('../../assets/home/Wahyu.png')}
-          onPress={() => navigation.navigate('InfoGazebo')}
-        />
-
-        {/* Gazebo 2 */}
-        <CardGazebo
-          title="Gazebo Juniver"
-          location="Marinsow Village, North Sulawesi"
-          image={require('../../assets/home/Juniver.png')}
-          onPress={() => navigation.navigate('InfoGazebo')}
-        />
-        {/* Gazebo 3 */}
-        <CardGazebo
-          title="Gazebo Jembatan"
-          location="Marinsow Village, North Sulawesi"
-          image={require('../../assets/home/Juniver.png')}
-        />
+        {pictures.map(key => (
+          <CardGazebo
+            title="Gazebo Wahyu"
+            location={key.location}
+            image={`${key.photo}`}
+            size={key.size}
+            onPress={() => handleSubmit(key.id)}
+          />
+        ))}
       </ScrollView>
     </View>
   );
@@ -61,11 +83,12 @@ export default MenuGazebo;
 const styles = StyleSheet.create({
   elevation: {
     paddingBottom: 8,
-    paddingLeft: 20,
+    top: '-18%'
+    // paddingLeft: 20,
   },
   searchBox: {
-    width: 371,
-    height: 45,
+    width: '95%',
+    height: '23%',
     paddingRight: 20,
     paddingLeft: 26,
     borderWidth: 1,

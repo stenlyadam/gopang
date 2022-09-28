@@ -8,7 +8,6 @@ import {
     Touchable,
     TouchableHighlight,
     Alert,
-    Linking
   } from 'react-native';
   import React, {useState, useEffect} from 'react';
   import Header from '../../components/molecules/header';
@@ -59,23 +58,7 @@ import {
     useEffect(() => {
       getUser();
     }, []);
-
-    const sendOnWa = () => {
-      let mobile = transaksi.noHandphoneOwner;
-      if (mobile) {
-        // Kode negara 62 = Indonesia
-        let url = 'whatsapp://send?text=' + '&phone=62' + transaksi.noHandphoneOwner;
-        Linking.openURL(url)
-          .then(data => {
-            console.log('WhatsApp Opened');
-          })
-          .catch(() => {
-            alert('Make sure Whatsapp installed on your device');
-          });
-      } else {
-        alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
-      }
-    };
+  console.log('homestayID ',homestayID);
   
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -216,7 +199,7 @@ import {
             flexDirection: 'row',
           }}>
           <CountDown
-            until={40000}
+            until={2400000}
             digitStyle={{backgroundColor: 'white'}}
             onFinish={() => alert('finished')}
             // onPress={() => alert('hello')}
@@ -236,7 +219,7 @@ import {
   
         <ButtonChat
           title="Chat Owner"
-          onPress={() => sendOnWa()}
+          onPress={() => navigation.navigate('Chat', uid)}
         />
   
         <View

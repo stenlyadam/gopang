@@ -17,9 +17,9 @@ const OverviewPage = ({navigation, route}) => {
   const [harga, setHarga] = useState('');
 
   const [users, setUsers] = useState({});
-  const [owner, setOwner] = useState({});
+  const [userss, setUserss] = useState({});
 
-  console.log('id', uid);
+  console.log('id', homestayID);
 
   const handleSubmit = () => {
     const data = {
@@ -30,8 +30,8 @@ const OverviewPage = ({navigation, route}) => {
       IDpenyewa: uid,
       emailPenyewa: users.email,
       phonePenyewa: users.number,
-      noHandphoneOwner: owner.number,
-      namaOwner: owner.name,
+      noHandphoneOwner: userss.number,
+      namaOwner: userss.name,
       alamatHomestay: homestay.alamat,
       fotoHomestay: homestay.photo,
       harga: homestay.price,
@@ -72,7 +72,9 @@ const OverviewPage = ({navigation, route}) => {
         if (res.val()) {
           setUsers(res.val());
           //   setOnPhoto(true);
+          console.log(users.photo);
         }
+        console.log('ini user', users);
       });
   };
 
@@ -80,21 +82,23 @@ const OverviewPage = ({navigation, route}) => {
     getUser();
   }, []);
 
-  const getOwner = () => {
+  const getUserr = () => {
     firebase
 
       .database()
       .ref(`users/owner/${homestayID}`)
       .on('value', res => {
         if (res.val()) {
-          setOwner(res.val());
+          setUserss(res.val());
           //   setOnPhoto(true);
+          console.log(users.photo);
         }
+        console.log('ini user', users);
       });
   };
 
   useEffect(() => {
-    getOwner();
+    getUserr();
   }, []);
 
   return (
@@ -118,7 +122,7 @@ const OverviewPage = ({navigation, route}) => {
                 fontWeight: 'bold',
                 marginTop: 18,
               }}>
-              Owner : {owner.name}
+              Owner : {userss.name}
             </Text>
             <Text
               style={{
@@ -126,7 +130,7 @@ const OverviewPage = ({navigation, route}) => {
                 fontWeight: 'bold',
                 marginTop: 8,
               }}>
-              {owner.number}
+              {userss.number}
             </Text>
           </View>
           <Image
