@@ -133,7 +133,7 @@ const HomeMenu = ({navigation, route}) => {
             <Text style={{fontSize: 15, textAlign: 'center'}}>Homestay</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MenuGazebo')}
+            onPress={() => navigation.navigate('MenuGazebo',{uid:uid})}
             style={{
               width: '60%',
               alignItems: 'center',

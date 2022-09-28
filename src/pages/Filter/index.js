@@ -18,7 +18,6 @@ import {
 import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
 import firebase from '../../config/Firebase';
-import moment from 'moment';
 import CardHomestay from '../../components/molecules/CardHomestay';
 
 const Filter = ({navigation,route}) => {

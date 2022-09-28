@@ -11,10 +11,17 @@ import {
 import Header from '../../components/molecules/header';
 import CardGazebo from '../../components/molecules/CardGazebo';
 import firebase from '../../config/Firebase';
+import {Picker} from '@react-native-picker/picker';
+import { G } from 'react-native-svg';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid} = route.params;
-  const [pictures, setPictures] = useState([]);
+  const [gazebo, setGazebo] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState('unavailable');
+  const [selectedValue, setSelectedValue] = useState('All');
+  const [locationPaal, setLocationPaal] = useState('Paal');
+  const [locationPulisan, setLocationPulisan] = useState('Pulisan');
+  const [locationKinunang, setLocationKinunang] = useState('Kinunang');
 
   const handleSubmit = key => {
     navigation.navigate('InfoGazebo', {uid: uid, gazeboID: key});
@@ -37,7 +44,7 @@ const MenuGazebo = ({navigation, route}) => {
               ...rawData[key],
             });
           });
-          setPictures(productArray);
+          setGazebo(productArray);
           // console.log(productArray);
         }
       });
@@ -64,15 +71,129 @@ const MenuGazebo = ({navigation, route}) => {
         showsVerticalScrollIndicator={false}
         style={styles.elevation}>
         {/* Gazebo 1 */}
-        {pictures.map(key => (
-          <CardGazebo
-            title="Gazebo Wahyu"
-            location={key.location}
-            image={`${key.photo}`}
-            size={key.size}
-            onPress={() => handleSubmit(key.id)}
-          />
-        ))}
+        <Text
+          style={{
+            marginLeft: 30,
+            fontSize: 14,
+            marginBottom:5,
+            color: '#38A7D0',
+            fontSize:15
+          }}>
+          By Destination
+        </Text>
+        <View style={{flexDirection:'row'}}>
+            <View
+              style={{
+                borderWidth: 0.3,
+                height: 41,
+                width: 146,
+                borderRadius: 10,
+                marginLeft: 20,
+                marginBottom:10,
+              }}>
+              <Picker
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+                selectedStatus={selectedStatus}
+                onStatusChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+                >
+                  <Picker.Item
+                  label="All"
+                  value="All"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Paal"
+                  value="Paal"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Pulisan"
+                  value="Pulisan"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Kinunang"
+                  value="Kinunang"
+                  style={{fontSize: 15}}
+                />
+              </Picker>
+            </View>
+          </View>
+
+
+          {selectedValue === "All" &&(
+                <View>
+                  {gazebo
+                  .map(key => (
+                      <View>
+                        <CardGazebo
+                          title="Gazebo Wahyu"
+                          location={key.location}
+                          image={`${key.photo}`}
+                          size={key.size}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+
+            {selectedValue === "Paal" &&(
+                <View>
+                  {gazebo
+                  .filter(gazebo => gazebo.location.includes(locationPaal))
+                  .map(key => (
+                      <View>
+                        <CardGazebo
+                          title="Gazebo Wahyu"
+                          location={key.location}
+                          image={`${key.photo}`}
+                          size={key.size}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            {selectedValue === "Pulisan" &&(
+                <View>
+                  {gazebo
+                  .filter(gazebo => gazebo.location.includes(locationPulisan))
+                  .map(key => (
+                      <View>
+                        <CardGazebo
+                          title="Gazebo Wahyu"
+                          location={key.location}
+                          image={`${key.photo}`}
+                          size={key.size}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            {selectedValue === "Kinunang" &&(
+                <View>
+                  {gazebo
+                  .filter(gazebo => gazebo.location.includes(locationKinunang))
+                  .map(key => (
+                      <View>
+                        <CardGazebo
+                          title="Gazebo Wahyu"
+                          location={key.location}
+                          image={`${key.photo}`}
+                          size={key.size}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
       </ScrollView>
     </View>
   );
@@ -83,7 +204,6 @@ export default MenuGazebo;
 const styles = StyleSheet.create({
   elevation: {
     paddingBottom: 8,
-    top: '-18%'
     // paddingLeft: 20,
   },
   searchBox: {

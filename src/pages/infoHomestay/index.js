@@ -13,7 +13,6 @@ import Loading from '../../components/molecules/Loading';
 import Calenders from 'react-native-modal-datetime-picker';
 import Button from '../../components/atoms/Button';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from 'moment/moment';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
