@@ -17,10 +17,11 @@ import {
   import CountDown from 'react-native-countdown-component';
   import ButtonChat from '../../components/atoms/ButtonChat';
   
-  const TransactionDetails = ({navigation, route}) => {
+  const TDOwner = ({navigation, route}) => {
     const {uid, homestayID} = route.params;
     const [transaksi, setTransaksi] = useState({});
     const [users, setUsers] = useState({});
+    const [userss, setUserss] = useState({});
     
     const getTransaksi = () => {
       firebase
@@ -38,43 +39,23 @@ import {
     useEffect(() => {
       getTransaksi();
     }, []);
-  
-  
-    const getUser = () => {
-      firebase
-  
-        .database()
-        .ref(`users/pelanggan/${uid}`)
-        .on('value', res => {
-          if (res.val()) {
-            setUsers(res.val());
-            //   setOnPhoto(true);
-            // console.log(users.photo);
-          }
-        //   console.log('ini user', users);
-        });
-    };
-  
-    useEffect(() => {
-      getUser();
-    }, []);
 
     const sendOnWa = () => {
-      let mobile = transaksi.noHandphoneOwner;
-      if (mobile) {
-        // Kode negara 62 = Indonesia
-        let url = 'whatsapp://send?text=' + '&phone=62' + transaksi.noHandphoneOwner;
-        Linking.openURL(url)
-          .then(data => {
-            console.log('WhatsApp Opened');
-          })
-          .catch(() => {
-            alert('Make sure Whatsapp installed on your device');
-          });
-      } else {
-        alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
-      }
-    };
+        let mobile = transaksi.phonePenyewa;
+        if (mobile) {
+          // Kode negara 62 = Indonesia
+          let url = 'whatsapp://send?text=' + '&phone=62' + transaksi.phonePenyewa;
+          Linking.openURL(url)
+            .then(data => {
+              console.log('WhatsApp Opened');
+            })
+            .catch(() => {
+              alert('Make sure Whatsapp installed on your device');
+            });
+        } else {
+          alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
+        }
+      };
   
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -135,21 +116,21 @@ import {
               fontSize: 15,
               fontWeight: 'bold',
             }}>
-            {users.name}
+            {transaksi.namaPenyewa}
           </Text>
           <Text
             style={{
               fontSize: 15,
               marginTop: 12,
             }}>
-            {users.email}
+            {transaksi.emailPenyewa}
           </Text>
           <Text
             style={{
               fontSize: 15,
               marginTop: 12,
             }}>
-            {users.number}
+            {transaksi.phonePenyewa}
           </Text>
         </View>
   
@@ -234,7 +215,7 @@ import {
         />
   
         <ButtonChat
-          title="Chat Owner"
+          title="Chat Customer"
           onPress={() => sendOnWa()}
         />
   
@@ -267,7 +248,7 @@ import {
     );
   };
   
-  export default TransactionDetails;
+  export default TDOwner;
   
   const styles = StyleSheet.create({
     btnView: {

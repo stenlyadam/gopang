@@ -79,7 +79,7 @@ import {
           {/* Category */}
           <CategoryFeature
             onPress1={() => navigation.navigate('MenuHomestay')}
-            onPress2={() => navigation.navigate('MenuGazebo',{uid:uid})}
+            onPress2={() => navigation.navigate('MenuGazeboKinunang',{uid:uid})}
             onPress3={() => navigation.navigate('MenuFood')}
           />
           <View style={{marginLeft: 20, marginBottom: 27}}>

@@ -68,19 +68,17 @@ const OptionMenuPaal = ({navigation,route}) => {
           <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>
             Overview
           </Text>
-          <Text style={{fontSize: 17}}>
-            Paal Beach is one of the tourist attractions in Likupang,North
-            Sulawesi. When visiting here, you will find a beach with clean white
-            sand strands on the shoreline and a beautiful turquoise sea like
-            crystal.
+          <Text style={{fontSize: 17,textAlign:'justify'}}>
+          Paal Beach located in the village of Marinsow is a perfect example of the combination of white sand and ocean gradations ranging from light blue, turquoise, to dark blue. 
+          On this beach the sand is very soft. This white sandy beach has calm waves, making it suitable for snorkeling. Not only snorkeling, you can also take a speed boat or relax in a rented gazebo.
           </Text>
         </View>
 
         {/* Category */}
         <CategoryFeature
           onPress1={() => navigation.navigate('MenuHomestay')}
-          onPress2={() => navigation.navigate('MenuGazebo',{uid:uid})}
-          onPress3={() => navigation.navigate('MenuFood')}
+          onPress2={() => navigation.navigate('MenuGazeboPaal',{uid:uid,seletedValue:"Paal"})}
+          onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>
           <Text

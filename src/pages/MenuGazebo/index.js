@@ -56,11 +56,8 @@ const MenuGazebo = ({navigation, route}) => {
       <Header title="Gazebo" onBack={() => navigation.goBack()} />
       <View style={{backgroundColor: 'white'}} />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.elevation}>
-        {/* Gazebo 1 */}
-        <Text
+      {/* Gazebo 1 */}
+      <Text
           style={{
             marginLeft: 30,
             fontSize: 14,
@@ -114,6 +111,9 @@ const MenuGazebo = ({navigation, route}) => {
             </View>
           </View>
 
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.elevation}>
 
           {selectedValue === "All" &&(
                 <View>

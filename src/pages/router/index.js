@@ -48,6 +48,10 @@ import OAddWarung from '../../pages/OAddWarung';
 import OWarung from '../../pages/OWarung';
 import OAddFood from '../../pages/OAddFood';
 import OEditFood from '../../pages/OEditFood';
+import MenuGazeboPaal from '../../pages/MenuGazeboPaal';
+import MenuGazeboPulisan from '../ManuGazeboPulisan';
+import MenuGazeboKinunang from '../MenuGazeboKinunang';
+import TDOwner from '../TDOwner';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +69,9 @@ const Router = () => {
       <Stack.Screen name="NavigationBar" component={NavigationBar} />
       <Stack.Screen name="MenuHome" component={MenuHome} />
       <Stack.Screen name="MenuGazebo" component={MenuGazebo} />
+      <Stack.Screen name="MenuGazeboPaal" component={MenuGazeboPaal} />
+      <Stack.Screen name="MenuGazeboPulisan" component={MenuGazeboPulisan} />
+      <Stack.Screen name="MenuGazeboKinunang" component={MenuGazeboKinunang} />
       <Stack.Screen name="MenuHomestay" component={MenuHometay} />
       <Stack.Screen name="InfoGazebo" component={InfoGazebo} />
       <Stack.Screen name="Chat" component={Chat} />
@@ -75,6 +82,7 @@ const Router = () => {
       <Stack.Screen name="OverviewPage" component={OverviewPage} />
       <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
       <Stack.Screen name="TD" component={TD} />
+      <Stack.Screen name="TDOwner" component={TDOwner} />
       <Stack.Screen name="SuccessPage" component={SuccessPage} />
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />

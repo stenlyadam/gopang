@@ -14,7 +14,7 @@ const CardGazebo = props => {
         alignItems: 'flex-start',
         padding: 0,
         borderBottomColor: '#464646',
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
       }}>
       <View>
         <Image source={{uri: `${props.image}`}} style={styles.Imagee} />

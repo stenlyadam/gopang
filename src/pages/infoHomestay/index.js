@@ -73,7 +73,7 @@ const MenuGazebo = ({navigation, route}) => {
   };
 
   const handleConfirm = (date) => {
-    console.warn("", moment(date).format('dddd, LL'));
+    console.warn("Date : ", moment(date).format('dddd, LL'));
     hideDatePicker();
   };
 
