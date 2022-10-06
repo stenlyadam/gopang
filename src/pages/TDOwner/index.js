@@ -144,49 +144,7 @@ import {
           }}
         />
   
-        <View
-          style={{
-            marginTop: 13,
-            justifyContent: 'space-between',
-            marginBottom: 13,
-            marginLeft: 20,
-            flexDirection: 'row',
-          }}>
-          <View style={{flexDirection: 'row', marginTop: 5}}>
-            <Image source={require('../../assets/icon/Dollar.png')} />
-            <Text
-              style={{
-                fontSize: 15,
-              }}>
-              Payment Method
-            </Text>
-          </View>
-  
-          <TouchableHighlight
-            onPress={() => Alert.alert('SuccessPage')}
-            style={{marginRight: 20}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text
-                style={{
-                  fontSize: 15,
-                  marginTop: 5,
-                }}>
-                Indomaret
-              </Text>
-              <Image source={require('../../assets/icon/ArrowRight.png')} />
-            </View>
-          </TouchableHighlight>
-        </View>
-  
-        <View
-          style={{
-            height: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            width: 371,
-            alignSelf: 'center',
-          }}
-        />
-  
+        
         <View
           style={{
             marginTop: 13,
@@ -234,7 +192,7 @@ import {
                 <ButtonTransaction
                 title={'Paid'}
                 btnView={styles.btnView}
-                onPress={() => navigation.replace('NavigationBar', {uid: uid})}
+                onPress={() => navigation.replace('OnavigationBar', {uid: uid})}
                 />
             </View>
             <View style={{marginLeft:'10%',marginTop:10}}>
