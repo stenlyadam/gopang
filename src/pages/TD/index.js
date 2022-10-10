@@ -17,6 +17,7 @@ import {
   import firebase from '../../config/Firebase';
   import CountDown from 'react-native-countdown-component';
   import ButtonChat from '../../components/atoms/ButtonChat';
+  const dayjs = require('dayjs');
   
   const TransactionDetails = ({navigation, route}) => {
     const {uid, homestayID} = route.params;
@@ -25,8 +26,10 @@ import {
     const [ratingModal,setRatingModal] = useState(false);
     const [defaultRating, setDefaultRating] = useState(0);
     const [maxRating, setmaxRating] = useState([1,2,3,4,5])
-    // const IDhomestay = useState(transaksi.IDhomestay);
-    console.log(transaksi.IDhomestay)
+
+    //quick fix for countdown component not updating
+    const [countdownComponentForceUpdate, setCountdownComponentForceUpdate] = useState(0);
+
     const starImgFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png'
     const starImgCorner = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png'
 
@@ -90,12 +93,7 @@ import {
           }
         });
     };
-  
-    useEffect(() => {
-      getTransaksi();
-    }, []);
-  
-  
+
     const getUser = () => {
       firebase
   
@@ -110,10 +108,20 @@ import {
         //   console.log('ini user', users);
         });
     };
+
+    useEffect(() => navigation.addListener('blur', () => {
+        setTransaksi(null);
+    }), [navigation]);
   
     useEffect(() => {
       getUser();
+      getTransaksi();
     }, []);
+
+    //quick fix for countdown component not updating
+    useEffect(() =>
+              setCountdownComponentForceUpdate(prevState => prevState + 1)
+              , [transaksi?.paymentExpireDateTime])
 
     const sendOnWa = () => {
       let mobile = transaksi.noHandphoneOwner;
@@ -133,6 +141,7 @@ import {
     };
   
     return (
+      <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Modal visible={ratingModal} transparent={true} animationType="slide">
           <View style={styles.Box}>
@@ -155,9 +164,9 @@ import {
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              {transaksi.namaHomestay}
+              Homestay {transaksi.namaHomestay}
             </Text>
-            <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay}</Text>
+            <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay} Beach</Text>
             {/* <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
@@ -176,7 +185,7 @@ import {
                 fontWeight: 'bold',
                 marginTop: 8,
               }}>
-              {transaksi.noHandphoneOwner}
+              Number : {transaksi.noHandphoneOwner}
             </Text>
           </View>
           <Image
@@ -202,24 +211,28 @@ import {
         />
   
         <View style={{marginTop: 13, marginBottom: 13, marginLeft: 20}}>
+          <Text style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginBottom:12
+            }}>Tenant Name</Text>
           <Text
             style={{
               fontSize: 15,
-              fontWeight: 'bold',
             }}>
             {users.name}
           </Text>
           <Text
             style={{
               fontSize: 15,
-              marginTop: 12,
+              marginTop: 10,
             }}>
             {users.email}
           </Text>
           <Text
             style={{
               fontSize: 15,
-              marginTop: 12,
+              marginTop: 10,
             }}>
             {users.number}
           </Text>
@@ -228,44 +241,135 @@ import {
         <View
           style={{
             height: 1,
-  
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             width: 371,
             alignSelf: 'center',
           }}
         />
-  
-        <View
-          style={{
-            marginTop: 13,
-            marginBottom: 13,
-            justifyContent: 'center',
-            // marginLeft: 20,
-            flexDirection: 'row',
-          }}>
-          <CountDown
-            until={86400}
-            digitStyle={{backgroundColor: 'white'}}
-            onFinish={() => alert('finished')}
-            // onPress={() => alert('hello')}
-            size={15}
-          />
+
+      <View
+        style={{
+          marginTop: 13,
+          justifyContent: 'space-between',
+          marginBottom: 13,
+          marginLeft: 20,
+          flexDirection: 'row',
+        }}>
+        <View style={{flexDirection: 'row', marginTop: 5}}>
+          <Text
+            style={{
+              fontSize: 15,
+              color: '#38A7D0'
+            }}>
+            Check In
+          </Text>
         </View>
-  
-        <View
+        <View style={{flexDirection: 'row', marginRight: 20}}>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop: 5,
+            }}>
+            {dayjs(transaksi.checkin).format('dddd, DD MMMM YYYY')}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: 5,
+          justifyContent: 'space-between',
+          marginBottom: 13,
+          marginLeft: 20,
+          flexDirection: 'row',
+        }}>
+        <View style={{flexDirection: 'row', marginTop: 5}}>
+          <Text
+            style={{
+              fontSize: 15,
+              color: '#38A7D0'
+            }}>
+            Check Out
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', marginRight: 20}}>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop: 5,
+            }}>
+            {dayjs(transaksi.checkout).format('dddd, DD MMMM YYYY')}
+          </Text>
+        </View>
+      </View>
+      
+      <View
           style={{
             height: 1,
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             width: 371,
             alignSelf: 'center',
-            bottom: 10,
+            marginBottom: 13,
           }}
         />
-  
-        <ButtonChat
-          title="Chat Owner"
-          onPress={() => sendOnWa()}
-        />
+
+
+        {transaksi.status == 'paid' || transaksi.status == 'completed' ? (
+            <View>
+            <ButtonChat
+              title="Chat Owner"
+              onPress={() => sendOnWa()}
+            />
+            </View>
+        ) : (
+          <View>
+          <View
+          style={{
+            marginTop: 13,
+            marginBottom: 13,
+            justifyContent: 'center',
+            // marginLeft: 20,
+          }}>
+          <Text style={{
+              fontSize: 17,
+              fontWeight:'bold',
+              textAlign:'center'
+            }}>Estimate your order</Text>
+          <CountDown
+            /*
+            ni react-native-countdown-component untuk sementara ada bug:
+            ((https://github.com/talalmajali/react-native-countdown-component/issues/102))
+
+            Depe countdown nda mo ta update walaupun tu data yang torang
+            ada passing ke 'until' itu so ta ganti.
+
+            Untuk sementara, depe fix itu torang msti rubah tu prop 'id' tiap kali torang pe
+            data transaksi berubah, makanya ada tambah state baru yang depe nama 'countdownComponentForceUpdate'
+            */
+            id={countdownComponentForceUpdate} //quick fix for countdown component not updating
+            until={transaksi?.paymentExpireDateTime ? dayjs(transaksi.paymentExpireDateTime).diff(dayjs(), 'second') : 0}
+            digitStyle={{backgroundColor: 'white'}}
+            onFinish={() => alert('finished')}
+            // onPress={() => alert('hello')}
+            size={15}
+            />
+          </View>
+          <View
+            style={{
+              height: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              width: 371,
+              alignSelf: 'center',
+              bottom: 10,
+            }}
+          />
+
+          <ButtonChat
+            title="Chat Owner"
+            onPress={() => sendOnWa()}
+          />
+          </View>
+        )}
   
         <View
           style={{
@@ -292,7 +396,7 @@ import {
                 ) : (
                   <View>
                     <Image style={{width:100,height:100,alignSelf:'center'}} source={require('../../assets/icon/iconOrderUnpaid.png')}/>
-                    <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
+                    <Text style={{fontSize:20,alignSelf:'center',marginBottom:10}}>{transaksi.status}</Text>
                   </View>
                 )}
 
@@ -309,7 +413,8 @@ import {
                         borderRadius:5,
                         borderColor:'#',
                         marginTop:3,
-                        borderWidth:1}} onPress={()=> setRatingModal(true)} >
+                        borderWidth:1,
+                        marginBottom:10}} onPress={()=> setRatingModal(true)} >
                           <Text style={{marginTop:'7%'}}>Click Here</Text>
                     </TouchableOpacity>
                   </View>
@@ -320,6 +425,7 @@ import {
         </View>
         
       </View>
+      </ScrollView>
     );
   };
   
@@ -338,7 +444,7 @@ import {
       height: '50%',
       borderRadius: 5,
       alignSelf: 'center',
-      top: '60%',
+      top: '59%',
     },
     container:{
       flex:1,

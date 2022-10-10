@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {useEffect, useState} from 'react';
 import {
   Image,
@@ -10,40 +11,49 @@ import {
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
-import Calenders from 'react-native-modal-datetime-picker';
+
 import Button from '../../components/atoms/Button';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+const dayjs = require('dayjs');
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
   const [status, setStatus] = useState('');
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [Date,setDate] = useState('');
+  // const [Date, setDate] = useState('');
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [currentDatePickerContext, setCurrentDatePickerContext] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     setLoading(true);
-    const data = {
-      price: homestay.price,
-      name: homestay.name,
-      description: homestay.description,
-      alamat: homestay.alamat,
-      location: homestay.location,
-      photo: homestay.photo,
-      bedroom: homestay.bedroom,
-      bathroom: homestay.bathroom,
-      AC: homestay.AC,
-      wifi: homestay.wifi,
-      status: 'unavailable',
-    };
-    firebase.database().ref(`homestay/${homestayID}`).set(data);
+    // const data = {
+    //   price: homestay.price,
+    //   name: homestay.name,
+    //   description: homestay.description,
+    //   alamat: homestay.alamat,
+    //   location: homestay.location,
+    //   photo: homestay.photo,
+    //   bedroom: homestay.bedroom,
+    //   bathroom: homestay.bathroom,
+    //   AC: homestay.AC,
+    //   wifi: homestay.wifi,
+    //   status: 'unavailable',
+    // };
+    // firebase.database().ref(`homestay/${homestayID}`).set(data);
     setTimeout(() => {
       setLoading(false);
-      navigation.navigate('OverviewPage', {uid: uid, homestayID: homestayID});
-    }, 2000);
+      navigation.navigate('OverviewPage', {
+        uid: uid,
+        homestayID: homestayID,
+        checkInDate: checkInDate.toString(),
+        checkOutDate: checkOutDate.toString(),
+      });
+    }, 1000);
   };
 
   const getHomestay = () => {
@@ -64,18 +74,7 @@ const MenuGazebo = ({navigation, route}) => {
     getHomestay();
   }, []);
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    console.warn("Date : ", moment(date).format('dddd, LL'));
-    hideDatePicker();
-  };
+  const toggleDatePicker = isVisible => setShowDatePicker(isVisible);
 
   return (
     <>
@@ -211,18 +210,79 @@ const MenuGazebo = ({navigation, route}) => {
             </View>
 
             {/* Check in/out */}
-            <View style={{marginLeft: 37, marginTop: 22}}>
-            <View>
-              <Button title={'Check in'} onPress={showDatePicker} />
-              <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                mode="date"
-                onConfirm={handleConfirm}
-                onCancel={hideDatePicker}
-                onChange={value => setDate(value)}
-              />
-              <Text>{Date}</Text>
-            </View>
+            <View style={{marginLeft: '4.8%', marginTop: 22}}>
+              <View>
+                {[
+                  [
+                    'Check-in',
+                    () => {
+                      toggleDatePicker(true);
+                      setCurrentDatePickerContext('checkIn');
+                    },
+                    checkInDate,
+                  ],
+                  [
+                    'Check-out',
+                    () => {
+                      toggleDatePicker(true);
+                      setCurrentDatePickerContext('checkOut');
+                    },
+                    checkOutDate,
+                  ],
+                ].map((el, idx) => (
+                  <View key={idx} style={{marginBottom: 10}}>
+                    <Text
+                      style={{
+                        color: '#38A7D0',
+                      }}>
+                      {el[0]}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          // backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                          // borderBottomWidth: 3,
+                          // borderBottomColor: 'rgba(0, 0, 0, 0.09)',
+                          // borderRadius: 3,
+                          // padding: 5,
+                          paddingTop: 15,
+                          alignItems: 'center',
+                          borderRadius: 20,
+                          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                          borderBottomColor: 'rgba(0, 0, 0, 0.10)',
+                          borderBottomWidth: 3,
+                          width: 200,
+                          height: 50,
+                        }}
+                        onPress={el[1]}>
+                        <Text>
+                          {el[2]
+                            ? dayjs(el[2]).format('dddd, DD MMMM YYYY')
+                            : `Please add a ${el[0].toLowerCase()} date`}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ))}
+
+                <Text>Max. 31 Days</Text>
+
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 18,
+                  }}>
+                  {checkInDate && checkOutDate
+                    ? `${dayjs(checkOutDate).diff(
+                        dayjs(checkInDate),
+                        'day',
+                      )} malam`
+                    : '-'}
+                </Text>
+              </View>
 
               <View
                 style={{
@@ -255,6 +315,20 @@ const MenuGazebo = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
+      <DateTimePickerModal
+        onConfirm={date => {
+          if (currentDatePickerContext === '')
+            return alert("Internal Error: Date Picker context isn't primed!");
+
+          currentDatePickerContext === 'checkIn'
+            ? setCheckInDate(date)
+            : setCheckOutDate(date);
+
+          toggleDatePicker(false);
+        }}
+        onCancel={() => toggleDatePicker(false)}
+        isVisible={showDatePicker}
+      />
       {loading && <Loading />}
     </>
   );
@@ -292,7 +366,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     alignItems: 'center',
     borderRadius: 20,
-    backgroundColor: '#7E7E7E',
+    backgroundColor: 'grey',
     width: 191,
     height: 57.35,
     marginLeft: 14,

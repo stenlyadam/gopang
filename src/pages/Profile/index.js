@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
+import Loading from '../../components/molecules/Loading';
 
 const Profile = ({navigation, route}) => {
   const {uid} = route.params;
   const [users, setUsers] = useState({});
   const [onPhoto, setOnPhoto] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getUser = () => {
     firebase
@@ -36,10 +38,15 @@ const Profile = ({navigation, route}) => {
 
   const onSignoutPress=()=>{
     firebase.auth().signOut();
-    return navigation.replace('UserScreen');
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      return navigation.replace('UserScreen');
+    }, 2000);
   }
 
   return (
+    <>
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="My Profile" />
 
@@ -170,6 +177,8 @@ const Profile = ({navigation, route}) => {
         </View>
       </View>
     </View>
+    {loading && <Loading />}
+    </>
   );
 };
 

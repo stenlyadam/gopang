@@ -16,12 +16,19 @@ import {
   import firebase from '../../config/Firebase';
   import CountDown from 'react-native-countdown-component';
   import ButtonChat from '../../components/atoms/ButtonChat';
+  import Loading from '../../components/molecules/Loading';
+  const dayjs = require('dayjs');
   
   const TDOwner = ({navigation, route}) => {
     const {uid, homestayID} = route.params;
     const [transaksi, setTransaksi] = useState({});
-    const [users, setUsers] = useState({});
-    const [userss, setUserss] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [homestay,setHomestay] = useState({});
+    const [harga, setHarga] = useState('');
+    const [status, setStatus] = useState('');
+
+    //quick fix for countdown component not updating
+    const [countdownComponentForceUpdate, setCountdownComponentForceUpdate] = useState(0);
     
     const getTransaksi = () => {
       firebase
@@ -35,10 +42,110 @@ import {
           }
         });
     };
+
+    const getHomestay = () => {
+      firebase
   
+        .database()
+        .ref(`homestay/${uid}`)
+        .on('value', res => {
+          if (res.val()) {
+            setHomestay(res.val());
+            setHarga(res.val().price);
+            setStatus(res.val().status);
+          }
+        });
+    };
+
+    useEffect(() => navigation.addListener('blur', () => {
+        setTransaksi(null);
+    }), [navigation]);
+
     useEffect(() => {
       getTransaksi();
+      getHomestay();
     }, []);
+
+    //quick fix for countdown component not updating
+    useEffect(() =>
+        setCountdownComponentForceUpdate(prevState => prevState + 1)
+        , [transaksi?.paymentExpireDateTime])
+
+    const handleSubmitPaid = () => {
+      setLoading(true);
+      const data = {
+        IDhomestay:transaksi.IDhomestay,
+        IDpenyewa:transaksi.IDpenyewa,
+        alamatHomestay:transaksi.alamatHomestay,
+        emailPenyewa:transaksi.emailPenyewa,
+        fotoHomestay:transaksi.fotoHomestay,
+        harga:transaksi.harga,
+        kategori:transaksi.kategori,
+        namaHomestay:transaksi.namaHomestay,
+        namaOwner:transaksi.namaOwner,
+        namaPenyewa:transaksi.namaPenyewa,
+        noHandphoneOwner:transaksi.noHandphoneOwner,
+        phonePenyewa:transaksi.phonePenyewa,
+        status: 'paid',
+        total:transaksi.total,
+        time: 86400,
+        checkin: transaksi.checkin,
+        checkout: transaksi.checkout,
+        paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
+      };
+      firebase.database().ref(`transaksi/${homestayID}`).set(data);
+      setTimeout(() => {
+        setLoading(false);
+        alert('Homestay Paid Off');
+      }, 2000);
+    };
+
+    const handleSubmitCompleted = () => {
+      setLoading(true);
+      const data = {
+        IDhomestay:transaksi.IDhomestay,
+        IDpenyewa:transaksi.IDpenyewa,
+        alamatHomestay:transaksi.alamatHomestay,
+        emailPenyewa:transaksi.emailPenyewa,
+        fotoHomestay:transaksi.fotoHomestay,
+        harga:transaksi.harga,
+        kategori:transaksi.kategori,
+        namaHomestay:transaksi.namaHomestay,
+        namaOwner:transaksi.namaOwner,
+        namaPenyewa:transaksi.namaPenyewa,
+        noHandphoneOwner:transaksi.noHandphoneOwner,
+        phonePenyewa:transaksi.phonePenyewa,
+        status: 'completed',
+        total:transaksi.total,
+        time: 86400,
+        checkin: transaksi.checkin,
+        checkout: transaksi.checkout,
+        paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
+      };
+      firebase.database().ref(`transaksi/${homestayID}`).set(data);
+
+      const dataHomestay = {
+        price: homestay.price,
+        name: homestay.name,
+        description: homestay.description,
+        alamat: homestay.alamat,
+        location: homestay.location,
+        photo: homestay.photo,
+        bedroom: homestay.bedroom,
+        bathroom: homestay.bathroom,
+        AC: homestay.AC,
+        wifi: homestay.wifi,
+        ratings: homestay.ratings,
+        status: 'available',
+      };
+      firebase.database().ref(`homestay/${uid}`).set(dataHomestay);
+      
+      setTimeout(() => {
+        setLoading(false);
+        alert('Homestay Check Out');
+        navigation.replace('OnavigationBar', {uid: uid})
+      }, 2000);
+    };
 
     const sendOnWa = () => {
         let mobile = transaksi.phonePenyewa;
@@ -58,15 +165,17 @@ import {
       };
   
     return (
+      <>
+      <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Header title="Transaction" />
   
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              {transaksi.namaHomestay}
+              Homestay {transaksi.namaHomestay}
             </Text>
-            <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay}</Text>
+            <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay} Beach</Text>
             {/* <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
@@ -85,7 +194,7 @@ import {
                 fontWeight: 'bold',
                 marginTop: 8,
               }}>
-              {transaksi.noHandphoneOwner}
+              Number : {transaksi.noHandphoneOwner}
             </Text>
           </View>
           <Image
@@ -111,10 +220,14 @@ import {
         />
   
         <View style={{marginTop: 13, marginBottom: 13, marginLeft: 20}}>
+          <Text style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginBottom:12
+            }}>Tenant Name</Text>
           <Text
             style={{
               fontSize: 15,
-              fontWeight: 'bold',
             }}>
             {transaksi.namaPenyewa}
           </Text>
@@ -137,38 +250,10 @@ import {
         <View
           style={{
             height: 1,
-  
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             width: 371,
             alignSelf: 'center',
-          }}
-        />
-  
-        
-        <View
-          style={{
-            marginTop: 13,
-            marginBottom: 13,
-            justifyContent: 'center',
-            // marginLeft: 20,
-            flexDirection: 'row',
-          }}>
-          <CountDown
-            until={2400000}
-            digitStyle={{backgroundColor: 'white'}}
-            onFinish={() => alert('finished')}
-            // onPress={() => alert('hello')}
-            size={15}
-          />
-        </View>
-  
-        <View
-          style={{
-            height: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            width: 371,
-            alignSelf: 'center',
-            bottom: 10,
+            marginBottom:10
           }}
         />
   
@@ -187,22 +272,56 @@ import {
           }}
         />
   
-        <View style={{flexDirection:'row',alignSelf:'center',marginTop:40}}>
-            <View>
-                <ButtonTransaction
-                title={'Paid'}
-                btnView={styles.btnView}
-                onPress={() => navigation.replace('OnavigationBar', {uid: uid})}
-                />
-            </View>
-            <View style={{marginLeft:'10%',marginTop:10}}>
+        
+
+            {transaksi.status !== 'completed'?(
+              <View style={{alignSelf:'center'}}>
+                  {transaksi.status == 'unpaid'?(
+                    <View style={{marginTop:20}}>
+                    <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
+                    <Text style={{fontSize:20,alignSelf:'center',fontWeight:'bold'}}>{transaksi.status}</Text>
+                    <Text style={{
+                      marginTop: 10,
+                      fontSize:18
+                    }}>Has it paid off ?</Text>
+                    </View>
+                  ) : (
+                    <View style={{marginTop:20}}>
+                    <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
+                    <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
+                    <Text style={{
+                      marginTop:10,
+                      fontSize:18,
+                    }}>Have you checked out ?</Text>
+                    </View>
+                  )}
+
+                  {transaksi.status == 'unpaid' ? (
+                      <ButtonTransaction
+                      title={'Paid'}
+                      btnView={styles.btnView}
+                      onPress={() => handleSubmitPaid(homestayID)}
+                      />
+                  ) : (
+                    <ButtonTransaction
+                      title={'Completed'}
+                      btnView={styles.btnView}
+                      onPress={() => handleSubmitCompleted(homestayID)}
+                      />
+                  )}
+                  
+              </View>
+            ):(
+              <View style={{marginTop:50}}>
                 <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
                 <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
-            </View>
-            
-        </View>
+              </View>
+            )}
         
       </View>
+      </ScrollView>
+      {loading && <Loading />}
+      </>
     );
   };
   
@@ -210,8 +329,8 @@ import {
   
   const styles = StyleSheet.create({
     btnView: {
-      marginTop: '20%',
-      marginBottom: 57.69,
+      marginTop:5,
+      marginBottom: 15,
       alignItems: 'center',
     },
   });
