@@ -414,7 +414,8 @@ import {
                         borderColor:'#',
                         marginTop:3,
                         borderWidth:1,
-                        marginBottom:10}} onPress={()=> setRatingModal(true)} >
+                        marginBottom:10,
+                        }} onPress={()=> setRatingModal(true)} >
                           <Text style={{marginTop:'7%'}}>Click Here</Text>
                     </TouchableOpacity>
                   </View>

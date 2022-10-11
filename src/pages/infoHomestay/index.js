@@ -30,30 +30,32 @@ const MenuGazebo = ({navigation, route}) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
-    setLoading(true);
-    // const data = {
-    //   price: homestay.price,
-    //   name: homestay.name,
-    //   description: homestay.description,
-    //   alamat: homestay.alamat,
-    //   location: homestay.location,
-    //   photo: homestay.photo,
-    //   bedroom: homestay.bedroom,
-    //   bathroom: homestay.bathroom,
-    //   AC: homestay.AC,
-    //   wifi: homestay.wifi,
-    //   status: 'unavailable',
-    // };
-    // firebase.database().ref(`homestay/${homestayID}`).set(data);
-    setTimeout(() => {
-      setLoading(false);
-      navigation.navigate('OverviewPage', {
-        uid: uid,
-        homestayID: homestayID,
-        checkInDate: checkInDate.toString(),
-        checkOutDate: checkOutDate.toString(),
-      });
-    }, 1000);
+        {checkInDate === null && checkOutDate === null ?(
+          alert("Please add Check In or Check Out ! ")
+        ):(
+          <View>
+          {checkOutDate == null?(
+            alert("Please add Check Out")
+          ):(
+              <View>
+                {checkInDate == null ?(
+                  alert("Please add Check In")
+                ):(
+                    setLoading(true),
+                    setTimeout(() => {
+                    setLoading(false);
+                    navigation.navigate('OverviewPage', {
+                      uid: uid,
+                      homestayID: homestayID,
+                      checkInDate: checkInDate.toString(),
+                      checkOutDate: checkOutDate.toString(),
+                    });
+                  }, 1000)
+                )}
+              </View>
+          )}
+          </View>
+        )}
   };
 
   const getHomestay = () => {
@@ -300,11 +302,11 @@ const MenuGazebo = ({navigation, route}) => {
                   /Night
                 </Text>
                 {status == 'available' ? (
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => handleSubmit(homestayID)}>
-                    <Text style={styles.textButton}>Booking</Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={() => handleSubmit(homestayID)}>
+                      <Text style={styles.textButton}>Booking</Text>
+                    </TouchableOpacity>
                 ) : (
                   <TouchableOpacity style={styles.button2}>
                     <Text style={styles.textButton}>Booked</Text>
