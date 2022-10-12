@@ -61,6 +61,7 @@ const NavOrder = ({navigation,route}) => {
               alamat={key.alamatHomestay}
               harga={key.total}
               status={key.status}
+              customer={key.namaPenyewa}
               photo={key.fotoHomestay}
               onPress={() => handleSubmit(key.id)}
             />
@@ -113,6 +114,7 @@ const NavOrder = ({navigation,route}) => {
               alamat={key.alamatHomestay}
               harga={key.total}
               status={key.status}
+              customer={key.namaPenyewa}
               photo={key.fotoHomestay}
               onPress={() => handleSubmit(key.id)}
             />
@@ -135,13 +137,14 @@ const NavOrder = ({navigation,route}) => {
       style={{backgroundColor: 'white'}}
       activeColor="black"
       inactiveColor="#C7C7C7"
+      labelStyle={{fontSize:12}}
     />
   );
 
   return (
     <View style={{flex: 1}}>
       <View style={{backgroundColor:'white'}}>
-        <Text style={{fontSize:40,alignSelf:'center',marginTop:15,color:'black', fontWeight:'bold'}}>ORDER</Text>
+        <Text style={{fontSize:24,alignSelf:'center',marginTop:15,color:'black', fontWeight:'bold'}}>ORDER</Text>
       </View>
       <TabView
         renderTabBar={renderTabBar}

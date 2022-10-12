@@ -166,44 +166,45 @@ import {
   
     return (
       <>
-      <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white'}}>
+      <ScrollView>
         <Header title="Transaction" />
   
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              Homestay {transaksi.namaHomestay}
+              {transaksi.namaHomestay}
             </Text>
             <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay} Beach</Text>
             {/* <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
             /> */}
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 18,
-              }}>
-              Owner : {transaksi.namaOwner}
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 8,
-              }}>
-              Number : {transaksi.noHandphoneOwner}
-            </Text>
+            <View style={{flexDirection:'column'}}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  marginTop: 18,
+                }}>
+                Owner
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                }}>
+                {transaksi.namaOwner}
+                {transaksi.noHandphoneOwner}
+              </Text>
+            </View>
           </View>
           <Image
             style={{
               position: 'absolute',
               marginTop: 30,
-              marginLeft: '65.1%',
-              width: 111,
-              height: 106,
+              marginLeft: '63%',
+              width: 120,
+              height: 110,
               borderRadius: 20,
             }}
             source={{uri: `data:image/jpeg;base64, ${transaksi.fotoHomestay}`}}
@@ -224,23 +225,23 @@ import {
               fontSize: 15,
               fontWeight: 'bold',
               marginBottom:12
-            }}>Tenant Name</Text>
+            }}>Customer</Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
             }}>
             {transaksi.namaPenyewa}
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 12,
             }}>
             {transaksi.emailPenyewa}
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 12,
             }}>
             {transaksi.phonePenyewa}
@@ -272,54 +273,52 @@ import {
           }}
         />
   
-        
-
-            {transaksi.status !== 'completed'?(
-              <View style={{alignSelf:'center'}}>
-                  {transaksi.status == 'unpaid'?(
-                    <View style={{marginTop:20}}>
-                    <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
-                    <Text style={{fontSize:20,alignSelf:'center',fontWeight:'bold'}}>{transaksi.status}</Text>
-                    <Text style={{
-                      marginTop: 10,
-                      fontSize:18
-                    }}>Has it paid off ?</Text>
-                    </View>
-                  ) : (
-                    <View style={{marginTop:20}}>
-                    <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
-                    <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
-                    <Text style={{
-                      marginTop:10,
-                      fontSize:18,
-                    }}>Have you checked out ?</Text>
-                    </View>
-                  )}
-
-                  {transaksi.status == 'unpaid' ? (
-                      <ButtonTransaction
-                      title={'Paid'}
-                      btnView={styles.btnView}
-                      onPress={() => handleSubmitPaid(homestayID)}
-                      />
-                  ) : (
-                    <ButtonTransaction
-                      title={'Completed'}
-                      btnView={styles.btnView}
-                      onPress={() => handleSubmitCompleted(homestayID)}
-                      />
-                  )}
-                  
-              </View>
-            ):(
-              <View style={{marginTop:50}}>
+        {transaksi.status !== 'completed'?(
+          <View style={{alignSelf:'center'}}>
+              {transaksi.status == 'unpaid'?(
+                <View style={{marginTop:50}}>
+                <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
+                <Text style={{fontSize:20,alignSelf:'center',fontWeight:'bold'}}>{transaksi.status}</Text>
+                <Text style={{
+                  marginTop: 20,
+                  fontSize:18
+                }}>Has it paid off ?</Text>
+                </View>
+              ) : (
+                <View style={{marginTop:50}}>
                 <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
                 <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
-              </View>
-            )}
-        
-      </View>
+                <Text style={{
+                  marginTop:10,
+                  fontSize:18,
+                }}>Have you checked out ?</Text>
+                </View>
+              )}
+
+              {transaksi.status == 'unpaid' ? (
+                  <ButtonTransaction
+                  title={'Paid'}
+                  btnView={styles.btnView}
+                  onPress={() => handleSubmitPaid(homestayID)}
+                  />
+              ) : (
+                <ButtonTransaction
+                  title={'Completed'}
+                  btnView={styles.btnView}
+                  onPress={() => handleSubmitCompleted(homestayID)}
+                  />
+              )}
+              
+          </View>
+        ):(
+          <View style={{marginTop:50}}>
+            <Image style={{width:80,height:80,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
+            <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
+          </View>
+        )}
+      
       </ScrollView>
+      </View>
       {loading && <Loading />}
       </>
     );
@@ -331,6 +330,7 @@ import {
     btnView: {
       marginTop:5,
       marginBottom: 15,
+      flex:1,
       alignItems: 'center',
     },
   });

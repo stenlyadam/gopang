@@ -143,6 +143,8 @@ import {
     return (
       <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white'}}>
+        <Header title="Transaction" />
+
         <Modal visible={ratingModal} transparent={true} animationType="slide">
           <View style={styles.Box}>
               <CustomRatingBar />
@@ -159,34 +161,39 @@ import {
           </View>
         </Modal>
 
-        <Header title="Transaction" />
-  
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-              Homestay {transaksi.namaHomestay}
+              {transaksi.namaHomestay}
             </Text>
             <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay} Beach</Text>
             {/* <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
             /> */}
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 18,
-              }}>
-              Owner : {transaksi.namaOwner}
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 8,
-              }}>
-              Number : {transaksi.noHandphoneOwner}
-            </Text>
+            <View style={{flexDirection:'column'}}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  marginTop: 18,
+                }}>
+                Owner
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginTop: 5,
+                }}>
+                {transaksi.namaOwner}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                }}>
+                {transaksi.noHandphoneOwner}
+              </Text>
+            </View>
           </View>
           <Image
             style={{
@@ -215,23 +222,23 @@ import {
               fontSize: 15,
               fontWeight: 'bold',
               marginBottom:12
-            }}>Tenant Name</Text>
+            }}>Customer</Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
             }}>
             {users.name}
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 10,
             }}>
             {users.email}
           </Text>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 10,
             }}>
             {users.number}
@@ -267,7 +274,7 @@ import {
         <View style={{flexDirection: 'row', marginRight: 20}}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 5,
             }}>
             {dayjs(transaksi.checkin).format('dddd, DD MMMM YYYY')}
@@ -295,7 +302,7 @@ import {
         <View style={{flexDirection: 'row', marginRight: 20}}>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 14,
               marginTop: 5,
             }}>
             {dayjs(transaksi.checkout).format('dddd, DD MMMM YYYY')}
@@ -304,126 +311,126 @@ import {
       </View>
       
       <View
-          style={{
-            height: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            width: 371,
-            alignSelf: 'center',
-            marginBottom: 13,
-          }}
-        />
+        style={{
+          height: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: 371,
+          alignSelf: 'center',
+          marginBottom: 13,
+        }}
+      />
 
 
-        {transaksi.status == 'paid' || transaksi.status == 'completed' ? (
-            <View>
-            <ButtonChat
-              title="Chat Owner"
-              onPress={() => sendOnWa()}
-            />
-            </View>
-        ) : (
+      {transaksi.status == 'paid' || transaksi.status == 'completed' ? (
           <View>
-          <View
-          style={{
-            marginTop: 13,
-            marginBottom: 13,
-            justifyContent: 'center',
-            // marginLeft: 20,
-          }}>
-          <Text style={{
-              fontSize: 17,
-              fontWeight:'bold',
-              textAlign:'center'
-            }}>Estimate your order</Text>
-          <CountDown
-            /*
-            ni react-native-countdown-component untuk sementara ada bug:
-            ((https://github.com/talalmajali/react-native-countdown-component/issues/102))
-
-            Depe countdown nda mo ta update walaupun tu data yang torang
-            ada passing ke 'until' itu so ta ganti.
-
-            Untuk sementara, depe fix itu torang msti rubah tu prop 'id' tiap kali torang pe
-            data transaksi berubah, makanya ada tambah state baru yang depe nama 'countdownComponentForceUpdate'
-            */
-            id={countdownComponentForceUpdate} //quick fix for countdown component not updating
-            until={transaksi?.paymentExpireDateTime ? dayjs(transaksi.paymentExpireDateTime).diff(dayjs(), 'second') : 0}
-            digitStyle={{backgroundColor: 'white'}}
-            onFinish={() => alert('finished')}
-            // onPress={() => alert('hello')}
-            size={15}
-            />
-          </View>
-          <View
-            style={{
-              height: 1,
-              backgroundColor: 'rgba(0, 0, 0, 0.3)',
-              width: 371,
-              alignSelf: 'center',
-              bottom: 10,
-            }}
-          />
-
           <ButtonChat
             title="Chat Owner"
             onPress={() => sendOnWa()}
           />
           </View>
-        )}
-  
+      ) : (
+        <View>
+        <View
+        style={{
+          marginTop: 13,
+          marginBottom: 13,
+          justifyContent: 'center',
+          // marginLeft: 20,
+        }}>
+        <Text style={{
+            fontSize: 17,
+            fontWeight:'bold',
+            textAlign:'center'
+          }}>Estimate your order</Text>
+        <CountDown
+          /*
+          ni react-native-countdown-component untuk sementara ada bug:
+          ((https://github.com/talalmajali/react-native-countdown-component/issues/102))
+
+          Depe countdown nda mo ta update walaupun tu data yang torang
+          ada passing ke 'until' itu so ta ganti.
+
+          Untuk sementara, depe fix itu torang msti rubah tu prop 'id' tiap kali torang pe
+          data transaksi berubah, makanya ada tambah state baru yang depe nama 'countdownComponentForceUpdate'
+          */
+          id={countdownComponentForceUpdate} //quick fix for countdown component not updating
+          until={transaksi?.paymentExpireDateTime ? dayjs(transaksi.paymentExpireDateTime).diff(dayjs(), 'second') : 0}
+          digitStyle={{backgroundColor: 'white'}}
+          onFinish={() => alert('finished')}
+          // onPress={() => alert('hello')}
+          size={15}
+          />
+        </View>
         <View
           style={{
             height: 1,
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             width: 371,
             alignSelf: 'center',
-            top: 10,
+            bottom: 10,
           }}
         />
-  
-        <View style={{alignSelf:'center',marginTop:40}}>
-            <View>
-                {/* <ButtonTransaction
-                title={'Paid'}
-                btnView={styles.btnView}
-                onPress={() => navigation.replace('NavigationBar', {uid: uid})}
-                /> */}
-                {transaksi.status == 'paid' || transaksi.status == 'completed' ? (
-                  <View>
-                    <Image style={{width:100,height:100,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
-                    <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
-                  </View>
-                ) : (
-                  <View>
-                    <Image style={{width:100,height:100,alignSelf:'center'}} source={require('../../assets/icon/iconOrderUnpaid.png')}/>
-                    <Text style={{fontSize:20,alignSelf:'center',marginBottom:10}}>{transaksi.status}</Text>
-                  </View>
-                )}
 
-                {transaksi.status == 'completed'&&(
-                  <View>
-                    <Text style={{alignSelf:'center',marginTop:20}}>Give us a feedback</Text>
-                    <TouchableOpacity 
-                      style={{
-                        width:80,
-                        height:30,
-                        backgroundColor:'white',
-                        alignItems:'center',
-                        alignSelf:'center',
-                        borderRadius:5,
-                        borderColor:'#',
-                        marginTop:3,
-                        borderWidth:1,
-                        marginBottom:10,
-                        }} onPress={()=> setRatingModal(true)} >
-                          <Text style={{marginTop:'7%'}}>Click Here</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                
-                {/* <ButtonTransaction title={'Rating'} onPress={()=> setRatingModal(true)} /> */}
-            </View>
+        <ButtonChat
+          title="Chat Owner"
+          onPress={() => sendOnWa()}
+        />
         </View>
+      )}
+
+      <View
+        style={{
+          height: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: 371,
+          alignSelf: 'center',
+          top: 10,
+        }}
+      />
+
+      <View style={{alignSelf:'center',marginTop:40}}>
+          <View>
+              {/* <ButtonTransaction
+              title={'Paid'}
+              btnView={styles.btnView}
+              onPress={() => navigation.replace('NavigationBar', {uid: uid})}
+              /> */}
+              {transaksi.status == 'paid' || transaksi.status == 'completed' ? (
+                <View>
+                  <Image style={{width:100,height:100,alignSelf:'center'}} source={require('../../assets/icon/iconOrderStatus.png')}/>
+                  <Text style={{fontSize:20,alignSelf:'center'}}>{transaksi.status}</Text>
+                </View>
+              ) : (
+                <View>
+                  <Image style={{width:100,height:100,alignSelf:'center'}} source={require('../../assets/icon/iconOrderUnpaid.png')}/>
+                  <Text style={{fontSize:20,alignSelf:'center',marginBottom:10}}>{transaksi.status}</Text>
+                </View>
+              )}
+
+              {transaksi.status == 'completed'&&(
+                <View>
+                  <Text style={{alignSelf:'center',marginTop:20}}>Give us a feedback</Text>
+                  <TouchableOpacity 
+                    style={{
+                      width:80,
+                      height:30,
+                      backgroundColor:'white',
+                      alignItems:'center',
+                      alignSelf:'center',
+                      borderRadius:5,
+                      borderColor:'#',
+                      marginTop:3,
+                      borderWidth:1,
+                      marginBottom:10,
+                      }} onPress={()=> setRatingModal(true)} >
+                        <Text style={{marginTop:'7%'}}>Click Here</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+              
+              {/* <ButtonTransaction title={'Rating'} onPress={()=> setRatingModal(true)} /> */}
+          </View>
+      </View>
         
       </View>
       </ScrollView>
