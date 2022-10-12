@@ -147,6 +147,12 @@ import {
 
         <Modal visible={ratingModal} transparent={true} animationType="slide">
           <View style={styles.Box}>
+              <Text style={{
+                position:'absolute',
+                fontSize:20,
+                alignSelf:'center',
+                marginTop:'12%'
+                }}>Rating</Text>
               <CustomRatingBar />
               <Text style={styles.TextStyle}>
               {defaultRating + '/' + maxRating.length}
@@ -465,6 +471,7 @@ import {
     CustomRatingBarStyle:{
         justifyContent:'center',
         flexDirection:'row',
+        marginTop:'20%'
     },
     starImgStyle:{
       
