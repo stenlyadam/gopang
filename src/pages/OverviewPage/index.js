@@ -13,7 +13,7 @@ import firebase from '../../config/Firebase';
 const dayjs = require('dayjs');
 
 const OverviewPage = ({navigation, route}) => {
-  const {uid, homestayID,checkInDate,checkOutDate} = route.params;
+  const {uid, homestayID, checkInDate, checkOutDate} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
 
@@ -56,6 +56,8 @@ const OverviewPage = ({navigation, route}) => {
       bathroom: homestay.bathroom,
       AC: homestay.AC,
       wifi: homestay.wifi,
+      ratings: homestay.ratings,
+      totalRating: homestay.totalRating,
       status: 'unavailable',
     };
     firebase.database().ref(`homestay/${homestayID}`).set(dataHomestay);
@@ -63,8 +65,8 @@ const OverviewPage = ({navigation, route}) => {
     navigation.replace('TransactionDetails', {
       uid: uid,
       homestayID: homestayID,
-      checkInDate:checkInDate,
-      checkOutDate:checkOutDate
+      checkInDate: checkInDate,
+      checkOutDate: checkOutDate,
     });
   };
 
@@ -116,7 +118,6 @@ const OverviewPage = ({navigation, route}) => {
     getUser();
     getUserr();
   }, []);
-
 
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
@@ -206,35 +207,34 @@ const OverviewPage = ({navigation, route}) => {
           }}
         />
 
-
-      <View
-        style={{
-          marginTop: 13,
-          justifyContent: 'space-between',
-          marginBottom: 13,
-          marginLeft: 20,
-          flexDirection: 'row',
-        }}>
-        <View style={{flexDirection: 'row', marginTop: 5}}>
-          <Text
-            style={{
-              fontSize: 15,
-            }}>
-            CheckIn
-          </Text>
+        <View
+          style={{
+            marginTop: 13,
+            justifyContent: 'space-between',
+            marginBottom: 13,
+            marginLeft: 20,
+            flexDirection: 'row',
+          }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+              }}>
+              CheckIn
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginTop: 5,
+              }}>
+              {dayjs(checkInDate).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
         </View>
-        <View style={{flexDirection: 'row', marginRight: 20}}>
-          <Text
-            style={{
-              fontSize: 15,
-              marginTop: 5,
-            }}>
-            {dayjs(checkInDate).format('dddd, DD MMMM YYYY')}
-          </Text>
-        </View>
-      </View>
 
-      <View
+        <View
           style={{
             height: 1,
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -243,32 +243,32 @@ const OverviewPage = ({navigation, route}) => {
           }}
         />
 
-      <View
-        style={{
-          marginTop: 13,
-          justifyContent: 'space-between',
-          marginBottom: 13,
-          marginLeft: 20,
-          flexDirection: 'row',
-        }}>
-        <View style={{flexDirection: 'row', marginTop: 5}}>
-          <Text
-            style={{
-              fontSize: 15,
-            }}>
-            CheckOut
-          </Text>
+        <View
+          style={{
+            marginTop: 13,
+            justifyContent: 'space-between',
+            marginBottom: 13,
+            marginLeft: 20,
+            flexDirection: 'row',
+          }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+              }}>
+              CheckOut
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginTop: 5,
+              }}>
+              {dayjs(checkOutDate).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
         </View>
-        <View style={{flexDirection: 'row', marginRight: 20}}>
-          <Text
-            style={{
-              fontSize: 15,
-              marginTop: 5,
-            }}>
-            {dayjs(checkOutDate).format('dddd, DD MMMM YYYY')}
-          </Text>
-        </View>
-      </View>
         <View
           style={{
             height: 1,
@@ -335,7 +335,7 @@ const OverviewPage = ({navigation, route}) => {
             Rp {harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </Text>
         </View>
-          
+
         <ButtonTransaction
           title={'Confirm'}
           btnView={styles.btnView}

@@ -12,7 +12,7 @@ import Header from '../../components/molecules/header';
 import CardGazebo from '../../components/molecules/CardGazebo';
 import firebase from '../../config/Firebase';
 import {Picker} from '@react-native-picker/picker';
-import { G } from 'react-native-svg';
+import {G} from 'react-native-svg';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid} = route.params;
@@ -58,131 +58,118 @@ const MenuGazebo = ({navigation, route}) => {
 
       {/* Gazebo 1 */}
       <Text
+        style={{
+          marginLeft: 30,
+          fontSize: 14,
+          marginBottom: 5,
+          color: '#38A7D0',
+          fontSize: 15,
+        }}>
+        By Destination
+      </Text>
+      <View style={{flexDirection: 'row'}}>
+        <View
           style={{
-            marginLeft: 30,
-            fontSize: 14,
-            marginBottom:5,
-            color: '#38A7D0',
-            fontSize:15
+            borderWidth: 0.3,
+            height: 41,
+            width: 146,
+            borderRadius: 10,
+            marginLeft: 20,
+            marginBottom: 10,
           }}>
-          By Destination
-        </Text>
-        <View style={{flexDirection:'row'}}>
-            <View
-              style={{
-                borderWidth: 0.3,
-                height: 41,
-                width: 146,
-                borderRadius: 10,
-                marginLeft: 20,
-                marginBottom:10,
-              }}>
-              <Picker
-                selectedValue={selectedValue}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedValue(itemValue)
-                }
-                selectedStatus={selectedStatus}
-                onStatusChange={(itemValue, itemIndex) =>
-                  setSelectedValue(itemValue)
-                }
-                >
-                  <Picker.Item
-                  label="All"
-                  value="All"
-                  style={{fontSize: 15}}
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+            selectedStatus={selectedStatus}
+            onStatusChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }>
+            <Picker.Item label="All" value="All" style={{fontSize: 15}} />
+            <Picker.Item label="Paal" value="Paal" style={{fontSize: 15}} />
+            <Picker.Item
+              label="Pulisan"
+              value="Pulisan"
+              style={{fontSize: 15}}
+            />
+            <Picker.Item
+              label="Kinunang"
+              value="Kinunang"
+              style={{fontSize: 15}}
+            />
+          </Picker>
+        </View>
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.elevation}>
+        {selectedValue === 'All' && (
+          <View>
+            {gazebo.map(key => (
+              <View>
+                <CardGazebo
+                  title={key.name}
+                  location={key.location}
+                  image={`${key.photo}`}
+                  size={key.size}
+                  onPress={() => handleSubmit(key.id)}
                 />
-                <Picker.Item
-                  label="Paal"
-                  value="Paal"
-                  style={{fontSize: 15}}
-                />
-                <Picker.Item
-                  label="Pulisan"
-                  value="Pulisan"
-                  style={{fontSize: 15}}
-                />
-                <Picker.Item
-                  label="Kinunang"
-                  value="Kinunang"
-                  style={{fontSize: 15}}
-                />
-              </Picker>
-            </View>
+              </View>
+            ))}
           </View>
+        )}
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.elevation}>
-
-          {selectedValue === "All" &&(
+        {selectedValue === 'Paal' && (
+          <View>
+            {gazebo
+              .filter(gazebo => gazebo.location.includes(locationPaal))
+              .map(key => (
                 <View>
-                  {gazebo
-                  .map(key => (
-                      <View>
-                        <CardGazebo
-                          title="Gazebo Wahyu"
-                          location={key.location}
-                          image={`${key.photo}`}
-                          size={key.size}
-                          onPress={() => handleSubmit(key.id)}
-                        />
-                      </View>
-                    ))}
+                  <CardGazebo
+                    title="Gazebo Wahyu"
+                    location={key.location}
+                    image={`${key.photo}`}
+                    size={key.size}
+                    onPress={() => handleSubmit(key.id)}
+                  />
                 </View>
-            )}
-
-            {selectedValue === "Paal" &&(
+              ))}
+          </View>
+        )}
+        {selectedValue === 'Pulisan' && (
+          <View>
+            {gazebo
+              .filter(gazebo => gazebo.location.includes(locationPulisan))
+              .map(key => (
                 <View>
-                  {gazebo
-                  .filter(gazebo => gazebo.location.includes(locationPaal))
-                  .map(key => (
-                      <View>
-                        <CardGazebo
-                          title="Gazebo Wahyu"
-                          location={key.location}
-                          image={`${key.photo}`}
-                          size={key.size}
-                          onPress={() => handleSubmit(key.id)}
-                        />
-                      </View>
-                    ))}
+                  <CardGazebo
+                    title="Gazebo Wahyu"
+                    location={key.location}
+                    image={`${key.photo}`}
+                    size={key.size}
+                    onPress={() => handleSubmit(key.id)}
+                  />
                 </View>
-            )}
-            {selectedValue === "Pulisan" &&(
+              ))}
+          </View>
+        )}
+        {selectedValue === 'Kinunang' && (
+          <View>
+            {gazebo
+              .filter(gazebo => gazebo.location.includes(locationKinunang))
+              .map(key => (
                 <View>
-                  {gazebo
-                  .filter(gazebo => gazebo.location.includes(locationPulisan))
-                  .map(key => (
-                      <View>
-                        <CardGazebo
-                          title="Gazebo Wahyu"
-                          location={key.location}
-                          image={`${key.photo}`}
-                          size={key.size}
-                          onPress={() => handleSubmit(key.id)}
-                        />
-                      </View>
-                    ))}
+                  <CardGazebo
+                    title="Gazebo Wahyu"
+                    location={key.location}
+                    image={`${key.photo}`}
+                    size={key.size}
+                    onPress={() => handleSubmit(key.id)}
+                  />
                 </View>
-            )}
-            {selectedValue === "Kinunang" &&(
-                <View>
-                  {gazebo
-                  .filter(gazebo => gazebo.location.includes(locationKinunang))
-                  .map(key => (
-                      <View>
-                        <CardGazebo
-                          title="Gazebo Wahyu"
-                          location={key.location}
-                          image={`${key.photo}`}
-                          size={key.size}
-                          onPress={() => handleSubmit(key.id)}
-                        />
-                      </View>
-                    ))}
-                </View>
-            )}
+              ))}
+          </View>
+        )}
       </ScrollView>
     </View>
   );
