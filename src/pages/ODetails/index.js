@@ -94,7 +94,7 @@ const ODetails = ({navigation, route}) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Modal visible={statusModal} transparent={true} animationType="slide">
-        <View style={styles.Box}>
+        <ScrollView style={styles.Box}>
           <Text
             style={{
               left: 10,
@@ -132,7 +132,7 @@ const ODetails = ({navigation, route}) => {
             Address
           </Text>
           <TextInput
-            placeholder={homestay.description}
+            placeholder={homestay.alamat}
             style={styles.textInput}
             value={alamatBaru}
             onChangeText={value => setAlamatBaru(value)}
@@ -202,23 +202,6 @@ const ODetails = ({navigation, route}) => {
               />
             </View>
           </View>
-
-          {/* <Text
-            style={{
-              left: 10,
-              fontSize: 15,
-              color: 'black',
-              top: 8,
-              fontWeight: '600',
-            }}>
-            Description
-          </Text>
-          <TextInput
-            placeholder={homestay.description}
-            style={styles.textInput}
-            value={descriptionBaru}
-            onChangeText={value => setDescriptionBaru(value)}
-          /> */}
           <Text
             style={{
               left: 10,
@@ -243,7 +226,7 @@ const ODetails = ({navigation, route}) => {
             onPress={() => setStatusModal(false)}>
             <Text style={{color: 'black', fontSize: 15}}>Cancel</Text>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       </Modal>
       <View style={{flex: 1}}>
         {/* Header */}
@@ -473,7 +456,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E6E6E6',
     // opacity: 0.9,
     width: '85%',
-    height: '57%',
+    height: '50%',
     borderRadius: 5,
     alignSelf: 'center',
     top: '15%',
