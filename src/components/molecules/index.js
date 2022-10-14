@@ -1,3 +1,5 @@
 import Header from './header';
-import buttonAdd from '../atoms/buttonAdd';
-export {Header,buttonAdd};
+import CardGazebo from './CardGazebo';
+import Navigation from './navigationBar';
+
+export {Header, CardGazebo, Navigation};

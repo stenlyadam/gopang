@@ -5,7 +5,7 @@ const Button = (props,{navigation}) => {
   return (
     <View style={props.btnView}>
         {/* for se tampil button discreen mana saja */}
-        <TouchableOpacity style={styles.Button} onPress={props.onPress}>
+        <TouchableOpacity style={styles.Button} onPress={props.onPress} activeOpacity={0.6}>
                 <Text style={styles.textButton}>{props.title}</Text>
         </TouchableOpacity>
     </View>

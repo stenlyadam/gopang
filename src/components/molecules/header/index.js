@@ -2,63 +2,30 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
   Image,
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
-import chart from '../../../assets/icon/chart.png';
 
-const header = ({onBack, onCharts, setIconChart}) => {
-  console.log("isi dari on back:", onBack)
+const header = ({title, onBack, onCharts}) => {
   return (
-    <View style={{
-      display: 'flex',
-      flexDirection: 'row',
-      //backgroundColor:'red',
-      // justifyContent: 'space-around',
-    }}>
-
-      <View style={styles.containter}>
+    <View style={styles.container}>
       {onBack && (
         <TouchableOpacity
-          style={{position: 'absolute', left: 46}}
+          style={{
+            position: 'absolute',
+            left: 46,
+            height: 30,
+            width: 30,
+            justifyContent: 'center',
+          }}
           onPress={onBack}
-          activeOpacity={1.0}
-          >
-          <View>
-            <Image source={Arrow} style={{height: 22.39, width: 10}} />
-          </View>
+          activeOpacity={1.0}>
+          <Image source={Arrow} style={{alignSelf: 'center'}} />
         </TouchableOpacity>
-        )}
-
-      {
-      <TouchableOpacity
-          style={{position: 'absolute', left: 46}}
-          onPress={onCharts}
-          activeOpacity={1.0}
-          >
-
-          <View>
-            <Image source={chart} style={{height: 43, width: 50, marginLeft:280}} />
-          </View>
-          
-        </TouchableOpacity>
-      }
-      </View>
-
-      {/* <View style={styles.containter}>
-      
-        </View> */}
-
-      {/* <View style={styles.containter}>
-      <TouchableOpacity
-        style={{position: 'absolute', left: 150}}
-        onPress={onBack}>
-        <Image source={Search} style={{height: 22.39, width: 20, }} />
-      </TouchableOpacity>
-      </View> */}
+      )}
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 };
@@ -66,14 +33,19 @@ const header = ({onBack, onCharts, setIconChart}) => {
 export default header;
 
 const styles = StyleSheet.create({
-  containter: {
-    //backgroundColor:'blue',
-    width: '50%',
+  container: {
+    width: '100%',
     height: 75,
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 15,
-    paddingLeft: 114,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  text: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });

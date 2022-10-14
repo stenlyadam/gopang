@@ -1,37 +1,28 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Button from '../../components/atoms/Button';
 
 const LoginOptions = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
-        <Text style={styles.font}>GOPANG</Text>
-        <Image
-          style={styles.Logo}
-          source={require('../../assets/logo/LogoGOPANG.png')}
+      <Text style={styles.font}>GOPANG</Text>
+      <Image
+        style={styles.Logo}
+        source={require('../../assets/logo/LogoGOPANG.png')}
+      />
+      <Text style={styles.loginAs}>Login as :</Text>
+      <View style={styles.button1}>
+        {/* da props dri component button didalam folder atoms-button*/}
+        <Button
+          onPress={() => navigation.navigate('OwnerScreen')}
+          title="Owner"
         />
-        <Text style={styles.loginAs}>Login as :</Text>
-        <View style={styles.button1}>
-          {/* da props dri component button didalam folder atoms-button*/}
-          <Button
-            onPress={() => navigation.replace('OwnerScreen')}
-            title="Owner"
-          />
-          <Text></Text>
-          <Button
-            onPress={() => navigation.replace('UserScreen')}
-            title="User"
-          />
-        </View>
-      </ScrollView>
+        <Text></Text>
+        <Button
+          onPress={() => navigation.navigate('UserScreen')}
+          title="User"
+        />
+      </View>
     </View>
   );
 };

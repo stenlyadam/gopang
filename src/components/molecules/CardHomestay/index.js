@@ -2,19 +2,28 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import ButtonDetails from '../../atoms/buttonDetails';
 
-const buttonDetails = props => {
+const CardHomestay = props => {
   return (
     <View
       style={{
         height: 118,
-        width: 371,
+        width: '90.2%',
         marginLeft: 20,
         marginRight: 20,
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 0,
       }}>
-      <Image source={props.image} style={{marginTop: 14, marginBottom: 14}} />
+      <Image
+        source={{uri: `data:image/jpeg;base64, ${props.image}`}}
+        style={{
+          marginTop: 14,
+          marginBottom: 14,
+          width: 80,
+          height: 90,
+          borderRadius: 10,
+        }}
+      />
       <View
         style={{
           marginLeft: 12,
@@ -35,15 +44,13 @@ const buttonDetails = props => {
             <View style={styles.containerTitle}>
               <Text style={styles.wahyu}>{props.title}</Text>
             </View>
-            <View>
-              <Image source={require('../../../assets/icon/Rating.png')} />
-            </View>
           </View>
           <View style={{flexDirection: 'row', marginLeft: 11}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
             <Text style={styles.location}>{props.location}</Text>
           </View>
         </View>
+        
         <View
           style={{
             width: 110,
@@ -56,20 +63,28 @@ const buttonDetails = props => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
-              IDR 200.000
+              IDR {props.price}
             </Text>
             <Text style={{fontWeight: 'bold', fontSize: 10, marginTop: 1}}>
               /Night
             </Text>
           </View>
-          <ButtonDetails />
+          <View style={{position:'absolute', marginLeft:80,marginBottom:50}}>
+            {props.status === 'available' &&(
+              <Text style={styles.status}>{props.status}</Text>
+            )}
+            {props.status === 'unavailable' &&(
+              <Text style={styles.status1}>{props.status}</Text>
+            )}
+            <ButtonDetails onSubmit={props.onPress} />
+          </View>
         </View>
       </View>
     </View>
   );
 };
 
-export default buttonDetails;
+export default CardHomestay;
 
 const styles = StyleSheet.create({
   wahyu: {
@@ -90,5 +105,19 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 11,
     marginRight: 55,
+    flexDirection:'row'
+  },
+  status:{
+    fontSize:10,
+    marginLeft:'69%',
+    marginTop:-12,
+    color:'green',
+  },
+  status1:{
+    fontSize:10,
+    marginTop:3,
+    marginTop:-12,
+    marginLeft:'66%',
+    color:'black'
   },
 });

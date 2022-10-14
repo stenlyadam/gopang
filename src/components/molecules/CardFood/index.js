@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
-const RecomFood = props => {
+const CardFood = props => {
   //console.log(props)
 
   return (
@@ -13,7 +13,6 @@ const RecomFood = props => {
         marginRight: 20,
         flexDirection: 'row',
         alignItems: 'flex-start',
-        padding: 0,
       }}>
       <Image source={props.image} style={{marginTop: 14, marginBottom: 14}} />
       <View
@@ -42,14 +41,13 @@ const RecomFood = props => {
             <Text style={styles.harga}>{props.harga}</Text>
           </View>
 
-          <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 6}}>
+          {/* <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 6}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
             <Text style={styles.location}>{props.location}</Text>
-          </View>
+          </View> */}
 
-            {/* {
+          {/* {
               props.myCondition == 1?
-
               
               :
               <TouchableOpacity onPress={
@@ -60,7 +58,6 @@ const RecomFood = props => {
                    <Text>button</Text>
                    
               </TouchableOpacity>
-
             } */}
         </View>
         <View
@@ -72,21 +69,20 @@ const RecomFood = props => {
             justifyContent: 'space-between',
             marginTop: 29,
             marginLeft: 11,
-          }}>
-        </View>
+          }}></View>
       </View>
     </View>
-    
   );
 };
 
-export default RecomFood;
+export default CardFood;
 
 const styles = StyleSheet.create({
   namaMakanan: {
     fontSize: 15,
     fontWeight: 'bold',
     height: 30,
+    marginTop: 5,
   },
   harga: {
     fontWeight: 'normal',
