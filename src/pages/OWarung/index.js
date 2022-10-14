@@ -69,15 +69,16 @@ const Warung = ({navigation, route}) => {
     firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
   };
 
-  const handleEdit = () => {
+  const handleEdit = key => {
     setStatusModal(false);
     // const data = {
     //   name: nameBaru,
     //   price: priceBaru,
     // };
-    // firebase.database().ref(`warung/${uid}/food`).set(data);
+    // firebase.database().ref(`warung/${uid}/food/${key.id}`).set(data);
+    // console.log(key.id)
   };
-
+  
   return (
     <ScrollView
       style={{backgroundColor: 'white'}}

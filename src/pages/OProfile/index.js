@@ -94,7 +94,7 @@ const OProfile = ({navigation, route}) => {
               <View style={{height: 128, width: 343, alignItems: 'center'}}>
                 <TouchableOpacity
                   style={styles.buttonEditProfile}
-                  onPress={() => navigation.navigate('OEditProfil', {uid: uid})}>
+                  onPress={() => navigation.navigate('OEditProfile', {uid: uid})}>
                   <Image
                     source={require('../../assets/icon/ScreenProfile/iconProfile.png')}
                   />

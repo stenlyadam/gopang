@@ -52,6 +52,7 @@ import MenuGazeboPaal from '../../pages/MenuGazeboPaal';
 import MenuGazeboPulisan from '../ManuGazeboPulisan';
 import MenuGazeboKinunang from '../MenuGazeboKinunang';
 import TDOwner from '../TDOwner';
+import OEditProfile from '../OEditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -111,6 +112,7 @@ const Router = () => {
       <Stack.Screen name="OWarung" component={OWarung} />
       <Stack.Screen name="OAddFood" component={OAddFood} />
       <Stack.Screen name="OEditFood" component={OEditFood} />
+      <Stack.Screen name="OEditProfile" component={OEditProfile} />
     </Stack.Navigator>
   );
 };

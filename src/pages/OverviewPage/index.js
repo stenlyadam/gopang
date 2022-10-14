@@ -40,6 +40,7 @@ const OverviewPage = ({navigation, route}) => {
       kategori: 'homestay',
       time: 86400,
       checkin: checkInDate,
+      night:dayjs(checkOutDate).diff(dayjs(checkInDate),'day'),
       checkout: checkOutDate,
       paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
     };
@@ -112,6 +113,8 @@ const OverviewPage = ({navigation, route}) => {
         console.log('ini user', users);
       });
   };
+
+  const Night = dayjs(checkOutDate).diff(dayjs(checkInDate),'day')*homestay.price;
 
   useEffect(() => {
     getHomestay();
@@ -332,7 +335,7 @@ const OverviewPage = ({navigation, route}) => {
               marginRight: 20,
               fontWeight: 'bold',
             }}>
-            Rp {harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+            Rp {Night.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </Text>
         </View>
 

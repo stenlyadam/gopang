@@ -30,19 +30,19 @@ const MenuGazebo = ({navigation, route}) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
-        {checkInDate === null && checkOutDate === null ?(
-          alert("Please add Check In or Check Out ! ")
-        ):(
-          <View>
-          {checkOutDate == null?(
-            alert("Please add Check Out")
-          ):(
-              <View>
-                {checkInDate == null ?(
-                  alert("Please add Check In")
-                ):(
-                    setLoading(true),
-                    setTimeout(() => {
+    {
+      checkInDate === null && checkOutDate === null ? (
+        alert('Please add Check In or Check Out ! ')
+      ) : (
+        <View>
+          {checkOutDate == null ? (
+            alert('Please add Check Out')
+          ) : (
+            <View>
+              {checkInDate == null
+                ? alert('Please add Check In')
+                : (setLoading(true),
+                  setTimeout(() => {
                     setLoading(false);
                     navigation.navigate('OverviewPage', {
                       uid: uid,
@@ -50,12 +50,12 @@ const MenuGazebo = ({navigation, route}) => {
                       checkInDate: checkInDate.toString(),
                       checkOutDate: checkOutDate.toString(),
                     });
-                  }, 1000)
-                )}
-              </View>
+                  }, 1000))}
+            </View>
           )}
-          </View>
-        )}
+        </View>
+      );
+    }
   };
 
   const getHomestay = () => {
@@ -112,14 +112,24 @@ const MenuGazebo = ({navigation, route}) => {
                 }}>
                 {homestay.name}
               </Text>
-              <Image
-                source={require('../../assets/icon/Rating.png')}
+              <Text
                 style={{
-                  width: 51,
-                  height: 17,
+                  marginTop: 10,
+                  position: 'absolute',
+                  right: '11%',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                {homestay.totalRating}
+              </Text>
+              <Image
+                source={require('../../assets/rating.png')}
+                style={{
+                  width: 15,
+                  height: 15,
                   marginTop: 12,
                   position: 'absolute',
-                  right: 20,
+                  right: '6%',
                 }}
               />
             </View>
@@ -281,7 +291,7 @@ const MenuGazebo = ({navigation, route}) => {
                     ? `${dayjs(checkOutDate).diff(
                         dayjs(checkInDate),
                         'day',
-                      )} malam`
+                      )} Night`
                     : '-'}
                 </Text>
               </View>
@@ -302,11 +312,11 @@ const MenuGazebo = ({navigation, route}) => {
                   /Night
                 </Text>
                 {status == 'available' ? (
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={() => handleSubmit(homestayID)}>
-                      <Text style={styles.textButton}>Booking</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => handleSubmit(homestayID)}>
+                    <Text style={styles.textButton}>Booking</Text>
+                  </TouchableOpacity>
                 ) : (
                   <TouchableOpacity style={styles.button2}>
                     <Text style={styles.textButton}>Booked</Text>

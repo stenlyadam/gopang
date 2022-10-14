@@ -242,7 +242,16 @@ const OEditProfil = ({navigation, route}) => {
             title={'Update Profile'}
             btnView={styles.btnSignUp}
             onPress={() => {
-              handleSumbit();
+              {!name && !number && !photoBase64 ?(
+                showMessage({
+                  message: 'Input cannot be empty !',
+                  type: 'default',
+                  backgroundColor: 'red',
+                  color: 'white',
+                })
+              ):(
+                handleSumbit()
+              )}
               // pake show message
               // pake navigate bale ke halaman sebeumnya
             }}
