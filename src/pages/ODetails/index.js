@@ -387,53 +387,92 @@ const ODetails = ({navigation, route}) => {
 export default ODetails;
 
 const styles = StyleSheet.create({
-    elevation: {
-        paddingBottom: 8, paddingLeft: 20,
-    }, searchBox: {
-        width: 371, height: 45, paddingLeft: 23, paddingRight: 23, borderWidth: 1, borderRadius: 10,
-    }, Fasilitas: {}, TFasilitas: {
-        fontSize: 12,
-    }, button: {
-        alignItems: 'center',
-        borderRadius: 20,
-        backgroundColor: '#38A7D0',
-        width: 120,
-        height: 38,
-        position: 'absolute',
-        right: '12%',
-        justifyContent: 'center',
-    }, textButton: {
-        fontSize: 16, fontWeight: 'bold', color: 'white', textAlign: 'center',
-    }, Box: {
-        backgroundColor: '#E6E6E6', // opacity: 0.9,
-        width: '85%', height: '57%', borderRadius: 5, alignSelf: 'center', top: '15%',
-    }, textInput: {
-        // backgroundColor: 'red',
-        borderColor: '#020202', borderWidth: 1, borderRadius: 5, top: 5, margin: 7, paddingLeft: 15,
-    }, Button: {
-        position: 'absolute',
-        backgroundColor: '#38A7D0',
-        alignSelf: 'center',
-        width: '40%',
-        height: '7%',
-        bottom: 10,
-        borderRadius: 5,
-        justifyContent: 'center',
-    }, Save: {
-        fontSize: 20, color: 'white', alignSelf: 'center',
-    }, fasilitas: {
-        // flexWrap: 'wrap',
-        flexDirection: 'row', marginTop: 39, marginLeft: '9%', marginRight: '9%', // width: '100%',
-        // justifyContent: 'center',
-    }, Simpan: {
-        backgroundColor: '#38A7D0',
-        position: 'absolute',
-        right: '5%',
-        top: '35%',
-        borderRadius: 5,
-        width: '20%',
-        height: '5%',
-    }, Simpan1: {
-        fontSize: 25, color: 'white', alignSelf: 'center',
-    },
+  elevation: {
+    paddingBottom: 8,
+    paddingLeft: 20,
+  },
+  searchBox: {
+    width: 371,
+    height: 45,
+    paddingLeft: 23,
+    paddingRight: 23,
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  Fasilitas: {},
+  TFasilitas: {
+    fontSize: 12,
+  },
+  button: {
+    alignItems: 'center',
+    borderRadius: 20,
+    backgroundColor: '#38A7D0',
+    width: 120,
+    height: 38,
+    position: 'absolute',
+    right: '12%',
+    justifyContent: 'center',
+  },
+  textButton: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  Box: {
+    backgroundColor: '#E6E6E6',
+    // opacity: 0.9,
+    width: '85%',
+    height: '50%',
+    borderRadius: 5,
+    alignSelf: 'center',
+    top: '15%',
+  },
+  textInput: {
+    // backgroundColor: 'red',
+    borderColor: '#020202',
+    borderWidth: 1,
+    borderRadius: 5,
+    top: 5,
+    margin: 7,
+    paddingLeft: 15,
+  },
+  Button: {
+    position: 'absolute',
+    backgroundColor: '#38A7D0',
+    alignSelf: 'center',
+    width: '40%',
+    height: '7%',
+    bottom: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+  },
+  Save: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+  },
+  fasilitas: {
+    // flexWrap: 'wrap',
+    flexDirection: 'row',
+    marginTop: 39,
+    marginLeft: '9%',
+    marginRight: '9%',
+    // width: '100%',
+    // justifyContent: 'center',
+  },
+  Simpan: {
+    backgroundColor: '#38A7D0',
+    position: 'absolute',
+    right: '5%',
+    top: '35%',
+    borderRadius: 5,
+    width: '20%',
+    height: '5%',
+  },
+  Simpan1: {
+    fontSize: 25,
+    color: 'white',
+    alignSelf: 'center',
+  },
 });
