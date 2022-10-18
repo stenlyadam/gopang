@@ -30,6 +30,18 @@ import {
   
       return <Button title={children} onPress={handlePress} />;
     };
+
+    const handleSubmitGoBack =()=>{
+      navigation.goBack();
+    };
+  
+    useEffect(() => {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
+    }, []);
   
     return (
       <View style={{flex: 1}}>

@@ -6,6 +6,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
+  Alert
 } from 'react-native';
 import firebase from '../../config/Firebase';
 import FoodCardHome from '../../components/molecules/FoodCardHome';
@@ -24,10 +26,29 @@ const HomeMenu = ({navigation, route}) => {
   const handleWarung = key => {
     navigation.navigate('ProfilWarung', {uid: uid, WarungID: key});
   };
+  const backPressed = () => {
+    Alert.alert(
+      'Exit App',
+      'Do you want to exit?',
+      [
+        {text: 'No', onPress: () => console.log('Cancel Pressed')},
+        {text: 'Yes', onPress: () => BackHandler.exitApp()},
+      ],
+      { cancelable: false });
+      return true;
+  }
+  const exit=()=>{
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      backPressed();
+      return true;
+    })
+    return () => backHandler.remove()
+  }
 
   useEffect(() => {
     getHomestay();
     getWarung();
+    exit();
   }, []);
 
   const getWarung=()=>{

@@ -69,14 +69,13 @@ const Warung = ({navigation, route}) => {
     firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
   };
 
-  const handleEdit = key => {
+  const handleEdit = () => {
     setStatusModal(false);
-    // const data = {
-    //   name: nameBaru,
-    //   price: priceBaru,
-    // };
-    // firebase.database().ref(`warung/${uid}/food/${key.id}`).set(data);
-    // console.log(key.id)
+    const data = {
+      name: nameBaru,
+      price: priceBaru,
+    };
+    firebase.database().ref(`warung/${uid}/food`).set(data);
   };
   
   return (
@@ -168,17 +167,7 @@ const Warung = ({navigation, route}) => {
           ) : (
             <Text>Belum ada makanan</Text>
           )}
-          {/* {pictures.map(key => (
-            <View style={{flexDirection: 'row'}}>
-              <CardFoodOwner
-                title={key.name}
-                harga={key.price}
-                image={`${key.photo}`}
-                onDelete={() => handleDelete(key)}
-                // myCondition={1}
-              />
-            </View>
-          ))} */}
+
         </View>
       </View>
       <Modal visible={statusModal} transparent={true} animationType="slide">

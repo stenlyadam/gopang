@@ -1,9 +1,8 @@
-import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import ButtonAdd from '../../atoms/buttonAdd';
+import React, {useState} from 'react';
 
 const CardWarung = props => {
-
   return (
     <View
       style={{
@@ -15,17 +14,29 @@ const CardWarung = props => {
         alignItems: 'flex-start',
         padding: 0,
       }}>
-      <Image source={props.image} style={{marginTop: 14, marginBottom: 14,width:120,height:88,borderRadius:20}} />
+      <Image
+        source={props.image}
+        style={{
+          marginTop: 14,
+          marginBottom: 14,
+          width: 120,
+          height: 88,
+          borderRadius: 20,
+        }}
+      />
 
-      <View style={{marginTop:20,marginLeft:20}}>
-        <Text style={{fontSize:13, fontWeight:'bold'}}>{props.title}</Text>
-        <Text style={{marginTop:6,fontSize:13}}>{props.harga}</Text>
-        <View style={{flexDirection:'column',marginTop:'7%',marginLeft:'-15%'}}>
-          <ButtonAdd/>
+      <View style={{marginTop: 20, marginLeft: 20}}>
+        <Text style={{fontSize: 13, fontWeight: 'bold'}}>{props.title}</Text>
+        <Text style={{marginTop: 6, fontSize: 13}}>Rp.{props.harga}</Text>
+        <View
+          style={{
+            flexDirection: 'column',
+            marginTop: '7%',
+            marginLeft: '-15%',
+          }}>
+          <ButtonAdd onPress={props.onPress} />
         </View>
       </View>
-      
-      
     </View>
   );
 };
@@ -37,14 +48,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     height: 30,
-    marginTop:5
+    marginTop: 5,
   },
   harga: {
     fontWeight: 'normal',
     fontSize: 15,
     width: 187,
     height: 25,
-    marginTop:5
+    marginTop: 5,
   },
   location: {
     flexDirection: 'row',

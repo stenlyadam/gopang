@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  BackHandler
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import CardHomestay from '../../components/molecules/CardHomestay';
@@ -19,6 +20,10 @@ const MenuHomestay = ({navigation, route}) => {
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
+  };
+
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -40,7 +45,16 @@ const MenuHomestay = ({navigation, route}) => {
           setPictures(productArray);
         }
       });
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
   }, []);
+
+  
+
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>

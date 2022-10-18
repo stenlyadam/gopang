@@ -6,9 +6,10 @@ import {
   Image,
   ScrollView,
   Alert,
-  Linking
+  Linking,
+  BackHandler
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback,useEffect} from 'react';
 import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
@@ -30,6 +31,18 @@ const OptionMenuPaal = ({navigation,route}) => {
 
     return <Button title={children} onPress={handlePress} />;
   };
+
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
+  }, []);
 
   return (
     <View style={{flex: 1}}>

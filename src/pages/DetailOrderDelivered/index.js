@@ -1,127 +1,110 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import firebase from 'firebase';
 
 import Header from '../../components/molecules/header';
 import ButtonChat from '../../components/atoms/ButtonChat';
 
-const DetailOrderDelivered = ({navigation}) => {
+const DetailOrderDelivered = ({navigation,route}) => {
+  const {uid} = route.params;
+  const [DataOrder, setDataOrder] = useState([]);
+
+  const getOrder = () => {
+    firebase
+      .database()
+      .ref(`users/pelanggan/${uid}/keranjang`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setDataOrder(productArray);
+        }
+      });
+  };
+  
+  useEffect(()=>{
+    getOrder();
+  })
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header title="Orther Details" onBack={() => navigation.goBack()} />
+      <Header onBack={() => navigation.goBack()} />
       <View style={styles.garis1} />
-      <View>
-        <View style={{flexDirection: 'row'}}>
-          <View>
-            <Text style={styles.warung}>Warung Jessica</Text>
-          </View>
-          <View style={{marginLeft: 50, marginTop: 32}}>
-            <Image source={require('../../assets/icon/iconbluecek.png')} />
-          </View>
+      <View style={{flexDirection: 'row'}}>
+        <View>
+          <Text style={styles.warung}>Warung {warung.name}</Text>
+        </View>
+        <View style={{marginLeft: 50, marginTop: 32}}>
+          <Image source={require('../../assets/icon/iconbluecek.png')} />
         </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
-          marginTop: 3,
-        }}>
-        <View>
-          <Text style={{fontSize: 20, marginLeft: 280}}>Delivered</Text>
-        </View>
-      </View>
-      <View style={styles.garis} />
       <Text style={styles.order}>Orders</Text>
 
       {/* Food 1 */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
-          marginTop: 21,
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <View>
-            <Text style={{fontSize: 20}}>Nasi Kuning</Text>
-          </View>
-          <View style={{marginHorizontal: 10}}></View>
-          <View>
-            <Text style={{fontSize: 20}}>2</Text>
-          </View>
-        </View>
-        <View>
-          <Text style={{fontSize: 20}}>24.000</Text>
-        </View>
-      </View>
+      {DataOrder
+      .map(key => (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 28,
+            marginTop: 21,
+          }}>
+          <View style={{flexDirection: 'row'}}>
+            {/*  */}
+            <View>
+              <Text style={{fontSize: 20}}>{key.name}</Text>
+            </View>
 
-      {/* Drink 1 */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
-          marginTop: 3,
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <View>
-            <Text style={{fontSize: 20}}>Nutrisari</Text>
+            <View style={{marginHorizontal: 10}}></View>
+            <View>
+              <Text style={{fontSize: 20}}>{key.jumlah}</Text>
+            </View>
           </View>
-          <View style={{marginHorizontal: 10}}></View>
           <View>
-            <Text style={{fontSize: 20}}>1</Text>
+            <Text style={{fontSize: 20}}>Rp. {key.biaya}</Text>
           </View>
         </View>
-        <View>
-          <Text style={{fontSize: 20}}>5.000</Text>
-        </View>
-      </View>
-
-      {/* Biaya Aplikasi */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
-          marginTop: 3,
-        }}>
-        <View style={{flexDirection: 'row', marginTop: 25}}>
-          <View>
-            <Text style={{fontSize: 20}}>Biaya jasa aplikasi</Text>
-          </View>
-        </View>
-
-        <View>
-          <Text style={{fontSize: 20, marginTop: 25}}>2.000</Text>
-        </View>
-      </View>
+      ))}
 
       <View style={styles.garis} />
 
       {/* Total */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
-          marginTop: 3,
-        }}>
-        <View style={{flexDirection: 'row'}}>
-          <View>
-            <Text style={{fontSize: 20}}>Total</Text>
-          </View>
-        </View>
 
+      {/* <View style={styles.garis1} /> */}
+      {/* <View style={styles.garis} /> */}
+
+      {/* <View style={{flexDirection: 'row', paddingHorizontal: 27, marginTop: 5}}>
+        <View style={{flexDirection: 'row', marginLeft: 1, marginTop: 20}}>
+          <View style={{marginTop: 5}}>
+            <Image source={require('../../assets/icon/Dollar.png')} />
+          </View>
+          <Text style={{fontSize: 18, marginLeft: 6}}>Payment Method</Text>
+        </View>
         <View>
-          <Text style={{fontSize: 20}}>31.000</Text>
+          <Text style={{fontSize: 18, marginLeft: 70, width: 85, height: 65}}>
+            COD(Cash on Delivery)
+          </Text>
         </View>
       </View>
+      <View style={styles.garis} /> */}
 
-      <View style={styles.garis} />
-      {/* total dan Button Order */}
       <View style={styles.garis2} />
-      <ButtonChat title="Chat" onPress={() => navigation.navigate('')} />
+
+      {/* total  */}
+      <View style={{flexDirection: 'row'}}>
+        
+
+        {/* button order  */}
+      </View>
     </View>
   );
 };
