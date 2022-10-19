@@ -14,12 +14,14 @@ import Header from '../../components/molecules/header';
 import CardWarung from '../../components/molecules/CardWarung';
 import firebase from 'firebase';
 import {useEffect} from 'react';
+import {showMessage} from 'react-native-flash-message';
 
 const ProfilWarung = ({navigation, route}) => {
   const {uid, WarungID} = route.params;
   const [onWarung, setOnWarung] = useState([]);
   const [onFood, setOnFood] = useState([]);
   // const [toCard, setToCard] = useState([]);
+  const [barang,setBarang] = useState(0);
 
   const addToCart = key => {
     const cart = {
@@ -56,14 +58,19 @@ const ProfilWarung = ({navigation, route}) => {
             kodeMakanan: key.kodeMakanan,
             kategori: key.kategori,
           });
-        console.log('cek snapshot:');
       })
       .catch(error => {
         firebase
           .database()
           .ref(`users/pelanggan/${uid}/keranjang/${key.id}`)
           .set(cart);
-        console.log('cek catch:');
+      });
+      showMessage({
+        message: `${key.name} has been added to your cart`,
+        type: 'default',
+        backgroundColor: 'green', // background color
+        color: 'white', // text color
+        style:{position:'absolute',alignSelf:'center',marginTop:'10%',borderRadius:20}
       });
       // navigation.navigate('ChartFood',{uid:uid,WarungID:WarungID});
   };
@@ -127,10 +134,38 @@ const ProfilWarung = ({navigation, route}) => {
     );
   }
 
+  // Hitung Total pembayaran makanan
+  const total = () => {
+    firebase
+      .database()
+      .ref(`users/pelanggan/${uid}/keranjang`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          // let count = 0;
+          let barang = 0;
+          for (let i = 0; i < productArray.length; i++) {
+            // count = +count + +productArray[i].biaya;
+            barang = +barang + +productArray[i].jumlah;
+            // setTotalBayar(count);
+            setBarang(barang);
+          }
+        }
+      });
+  };
+
   useEffect(() => {
+    total();
     getWarung();
     getFood();
-
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       Alert.alert(
         'Are you sure ?',
@@ -152,20 +187,46 @@ const ProfilWarung = ({navigation, route}) => {
     return () => backHandler.remove()
   }, []);
 
+
+
   return (
     <View>
       <Header onBack={handleBack} />
 
       {/* chart */}
-      <TouchableOpacity
+      {barang==0?(
+        <TouchableOpacity
+        style={{position: 'absolute', marginLeft: '85%', top: '2%'}}
+        onPress={() => navigation.navigate('ChartFood', {uid: uid,WarungID:WarungID})}>
+          <Image
+            source={require('../../assets/icon/chart.png')}
+            style={{height: 45, width: 45}}
+          />
+        </TouchableOpacity>
+      ):(
+        <TouchableOpacity
         style={{position: 'absolute', marginLeft: '85%', top: '2%'}}
         onPress={() => navigation.navigate('ChartFood', {uid: uid,WarungID:WarungID})}>
         <Image
           source={require('../../assets/icon/chart.png')}
           style={{height: 45, width: 45}}
         />
-        {/* <Text style={{position:'absolute',marginTop:13,fontSize:13,marginLeft:21,color:'red'}}>{totalChart}</Text> */}
+        <View style={{position:'absolute',marginLeft:28}}>
+          <Image
+            source={require('../../assets/icon/Lingkaran-Merah-chart.png')}
+            style={{height: 20, width: 20}}
+          />
+          <Text style={{
+            position:'absolute',
+            fontSize:13,
+            color:'black',
+            marginLeft:6.5,
+            marginTop:1,
+            fontWeight:'bold'}}>{barang}</Text>
+        </View>
       </TouchableOpacity>
+      )}
+      
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Gambar */}

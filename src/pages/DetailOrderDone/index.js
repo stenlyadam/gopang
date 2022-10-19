@@ -78,10 +78,7 @@ const DetailOrderDone = ({navigation,route}) => {
     const handleSubmitGoBack =()=>{
       firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
   
-      navigation.replace('ProfilWarung', {
-        uid: uid,
-        WarungID: WarungID,
-      });
+      navigation.replace('NavigationBar', {uid: uid});
     };
 
   useEffect(() => {

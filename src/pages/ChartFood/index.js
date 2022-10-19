@@ -13,10 +13,12 @@ import firebase from 'firebase';
 import Header from '../../components/molecules/header';
 import CardKeranjang from '../../components/molecules/CardKeranjang';
 import ButtonCheckOut from '../../components/atoms/buttonCheckOut';
+import {showMessage} from 'react-native-flash-message';
 
 const ChartFood = ({navigation, route}) => {
   const {uid,WarungID} = route.params;
   const [dataKeranjang, setDataKeranjang] = useState([]);
+  const [barang,setBarang] = useState(0);
 
   const dataCart = () => {
     firebase
@@ -45,6 +47,7 @@ const ChartFood = ({navigation, route}) => {
 
   useEffect(() => {
     dataCart();
+    total();
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       handleSubmitGoBack();
       return true;
@@ -101,43 +104,92 @@ const ChartFood = ({navigation, route}) => {
     });
   };
 
+    // Hitung Total pembayaran makanan
+    const total = () => {
+      firebase
+        .database()
+        .ref(`users/pelanggan/${uid}/keranjang`)
+        .on('value', res => {
+          if (res.val()) {
+            //ubah menjadi array object
+            const rawData = res.val();
+            const productArray = [];
+            Object.keys(rawData).map(key => {
+              productArray.push({
+                id: key,
+                ...rawData[key],
+              });
+            });
+            // let count = 0;
+            let barang = 0;
+            for (let i = 0; i < productArray.length; i++) {
+              // count = +count + +productArray[i].biaya;
+              barang = +barang + +productArray[i].jumlah;
+              // setTotalBayar(count);
+              setBarang(barang);
+            }
+          }
+        });
+    };
+
+  const handleButtonCheckOut = () =>{
+    if(barang<=0){
+      showMessage({
+        message: 'You have to add something food',
+        type: 'default',
+        backgroundColor: 'red', // background color
+        color: 'white', // text color
+      });
+    }else{
+      navigation.navigate('TotalFood', {uid: uid, WarungID: WarungID})
+    }
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header onBack={() => navigation.goBack()} />
-      <Text style={styles.teks}>Delivery location</Text>
-      <Text style={{fontWeight: 'bold', fontSize: 20, marginLeft: 15}}>
-        {' '}
-        Paal Beach
-      </Text>
+      
 
-      <View style={styles.garis} />
+      {dataKeranjang == 0 ?(
+        <Text style={{alignSelf:'center',marginTop:200,fontSize:18}}>You have to add something food.</Text>
+      ):(
+        <View>
+          <Text style={styles.teks}>Delivery location</Text>
+          <Text style={{fontWeight: 'bold', fontSize: 20, marginLeft: 15}}>
+            {' '}
+            Paal Beach
+          </Text>
 
-      <View>
-        {dataKeranjang
-        .filter(item =>item.IDWarung.includes(WarungID))
-        .map(key => (
-          <CardKeranjang
-            title={key.name}
-            harga={key.price}
-            jumlah={key.jumlah}
-            image={{uri: `data:image/jpeg;base64, ${key.photo}`}}
-            onMinus={() => handleMinus(key)}
-            onPlus={() => handlePlus(key)}
+          <View style={styles.garis} />
+          <View>
+            {dataKeranjang
+            .filter(item =>item.IDWarung.includes(WarungID))
+            .map(key => (
+              <CardKeranjang
+                title={key.name}
+                harga={key.price}
+                jumlah={key.jumlah}
+                image={{uri: `data:image/jpeg;base64, ${key.photo}`}}
+                onMinus={() => handleMinus(key)}
+                onPlus={() => handlePlus(key)}
+              />
+            ))}
+
+            {/* <CardKeranjang
+              title="Nutrisari"
+              harga="Rp. 5.000"
+              image={require('../../assets/imgFood/Nutrisari.png')}
+            /> */}
+          </View>
+          <View style={styles.ButtonCheckOut} />
+          <ButtonCheckOut
+            title="Check Out"
+            onPress={handleButtonCheckOut}
+            nav={navigation}
           />
-        ))}
+        </View> 
+      )}
 
-        {/* <CardKeranjang
-          title="Nutrisari"
-          harga="Rp. 5.000"
-          image={require('../../assets/imgFood/Nutrisari.png')}
-        /> */}
-      </View>
-      <View style={styles.ButtonCheckOut} />
-      <ButtonCheckOut
-        title="Check Out"
-        onPress={() => navigation.navigate('TotalFood', {uid: uid, WarungID: WarungID})}
-        nav={navigation}
-      />
     </View>
   );
 };

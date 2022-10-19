@@ -8,7 +8,7 @@ import {
   Alert,
   Linking
 } from 'react-native';
-import React,{useCallback} from 'react';
+import React,{useCallback,useEffect} from 'react';
 import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
