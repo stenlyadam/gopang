@@ -13,8 +13,8 @@ import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
 
-const OptionMenuPulisan = ({navigation}) => {
-
+const OptionMenuPulisan = ({navigation,route}) => {
+  const {uid} = route.params;
   const supportedURL = "https://goo.gl/maps/uww8dpFt4wBJufEY6";
 
   const OpenURLButton = ({ url, children }) => {
@@ -68,18 +68,21 @@ const OptionMenuPulisan = ({navigation}) => {
           <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>
             Overview
           </Text>
-          <Text style={{fontSize: 17}}>
-            Paal Beach is one of the tourist attractions in Likupang,North
-            Sulawesi. When visiting here, you will find a beach with clean white
-            sand strands on the shoreline and a beautiful turquoise sea like
-            crystal.
+          <Text style={{fontSize: 17,textAlign:'justify'}}>
+          Pulisan Beach has an area of ​​​​approximately 3 hectares with a coastline of 500 meters. 
+          On this beach there are 3 scenic spots, namely sand, rocks, and savanna. 
+          Plus the beautiful underwater scenery makes it suitable for snorkeling. 
+          Enjoying the underwater scenery on this beach is a good choice.
+          This beach with soft white sand is a favorite destination in Likupang. 
+          The clear sea water adds to its beauty. You can see the scenery in the water clearly. 
+          Not only that, the existence of a rock that resembles a cave is a special attraction.
           </Text>
         </View>
 
         {/* Category */}
         <CategoryFeature
           onPress1={() => navigation.navigate('MenuHomestay')}
-          onPress2={() => navigation.navigate('MenuGazebo')}
+          onPress2={() => navigation.navigate('MenuGazeboPulisan',{uid:uid})}
           onPress3={() => navigation.navigate('MenuFood')}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>

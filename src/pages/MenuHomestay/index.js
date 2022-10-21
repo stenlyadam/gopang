@@ -13,8 +13,9 @@ import Input from '../../components/atoms/Input';
 import firebase from '../../config/Firebase';
 
 const MenuHomestay = ({navigation, route}) => {
-  const uid = route.params;
+  const {uid} = route.params;
   const [pictures, setPictures] = useState([]);
+  const [search, setSearch] = useState('');
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
@@ -54,19 +55,22 @@ const MenuHomestay = ({navigation, route}) => {
               <Input
                 placeholder={'Search'}
                 // type={text}
+                value={search}
                 input={styles.searchBox}
+                onChangeText={value => setSearch(value)}
               />
             </View>
             {/* Filter */}
             <View style={{marginLeft: 6, marginTop: 12}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Filter')}
+                onPress={() => navigation.navigate('Filter', {uid: uid})}
                 style={{
                   width: 63,
                   height: 24,
                   alignItems: 'center',
                   flexDirection: 'row',
-                }}>
+                }}
+                activeOpacity={1.0}>
                 <View style={styles.navigation}>
                   <Image source={require('../../assets/icon/filter.png')} />
                 </View>
@@ -74,46 +78,50 @@ const MenuHomestay = ({navigation, route}) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View>
-            <View>
-              {pictures.map(key => (
-                <View style={{flexDirection: 'row'}}>
-                  <CardHomestay
-                    title={key.name}
-                    location={key.alamat}
-                    image={`${key.photo}`}
-                    price={key.price}
-                    onPress={() => handleSubmit(key.id)}
-                  />
+          <ScrollView contentContainerStyle={styles.productContainer}>
+            {search.length === 0 ? (
+              <View>
+                <View>
+                  {pictures
+                    .filter(homestay => homestay.name.includes(search))
+                    .map(key => (
+                      <View>
+                        <CardHomestay
+                          title={key.name}
+                          image={`${key.photo}`}
+                          location={key.location}
+                          price={key.price
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          status={`${key.status}`}
+                          onPress={() => handleSubmit(key.id)}
+                          rating={key.totalRating}
+                        />
+                      </View>
+                    ))}
                 </View>
-              ))}
-            </View>
-
-            {/* <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
-            <CardHomestay
-              title="Juniver"
-              location="Pulisan Village, North Sulawesi"
-              image={require('../../assets/home/Juniver.png')}
-            />
-            <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
-            <CardHomestay
-              title="Komplex Jembatan"
-              location="Kinunang Village, North Sulawesi"
-              image={require('../../assets/home/Jembatan.png')}
-            />
-            <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
-            <CardHomestay
-              title="Wahyu"
-              location="Marinsow Village, North Sulawesi"
-              image={require('../../assets/home/Wahyu.png')}
-            />
-            <View style={{height: 1, backgroundColor: 'rgba(0, 0, 0, 0.3)'}} />
-            <CardHomestay
-              title="Wahyu"
-              location="Marinsow Village, North Sulawesi"
-              image={require('../../assets/home/Wahyu.png')}
-            /> */}
-          </View>
+              </View>
+            ) : (
+              pictures
+                .filter(homestay =>
+                  homestay.name.toLowerCase().includes(search.toLowerCase()),
+                )
+                .map(key => (
+                  <View>
+                    <CardHomestay
+                      title={key.name}
+                      image={`${key.photo}`}
+                      location={key.location}
+                      price={key.price
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                      status={`${key.status}`}
+                      onPress={() => handleSubmit(key.id)}
+                    />
+                  </View>
+                ))
+            )}
+          </ScrollView>
         </View>
       </ScrollView>
     </View>

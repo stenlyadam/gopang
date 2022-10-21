@@ -1,4 +1,11 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable comma-dangle */
+/* eslint-disable space-infix-ops */
+/* eslint-disable semi */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState,useEffect} from 'react';
 import {
   Image,
   StyleSheet,
@@ -10,41 +17,24 @@ import {
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import CardHomestay from '../../components/molecules/CardHomestay';
 import firebase from '../../config/Firebase';
+import CardHomestay from '../../components/molecules/CardHomestay';
 
-const Filter = ({navigation, route}) => {
-  const [selectedValue, setSelectedValue] = useState('Likupang');
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [textIn, setTextIn] = useState('Click Here');
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.toUTCString(); // + '-' + (tempDate.getMonth() + 1) +'-' + tempDate.getFullYear()
-    setTextIn(fDate);
-
-    console.log(fDate);
-  };
-
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const uid = route.params;
+const Filter = ({navigation,route}) => {
+  const {uid,homestayID} = route.params;
+  const [selectedValue, setSelectedValue] = useState('All');
+  const [locationPaal, setLocationPaal] = useState('Paal');
+  const [locationPulisan, setLocationPulisan] = useState('Pulisan');
+  const [locationKinunang, setLocationKinunang] = useState('Kinunang');
   const [pictures, setPictures] = useState([]);
+  const [status] = useState('unavailable')
+  const [selectedStatus, setSelectedStatus] = useState('unavailable');
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
   };
 
+    
   useEffect(() => {
     firebase
       .database()
@@ -65,12 +55,15 @@ const Filter = ({navigation, route}) => {
         }
       });
   }, []);
+  
 
+  
   return (
     <View style={{flex: 1}}>
       <Header title="Filter" onBack={() => navigation.goBack()} />
 
-      {/* Container */}
+      {/* Container */} 
+      <ScrollView>
       <View style={{flex: 1}}>
         <View>
           <Image
@@ -101,112 +94,143 @@ const Filter = ({navigation, route}) => {
           <Text
             style={{
               marginLeft: 30,
-              marginTop: 8,
+              marginTop: 20,
               fontSize: 14,
+              marginBottom:5,
               color: '#38A7D0',
+              fontSize:15
             }}>
-            Destination
+            By Destination
           </Text>
-
-          <View
-            style={{
-              borderWidth: 0.3,
-              height: 41,
-              width: 146,
-              borderRadius: 10,
-              marginLeft: 20,
-            }}>
-            <Picker
-              selectedValue={selectedValue}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }>
-              <Picker.Item label="Paal" value="Paal" style={{fontSize: 14}} />
-              <Picker.Item
-                label="Pulisan"
-                value="Pulisan"
-                style={{fontSize: 14}}
-              />
-              <Picker.Item
-                label="Kinunang"
-                value="Kinunang"
-                style={{fontSize: 14}}
-              />
-            </Picker>
+          
+          <View style={{flexDirection:'row'}}>
+            <View
+              style={{
+                borderWidth: 0.3,
+                height: 41,
+                width: 146,
+                borderRadius: 10,
+                marginLeft: 20,
+              }}>
+              <Picker
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+                selectedStatus={selectedStatus}
+                onStatusChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+                >
+                  <Picker.Item
+                  label="All"
+                  value="All"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Paal"
+                  value="Paal"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Pulisan"
+                  value="Pulisan"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="Kinunang"
+                  value="Kinunang"
+                  style={{fontSize: 15}}
+                />
+              </Picker>
+            </View>
+            <Image style={{
+              width:15,
+              height:20,
+              alignSelf:'center',
+              marginLeft:15
+            }} source={require('../../assets/icon/CentangHijau.png')} />
+            <Text style={{alignSelf:'center',marginBottom:2,marginLeft:4,color:'green'}} >Available</Text>
           </View>
-
-          <View>
-            <ScrollView>
-              {Homestay.length === 0 ? (
+          
+          <ScrollView>
+          {selectedValue === "All" &&(
                 <View>
-                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                    Semua Item
-                  </Text>
-                  <View style={styles.list}>
-                    {products
-                      .filter(produk => produk.kategori.includes(kategori))
-                      .map(key => (
-                        <View style={{flexDirection: 'row'}}>
-                          <CardHomestay
-                            title={key.name}
-                            alamat={key.alamat}
-                            image={`${key.photo}`}
-                            price={key.price}
-                            onPress={() => handleSubmit(key.id)}
-                          />
-                        </View>
-                      ))}
-                  </View>
-                </View>
-              ) : (
-                products
-                  .filter(
-                    produk =>
-                      produk.kategori.includes(kategori) &&
-                      produk.namaProduk
-                        .toLowerCase()
-                        .includes(search.toLowerCase()),
-                  )
+                  {pictures
+                  .filter(homestay => homestay.status=='available')
                   .map(key => (
-                    <View style={{flexDirection: 'row'}}>
-                      <CardHomestay
-                        title={key.name}
-                        alamat={key.alamat}
-                        image={`${key.photo}`}
-                        price={key.price}
-                        onPress={() => handleSubmit(key.id)}
-                      />
-                    </View>
-                  ))
-              )}
-            </ScrollView>
-            {/* {pictures.map(key => (
-              
-            ))} */}
-          </View>
-
-          {/* Check-In/Out */}
-
-          {/* <View style={{backgroundColor:'#EDEDF0',height:64,borderRadius:0.3}}>
-            <Text style={{fontSize:14,color:'#38A7D0'}}>Check-in</Text>
-            <TouchableOpacity style={styles.ButtonDate} onPress={()=>showMode('date')} >
-              <Text style={{fontWeight:'bold',fontSize:20}}>{textIn}</Text>
-              <Image source={require('../../assets/icon/Kalender.png')} />
-            </TouchableOpacity>
-          </View>
-          {show && (
-              <DateTimePicker
-              testID='dateTimePicker'
-              minimumDate={date}
-              dateFormat='day month year'
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              display='default'
-              onChange={onChange}
-          />)} */}
+                      <View>
+                        <CardHomestay
+                          title={key.name}
+                          image={`${key.photo}`}
+                          location={key.location}
+                          price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          // status={`${key.status}`}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            {selectedValue === "Paal" &&(
+                <View>
+                  {pictures
+                  .filter(homestay => homestay.location.includes(locationPaal) && homestay.status=='available' )
+                  .map(key => (
+                      <View>
+                        <CardHomestay
+                          title={key.name}
+                          image={`${key.photo}`}
+                          location={key.location}
+                          price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          // status={`${key.status}`}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            {selectedValue === "Pulisan" &&(
+                <View>
+                  {pictures
+                  .filter(homestay => homestay.location.includes(locationPulisan) && homestay.status=='available')
+                  .map(key => (
+                      <View>
+                        <CardHomestay
+                          title={key.name}
+                          image={`${key.photo}`}
+                          location={key.location}
+                          price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          // status={`${key.status}`}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            {selectedValue === "Kinunang" &&(
+                <View>
+                  {pictures
+                  .filter(homestay => homestay.location.includes(locationKinunang) && homestay.status=='available')
+                  .map(key => (
+                      <View>
+                        <CardHomestay
+                          title={key.name}
+                          image={`${key.photo}`}
+                          location={key.location}
+                          price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          // status={`${key.status}`}
+                          onPress={() => handleSubmit(key.id)}
+                        />
+                      </View>
+                    ))}
+                </View>
+            )}
+            
+          </ScrollView>
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 };
@@ -218,5 +242,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     flexDirection: 'row',
+  },
+  picker:{
+    backgroundColor:'grey'
   },
 });

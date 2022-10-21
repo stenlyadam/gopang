@@ -47,7 +47,22 @@ const OwnerMenu = ({navigation, route}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="Home" />
-      <View>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignSelf: 'center',
+          top: 5,
+          backgroundColor: '#00FFEF',
+          width: '33%',
+          height: '5%',
+          borderRadius: 20,
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
+          HOMESTAY
+        </Text>
+      </View>
+      <View style={{top: '2%'}}>
         {isHomestay === false && (
           <TouchableOpacity
             onPress={() => navigation.navigate('AddHomestay', {uid: uid})}>
@@ -87,10 +102,26 @@ const OwnerMenu = ({navigation, route}) => {
         )}
       </View>
 
-      <View style={{marginTop: 20}}>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignSelf: 'center',
+          top: '4%',
+          backgroundColor: '#00FFEF',
+          width: '33%',
+          height: '5%',
+          borderRadius: 20,
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
+          RESTAURANTT
+        </Text>
+      </View>
+
+      <View style={{marginTop: '12%'}}>
         {isWarung === false && (
           <TouchableOpacity
-            onPress={() => navigation.navigate('AddWarung', {uid: uid})}>
+            onPress={() => navigation.navigate('OAddWarung', {uid: uid})}>
             <Image
               source={require('../../assets/owner/ButtonAddFood.png')}
               style={{margin: 20, width: 345, height: 170}}
@@ -101,7 +132,7 @@ const OwnerMenu = ({navigation, route}) => {
         {isWarung === true && (
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Warung', {uid: uid})}>
+              onPress={() => navigation.navigate('OWarung', {uid: uid})}>
               <Image
                 style={{
                   width: 347,

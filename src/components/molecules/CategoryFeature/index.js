@@ -17,7 +17,8 @@ const CategoryFeature = (props) => {
                         style={{
                         width: '60%',
                         alignItems: 'center',
-                        }}>
+                        }}
+                        activeOpacity={0.6}>
                         <View style={styles.navigation}>
                         <Image source={require('../../../assets/icon/Homestay.png')} />
                         </View>
@@ -29,7 +30,8 @@ const CategoryFeature = (props) => {
                         width: '60%',
                         alignItems: 'center',
                         marginLeft:25
-                        }}>
+                        }}
+                        activeOpacity={0.6}>
                         <View style={styles.navigation}>
                         <Image source={require('../../../assets/icon/Gazebo.png')} />
                         </View>
@@ -41,7 +43,8 @@ const CategoryFeature = (props) => {
                         width: '60%',
                         alignItems: 'center',
                         marginLeft:25
-                        }}>
+                        }}
+                        activeOpacity={0.6}>
                         <View style={styles.navigation}>
                         <Image source={require('../../../assets/icon/Food.png')} />
                         </View>

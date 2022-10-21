@@ -21,7 +21,7 @@ const NavigationBar = ({
           justifyContent: 'center',
         }}>
         <TouchableOpacity onPress={navigateHome}>
-          <Image style={{width: 28, height: 28}} source={iconHome} />
+          <Image style={{width: 20, height: 20}} source={iconHome} />
         </TouchableOpacity>
       </View>
       <View
@@ -31,7 +31,7 @@ const NavigationBar = ({
           justifyContent: 'center',
         }}>
         <TouchableOpacity onPress={navigateOrder}>
-          <Image style={{width: 28, height: 28}} source={iconOrder} />
+          <Image style={{width: 20, height: 20}} source={iconOrder} />
         </TouchableOpacity>
       </View>
       <View
@@ -41,7 +41,7 @@ const NavigationBar = ({
           justifyContent: 'center',
         }}>
         <TouchableOpacity onPress={navigateChat}>
-          <Image style={{width: 28, height: 28}} source={iconChat} />
+          <Image style={{width: 20, height: 20}} source={iconChat} />
         </TouchableOpacity>
       </View>
       <View
@@ -51,7 +51,7 @@ const NavigationBar = ({
           justifyContent: 'center',
         }}>
         <TouchableOpacity onPress={navigateUser}>
-          <Image style={{width: 28, height: 28}} source={iconUser} />
+          <Image style={{width: 20, height: 20}} source={iconUser} />
         </TouchableOpacity>
       </View>
     </View>

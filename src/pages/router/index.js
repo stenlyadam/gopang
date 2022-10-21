@@ -38,11 +38,20 @@ import TotalFood from '../TotalFood';
 import DetailOrderDone from '../DetailOrderDone';
 import DetailOrderDelivered from '../DetailOrderDelivered';
 import OProfile from '../OProfile';
-import OEditProfil from '../OEditProfil';
 import OnavigationBar from '../OnavigationBar';
-import AddWarung from '../OAddWarung';
-import Warung from '../OWarung';
-import AddFood from '../OAddFood';
+import OptionMenuKinunang from '../OptionMenuKinunang';
+import OptionMenuLarata from '../OptionMenuLarata';
+import TabOrderr from '../../components/molecules/TabOrder2';
+import TabOrder from '../../components/molecules/TabOrder';
+import TD from '../../pages/TD';
+import OAddWarung from '../../pages/OAddWarung';
+import OWarung from '../../pages/OWarung';
+import OAddFood from '../../pages/OAddFood';
+import OEditFood from '../../pages/OEditFood';
+import MenuGazeboPaal from '../../pages/MenuGazeboPaal';
+import MenuGazeboPulisan from '../ManuGazeboPulisan';
+import MenuGazeboKinunang from '../MenuGazeboKinunang';
+import TDOwner from '../TDOwner';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +69,9 @@ const Router = () => {
       <Stack.Screen name="NavigationBar" component={NavigationBar} />
       <Stack.Screen name="MenuHome" component={MenuHome} />
       <Stack.Screen name="MenuGazebo" component={MenuGazebo} />
+      <Stack.Screen name="MenuGazeboPaal" component={MenuGazeboPaal} />
+      <Stack.Screen name="MenuGazeboPulisan" component={MenuGazeboPulisan} />
+      <Stack.Screen name="MenuGazeboKinunang" component={MenuGazeboKinunang} />
       <Stack.Screen name="MenuHomestay" component={MenuHometay} />
       <Stack.Screen name="InfoGazebo" component={InfoGazebo} />
       <Stack.Screen name="Chat" component={Chat} />
@@ -69,9 +81,13 @@ const Router = () => {
       <Stack.Screen name="Biodata" component={Biodata} />
       <Stack.Screen name="OverviewPage" component={OverviewPage} />
       <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
+      <Stack.Screen name="TD" component={TD} />
+      <Stack.Screen name="TDOwner" component={TDOwner} />
       <Stack.Screen name="SuccessPage" component={SuccessPage} />
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
+      <Stack.Screen name="OptionMenuKinunang" component={OptionMenuKinunang} />
+      <Stack.Screen name="OptionMenuLarata" component={OptionMenuLarata} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="AboutApp" component={AboutApp} />
       <Stack.Screen name="OwnerMenu" component={OwnerMenu} />
@@ -83,16 +99,18 @@ const Router = () => {
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
       <Stack.Screen name="DetailOrderDone" component={DetailOrderDone} />
+      <Stack.Screen name="TabOrderr" component={TabOrderr} />
+      <Stack.Screen name="TabOrder" component={TabOrder} />
       <Stack.Screen
         name="DetailOrderDelivered"
         component={DetailOrderDelivered}
       />
       <Stack.Screen name="OProfile" component={OProfile} />
-      <Stack.Screen name="OEditProfil" component={OEditProfil} />
       <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
-      <Stack.Screen name="AddWarung" component={AddWarung} />
-      <Stack.Screen name="Warung" component={Warung} />
-      <Stack.Screen name="AddFood" component={AddFood} />
+      <Stack.Screen name="OAddWarung" component={OAddWarung} />
+      <Stack.Screen name="OWarung" component={OWarung} />
+      <Stack.Screen name="OAddFood" component={OAddFood} />
+      <Stack.Screen name="OEditFood" component={OEditFood} />
     </Stack.Navigator>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,20 +10,64 @@ import {
 
 import Header from '../../components/molecules/header';
 import CardWarung from '../../components/molecules/CardWarung';
+import firebase from 'firebase';
+import { useEffect } from 'react';
 
-const ProfilWarung = ({navigation}) => {
-  console.log('profil warung.navigate:', navigation);
+
+const ProfilWarung = ({navigation,route}) => {
+  const {uid,WarungID} = route.params;
+  const [onWarung, setOnWarung] = useState([]);
+  const [onFood, setOnFood] = useState([]);
+
+  const getWarung = () => {
+    firebase
+      .database()
+      .ref(`warung/${WarungID}`)
+      .on('value', res => {
+        if (res.val()) {
+          // setLoading(false);
+          setOnWarung(res.val());
+        }
+      });
+  };
+  
+  const getFood = () => {
+    firebase
+      .database()
+      .ref(`warung/${WarungID}/food`)
+      .on('value', res => {
+        if (res.val()) {
+          //ubah menjadi array object
+          const rawData = res.val();
+          const productArray = [];
+          // console.log(keranjang[0].namaProduk);
+          Object.keys(rawData).map(key => {
+            productArray.push({
+              id: key,
+              ...rawData[key],
+            });
+          });
+          setOnFood(productArray);
+        }
+      });
+  };
+
+  useEffect(()=>{
+    getWarung();
+    getFood();
+  },[]);
+
   return (
     <View>
       <Header onBack={() => navigation.goBack()} />
 
       {/* chart */}
       <TouchableOpacity
-        style={{position: 'absolute', marginLeft: 320, top: 13}}
+        style={{position: 'absolute', marginLeft: '85%', top: '2%'}}
         onPress={() => navigation.navigate('ChartFood')}>
         <Image
           source={require('../../assets/icon/chart.png')}
-          style={{height: 43, width: 50}}
+          style={{height: 38, width: 38}}
         />
       </TouchableOpacity>
 
@@ -31,7 +75,7 @@ const ProfilWarung = ({navigation}) => {
         {/* Gambar */}
         <View>
           <Image
-            source={require('../../assets/imgFood/restaurant.png')}
+            source={{uri: `data:image/jpeg;base64, ${onWarung.photo}`}}
             style={{
               width: '100%',
               height: 319,
@@ -40,7 +84,7 @@ const ProfilWarung = ({navigation}) => {
         </View>
 
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.NamaWarung}>Warung Jessica, Paal Beach</Text>
+          <Text style={styles.NamaWarung}>Warung {onWarung.name}</Text>
           <View style={{marginTop: 17, marginLeft: 95}}>
             <Image source={require('../../assets/icon/ratingfood.png')} />
           </View>
@@ -48,13 +92,13 @@ const ProfilWarung = ({navigation}) => {
 
         <View style={{flexDirection: 'row', marginLeft: 31, marginTop: 9}}>
           <Image source={require('../../assets/icon/pinMap.png')} />
-          <Text style={{marginLeft: 15, fontSize: 14}}>Marinsow Village</Text>
+          <Text style={{marginLeft: 15, fontSize: 14}}>Desa {onWarung.alamat}</Text>
         </View>
 
         <View style={{flexDirection: 'row', marginLeft: 31, marginTop: 6}}>
           <Image source={require('../../assets/icon/clockIcon.png')} />
           <Text style={{marginLeft: 13, fontSize: 14}}>
-            30 Minute Delivery Time
+            {onWarung.delivery} Minute Delivery Time
           </Text>
         </View>
 
@@ -63,18 +107,16 @@ const ProfilWarung = ({navigation}) => {
           Popular Items
         </Text>
 
-        <View>
-          <CardWarung
-            title="Pisang Goroho krepek"
-            harga="Rp. 12.000"
-            image={require('../../assets/imgFood/kerpek.png')}
-          />
-
-          <CardWarung
-            title="Nutrisari"
-            harga="Rp. 5.000"
-            image={require('../../assets/imgFood/Nutrisari.png')}
-          />
+        <View style={{marginBottom:90}}>
+          {onFood.map(key => (
+              <View style={{flexDirection: 'row'}}>
+                <CardWarung
+                  title={key.name}
+                  harga={key.price}
+                  image={{uri: `data:image/jpeg;base64, ${key.photo}`}}
+                />
+              </View>
+            ))}
         </View>
       </ScrollView>
     </View>

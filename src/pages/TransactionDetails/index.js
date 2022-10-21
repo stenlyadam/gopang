@@ -8,7 +8,7 @@ import {
   Touchable,
   TouchableHighlight,
   Alert,
-  Linking,
+  Linking
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/molecules/header';
@@ -16,9 +16,10 @@ import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 import firebase from '../../config/Firebase';
 import CountDown from 'react-native-countdown-component';
 import ButtonChat from '../../components/atoms/ButtonChat';
+const dayjs = require('dayjs');
 
-const TransactionDetails = ({navigation, route, props}) => {
-  const {uid, homestayID} = route.params;
+const TransactionDetails = ({navigation, route}) => {
+  const {uid, homestayID,checkInDate,checkOutDate} = route.params;
   const [homestay, setHomestay] = useState({});
   const [users, setUsers] = useState({});
   const [userss, setUserss] = useState({});
@@ -47,9 +48,6 @@ const TransactionDetails = ({navigation, route, props}) => {
     getHomestay();
   }, []);
 
-  useEffect(() => {
-    getHomestay();
-  }, []);
 
   const getUser = () => {
     firebase
@@ -60,7 +58,7 @@ const TransactionDetails = ({navigation, route, props}) => {
         if (res.val()) {
           setUsers(res.val());
           //   setOnPhoto(true);
-          console.log(users.photo);
+          // console.log(users.photo);
         }
         console.log('ini user', users);
       });
@@ -186,7 +184,43 @@ const TransactionDetails = ({navigation, route, props}) => {
       <View
         style={{
           height: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: 371,
+          alignSelf: 'center',
+        }}
+      />
 
+      
+      <View
+        style={{
+          marginTop: 13,
+          justifyContent: 'space-between',
+          marginBottom: 13,
+          marginLeft: 20,
+          flexDirection: 'row',
+        }}>
+        <View style={{flexDirection: 'row', marginTop: 5}}>
+          <Text
+            style={{
+              fontSize: 15,
+            }}>
+            CheckIn
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', marginRight: 20}}>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop: 5,
+            }}>
+            {dayjs(checkInDate).format('dddd, DD MMMM YYYY')}
+          </Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          height: 1,
           backgroundColor: 'rgba(0, 0, 0, 0.3)',
           width: 371,
           alignSelf: 'center',
@@ -202,31 +236,24 @@ const TransactionDetails = ({navigation, route, props}) => {
           flexDirection: 'row',
         }}>
         <View style={{flexDirection: 'row', marginTop: 5}}>
-          <Image source={require('../../assets/icon/Dollar.png')} />
           <Text
             style={{
               fontSize: 15,
             }}>
-            Payment Method
+            CheckOut
           </Text>
         </View>
-
-        <TouchableHighlight
-          onPress={() => Alert.alert('SuccessPage')}
-          style={{marginRight: 20}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{
-                fontSize: 15,
-                marginTop: 5,
-              }}>
-              Indomaret
-            </Text>
-            <Image source={require('../../assets/icon/ArrowRight.png')} />
-          </View>
-        </TouchableHighlight>
+        <View style={{flexDirection: 'row', marginRight: 20}}>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop: 5,
+            }}>
+            {dayjs(checkOutDate).format('dddd, DD MMMM YYYY')}
+          </Text>
+        </View>
       </View>
-
+      
       <View
         style={{
           height: 1,
@@ -235,7 +262,7 @@ const TransactionDetails = ({navigation, route, props}) => {
           alignSelf: 'center',
         }}
       />
-
+            
       <View
         style={{
           marginTop: 13,
@@ -245,7 +272,7 @@ const TransactionDetails = ({navigation, route, props}) => {
           flexDirection: 'row',
         }}>
         <CountDown
-          until={2400000}
+          until={86400}
           digitStyle={{backgroundColor: 'white'}}
           onFinish={() => alert('finished')}
           // onPress={() => alert('hello')}
@@ -263,7 +290,10 @@ const TransactionDetails = ({navigation, route, props}) => {
         }}
       />
 
-      <ButtonChat title="Chat Owner" onPress={() => sendOnWa()} />
+      <ButtonChat
+        title="Chat Owner"
+        onPress={() => sendOnWa()}
+      />
 
       <View
         style={{
@@ -276,9 +306,9 @@ const TransactionDetails = ({navigation, route, props}) => {
       />
 
       <ButtonTransaction
-        title={'Paid'}
+        title={'Back Home'}
         btnView={styles.btnView}
-        // onPress={() => navigation.replace('SuccessPage')}
+        onPress={() => navigation.replace('NavigationBar', {uid: uid})}
       />
     </View>
   );

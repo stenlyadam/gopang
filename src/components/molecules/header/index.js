@@ -2,13 +2,11 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
   Image,
 } from 'react-native';
 import Arrow from '../../../assets/icon/Arrow.png';
-import Chart from '../../../assets/icon/chart.png';
 
 const header = ({title, onBack, onCharts}) => {
   return (

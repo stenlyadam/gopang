@@ -5,7 +5,7 @@ const HCardTransaksi = props => {
   //   const price = this.props.harga;
   return (
     <View>
-      <TouchableOpacity style={{flexDirection: 'row'}}>
+      <TouchableOpacity style={{flexDirection: 'row'}} onPress={props.onPress}>
         <Image
           style={{
             // position: 'absolute',
@@ -26,16 +26,31 @@ const HCardTransaksi = props => {
             {`${props.harga}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </Text>
         </View>
-        <Text
-          style={{
-            // position: 'absolute',
-            marginTop: 35,
-            marginLeft: '25%',
-            fontSize: 20,
-            fontWeight: '700',
-          }}>
-          {props.status}
-        </Text>
+        {props.status != "completed" ?(
+          <Text
+            style={{
+              // position: 'absolute',
+              marginTop: 35,
+              marginLeft: '25%',
+              fontSize: 20,
+              fontWeight: '700',
+            }}>
+            {props.status}
+          </Text>
+        ):(
+          <Text
+            style={{
+              // position: 'absolute',
+              marginTop: 35,
+              marginLeft: '25%',
+              fontSize: 20,
+              color:'#38A7D0',
+              fontStyle:'italic',
+              fontWeight: '700',
+            }}>
+            {props.status}
+          </Text>
+        )}
       </TouchableOpacity>
       <View
         style={{

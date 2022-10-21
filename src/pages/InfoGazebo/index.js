@@ -1,32 +1,76 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import Header from '../../components/molecules/header';
+import firebase from '../../config/Firebase';
 
-const InfoGazebo = ({navigation}) => {
+const InfoGazebo = ({navigation, route}) => {
+  const {uid, gazeboID} = route.params;
+  const [gazebo, setGazebo] = useState({});
+
+  const getGazebo = () => {
+    firebase
+      .database()
+      .ref(`gazebo/${gazeboID}`)
+      .on('value', res => {
+        if (res.val()) {
+          // setLoading(false);
+          setGazebo(res.val());
+          // setHarga(res.val().price);
+          // setStatus(res.val().status);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getGazebo();
+    console.log(gazebo.ID);
+  }, []);
+
+  const sendOnWa = () => {
+    let mobile = gazebo.number;
+    if (mobile) {
+      // Kode negara 62 = Indonesia
+      let url = 'whatsapp://send?text=' + '&phone=62' + gazebo.number;
+      Linking.openURL(url)
+        .then(data => {
+          console.log('WhatsApp Opened');
+        })
+        .catch(() => {
+          alert('Make sure Whatsapp installed on your device');
+        });
+    } else {
+      alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <Header
-        title="Gazebo Wahyu"
+        // title=""
         navigation={navigation}
         onBack={() => navigation.goBack()}
       />
 
       <View style={{flexDirection: 'row'}}>
         <View>
-          <Image
-            source={require('../../assets/Gazebo/Gazebo1.jpg')}
-            style={styles.gambar}
-          />
+          <Image source={{uri: `${gazebo.photo}`}} style={styles.gambar} />
           <View style={{flexDirection: 'row', paddingTop: 12}}>
             <Text style={styles.namaGazebo}>Gazebo Wahyu</Text>
-            <Text style={styles.ukuran}>4x6</Text>
+            <Text style={styles.ukuran}>{gazebo.size}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
             <Image
               source={require('../../assets/icon/Direction.png')}
               style={styles.direction}
             />
-            <Text style={styles.alamat}>Marinsow Village, Paal beach</Text>
+            <Text style={styles.alamat}>{gazebo.location}</Text>
           </View>
 
           <View>
@@ -37,7 +81,7 @@ const InfoGazebo = ({navigation}) => {
                 backgroundColor: '#E9E9E9',
                 borderRadius: 7,
                 // justifyContent: 'center',
-                width: '90%',
+                width: '83%',
                 marginLeft: 20,
                 marginTop: 10,
                 alignItems: 'center',
@@ -57,27 +101,25 @@ const InfoGazebo = ({navigation}) => {
                 style={{width: 35, height: 40}}
               />
               <View style={{marginLeft: 10}}>
-                <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                  Mr. Wahyu
-                </Text>
+                <Text style={{fontSize: 15, fontWeight: 'bold'}}>Owner</Text>
                 <Text
                   style={{fontSize: 15, fontWeight: 'bold', color: '#38A7D0'}}>
-                  0852-1234-5678
+                  {gazebo.number}
                 </Text>
               </View>
             </View>
-            <TouchableOpacity
-              style={{flexDirection: 'row', marginTop: 22}}
-              onPress={() => navigation.navigate('Chat')}>
+            <TouchableOpacity style={{flexDirection: 'row', marginTop: 22}}>
               <Image
                 source={require('../../assets/icon/iconChatAktif.png')}
                 style={{width: 35, height: 40}}
               />
-              <View style={{marginTop: 8, marginLeft: 10}}>
+              <TouchableOpacity
+                onPress={() => sendOnWa()}
+                style={{marginTop: 8, marginLeft: 10}}>
                 <Text style={{fontSize: 15, fontWeight: 'bold'}}>
                   Chat Owner
                 </Text>
-              </View>
+              </TouchableOpacity>
             </TouchableOpacity>
           </View>
         </View>
@@ -90,10 +132,11 @@ export default InfoGazebo;
 
 const styles = StyleSheet.create({
   gambar: {
-    width: 411,
-    height: 270,
+    width: '110%',
+    height: '40%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    // backgroundColor: 'red',
   },
   direction: {
     width: 17,

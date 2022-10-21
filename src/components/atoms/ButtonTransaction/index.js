@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
-    width: 154.4,
-    height: 63.31,
+    width: 130,
+    height: 50,
   },
   textButton: {
     fontSize: 18,

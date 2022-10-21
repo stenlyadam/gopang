@@ -10,9 +10,10 @@ import {
 import Header from '../../components/molecules/header';
 import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 import firebase from '../../config/Firebase';
+const dayjs = require('dayjs');
 
 const OverviewPage = ({navigation, route}) => {
-  const {uid, homestayID} = route.params;
+  const {uid, homestayID, checkInDate, checkOutDate} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
 
@@ -30,17 +31,42 @@ const OverviewPage = ({navigation, route}) => {
       IDpenyewa: uid,
       emailPenyewa: users.email,
       phonePenyewa: users.number,
+      noHandphoneOwner: userss.number,
+      namaOwner: userss.name,
       alamatHomestay: homestay.alamat,
       fotoHomestay: homestay.photo,
       harga: homestay.price,
       total: homestay.price,
       kategori: 'homestay',
+      time: 86400,
+      checkin: checkInDate,
+      checkout: checkOutDate,
+      paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
     };
-
     firebase.database().ref(`transaksi`).push(data);
-    navigation.navigate('TransactionDetails', {
+
+    const dataHomestay = {
+      price: homestay.price,
+      name: homestay.name,
+      description: homestay.description,
+      alamat: homestay.alamat,
+      location: homestay.location,
+      photo: homestay.photo,
+      bedroom: homestay.bedroom,
+      bathroom: homestay.bathroom,
+      AC: homestay.AC,
+      wifi: homestay.wifi,
+      ratings: homestay.ratings,
+      totalRating: homestay.totalRating,
+      status: 'unavailable',
+    };
+    firebase.database().ref(`homestay/${homestayID}`).set(dataHomestay);
+
+    navigation.replace('TransactionDetails', {
       uid: uid,
       homestayID: homestayID,
+      checkInDate: checkInDate,
+      checkOutDate: checkOutDate,
     });
   };
 
@@ -57,10 +83,6 @@ const OverviewPage = ({navigation, route}) => {
       });
   };
 
-  useEffect(() => {
-    getHomestay();
-  }, []);
-
   const getUser = () => {
     firebase
 
@@ -75,10 +97,6 @@ const OverviewPage = ({navigation, route}) => {
         console.log('ini user', users);
       });
   };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const getUserr = () => {
     firebase
@@ -96,6 +114,8 @@ const OverviewPage = ({navigation, route}) => {
   };
 
   useEffect(() => {
+    getHomestay();
+    getUser();
     getUserr();
   }, []);
 
@@ -195,19 +215,23 @@ const OverviewPage = ({navigation, route}) => {
             marginLeft: 20,
             flexDirection: 'row',
           }}>
-          <Text
-            style={{
-              fontSize: 15,
-            }}>
-            Check-in
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              marginRight: 20,
-            }}>
-            Sun Feb 6 2022
-          </Text>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+              }}>
+              CheckIn
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginTop: 5,
+              }}>
+              {dayjs(checkInDate).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
         </View>
 
         <View
@@ -227,21 +251,24 @@ const OverviewPage = ({navigation, route}) => {
             marginLeft: 20,
             flexDirection: 'row',
           }}>
-          <Text
-            style={{
-              fontSize: 15,
-            }}>
-            Check-out
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              marginRight: 20,
-            }}>
-            Mon Feb 07 2022
-          </Text>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+              }}>
+              CheckOut
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginTop: 5,
+              }}>
+              {dayjs(checkOutDate).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
         </View>
-
         <View
           style={{
             height: 1,
@@ -270,7 +297,9 @@ const OverviewPage = ({navigation, route}) => {
               fontSize: 15,
               marginRight: 20,
             }}>
-            1 Night
+            {checkInDate && checkOutDate
+              ? `${dayjs(checkOutDate).diff(dayjs(checkInDate), 'day')} Night`
+              : 'Please add a check-in and check-out date'}
           </Text>
         </View>
 
@@ -287,7 +316,6 @@ const OverviewPage = ({navigation, route}) => {
           style={{
             marginTop: 13,
             justifyContent: 'space-between',
-            marginBottom: 13,
             marginLeft: 20,
             flexDirection: 'row',
           }}>
@@ -309,7 +337,7 @@ const OverviewPage = ({navigation, route}) => {
         </View>
 
         <ButtonTransaction
-          title={'Pay'}
+          title={'Confirm'}
           btnView={styles.btnView}
           onPress={() => handleSubmit()}
         />
@@ -322,7 +350,7 @@ export default OverviewPage;
 
 const styles = StyleSheet.create({
   btnView: {
-    marginTop: 147,
+    marginTop: 50,
     marginBottom: 57.69,
     alignItems: 'center',
   },

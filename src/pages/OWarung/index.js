@@ -6,17 +6,25 @@ import {
   Text,
   TouchableOpacity,
   View,
+  TextInput,
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 
 import CardFoodOwner from '../../components/molecules/CardFoodOwner';
+import {Modal} from 'react-native-paper';
 
 const Warung = ({navigation, route}) => {
   const {uid} = route.params;
   const [warung, setWarung] = useState({});
   const [pictures, setPictures] = useState([]);
   const [food, setFood] = useState(false);
+
+  const [statusModal, setStatusModal] = useState(false);
+
+  const [kategoriBaru, setKategoriBaru] = useState('');
+  const [nameBaru, setNameBaru] = useState('');
+  const [priceBaru, setPriceBaru] = useState('');
 
   const getWarung = () => {
     firebase
@@ -59,6 +67,15 @@ const Warung = ({navigation, route}) => {
 
   const handleDelete = key => {
     firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
+  };
+
+  const handleEdit = () => {
+    setStatusModal(false);
+    // const data = {
+    //   name: nameBaru,
+    //   price: priceBaru,
+    // };
+    // firebase.database().ref(`warung/${uid}/food`).set(data);
   };
 
   return (
@@ -124,7 +141,8 @@ const Warung = ({navigation, route}) => {
             Add Food
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('AddFood', {uid})}>
+            onPress={() => navigation.navigate('OAddFood', {uid})}
+            style={styles.addFood}>
             <Image
               source={require('../../assets/warung/AddFood.png')}
               style={{marginLeft: '5.1%', marginTop: 10}}
@@ -141,6 +159,7 @@ const Warung = ({navigation, route}) => {
                   harga={key.price}
                   image={`${key.photo}`}
                   onDelete={() => handleDelete(key)}
+                  onEdit={() => setStatusModal(true)}
                   // myCondition={1}
                 />
               </View>
@@ -161,10 +180,99 @@ const Warung = ({navigation, route}) => {
           ))} */}
         </View>
       </View>
+      <Modal visible={statusModal} transparent={true} animationType="slide">
+        <View style={styles.Box}>
+          <Text
+            style={{
+              left: 10,
+              fontSize: 18,
+              color: 'black',
+              top: 5,
+              fontWeight: '600',
+            }}>
+            Edit your food
+          </Text>
+          <Text
+            style={{
+              left: 10,
+              fontSize: 15,
+              color: 'black',
+              top: 8,
+              fontWeight: '600',
+            }}>
+            Name
+          </Text>
+          <TextInput
+            placeholder={'Name'}
+            style={styles.textInput}
+            value={nameBaru}
+            onChangeText={value => setNameBaru(value)}
+          />
+          <Text
+            style={{
+              left: 10,
+              fontSize: 15,
+              color: 'black',
+              top: 8,
+              fontWeight: '600',
+            }}>
+            Price
+          </Text>
+          <TextInput
+            placeholder={'Price'}
+            keyboardType="number-pad"
+            style={styles.textInput}
+            value={priceBaru}
+            onChangeText={value => setPriceBaru(value)}
+          />
+          <TouchableOpacity style={styles.Button} onPress={handleEdit}>
+            <Text style={styles.Save}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{position: 'absolute', bottom: 19, right: 27}}
+            onPress={() => setStatusModal(false)}>
+            <Text style={{color: 'black', fontSize: 15}}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
 
 export default Warung;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  Box: {
+    backgroundColor: 'white',
+    // opacity: 0.9,
+    width: '85%',
+    height: '68%',
+    borderRadius: 5,
+    alignSelf: 'center',
+    top: '-15%',
+  },
+  textInput: {
+    // backgroundColor: 'red',
+    borderColor: '#020202',
+    borderWidth: 1,
+    borderRadius: 5,
+    top: 5,
+    margin: 7,
+    paddingLeft: 15,
+  },
+  Button: {
+    position: 'absolute',
+    backgroundColor: '#38A7D0',
+    alignSelf: 'center',
+    width: '40%',
+    height: '10%',
+    bottom: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+  },
+  Save: {
+    fontSize: 20,
+    color: 'white',
+    alignSelf: 'center',
+  },
+});

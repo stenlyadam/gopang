@@ -14,7 +14,6 @@ import Button from '../../components/atoms/Button';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
-import Loading from '../../components/molecules/Loading';
 
 const OEditProfil = ({navigation, route}) => {
   const {uid} = route.params;
@@ -26,13 +25,11 @@ const OEditProfil = ({navigation, route}) => {
   const [photoBase64, setPhotoBase64] = useState('');
   console.log(uid);
 
-  const [loading, setLoading] = useState(false);
-
   const getUser = () => {
     firebase
 
       .database()
-      .ref(`users/owner/${uid}`)
+      .ref(`users/pelanggan/${uid}`)
       .on('value', res => {
         if (res.val()) {
           setUsers(res.val());
@@ -48,7 +45,7 @@ const OEditProfil = ({navigation, route}) => {
         if (res.didCancel) {
           setHasPhoto(false);
           showMessage({
-            message: 'Upload photo cancel',
+            message: 'Upload photo dibatalkan',
             type: 'default',
             backgroundColor: '#D9435E',
             color: 'white',
@@ -63,7 +60,6 @@ const OEditProfil = ({navigation, route}) => {
   };
 
   const handleSumbit = () => {
-    setLoading(true);
     if (number && name && photoBase64) {
       const data = {
         email: users.email,
@@ -71,8 +67,7 @@ const OEditProfil = ({navigation, route}) => {
         name: name,
         photo: photoBase64,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(data);
-      setLoading(false);
+      firebase.database().ref(`users/pelanggan/${uid}`).set(data);
       showMessage({
         message: 'Perubahan berhasil dilakukan',
         type: 'default',
@@ -88,10 +83,9 @@ const OEditProfil = ({navigation, route}) => {
         name: name,
         photo: photoBase64,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutNumber);
-      setLoading(false);
+      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutNumber);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -105,10 +99,9 @@ const OEditProfil = ({navigation, route}) => {
         name: users.name,
         photo: photoBase64,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutName);
-      setLoading(false);
+      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutName);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -122,10 +115,9 @@ const OEditProfil = ({navigation, route}) => {
         name: name,
         photo: users.photo,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutPhoto);
-      setLoading(false);
+      firebase.database().ref(`users/pelanggan/${uid}`).set(dataWithoutPhoto);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -139,10 +131,12 @@ const OEditProfil = ({navigation, route}) => {
         name: users.name,
         photo: photoBase64,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutNumberName);
-      setLoading(false);
+      firebase
+        .database()
+        .ref(`users/pelanggan/${uid}`)
+        .set(dataWithoutNumberName);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -156,10 +150,12 @@ const OEditProfil = ({navigation, route}) => {
         name: name,
         photo: users.photo,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutNumberPhoto);
-      setLoading(false);
+      firebase
+        .database()
+        .ref(`users/pelanggan/${uid}`)
+        .set(dataWithoutNumberPhoto);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -173,10 +169,12 @@ const OEditProfil = ({navigation, route}) => {
         name: users.name,
         photo: users.photo,
       };
-      firebase.database().ref(`users/owner/${uid}`).set(dataWithoutNamePhoto);
-      setLoading(false);
+      firebase
+        .database()
+        .ref(`users/pelanggan/${uid}`)
+        .set(dataWithoutNamePhoto);
       showMessage({
-        message: 'Update Profile Sucsess',
+        message: 'Perubahan berhasil dilakukan',
         type: 'default',
         backgroundColor: 'green',
         color: 'white',
@@ -191,66 +189,63 @@ const OEditProfil = ({navigation, route}) => {
   }, []);
 
   return (
-    <>
-      <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Header title="Change Profile" onBack={() => navigation.goBack()} />
-        <ScrollView>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <TouchableOpacity style={styles.avatar} onPress={getImage}>
-              {hasPohto && (
-                <Image
-                  // source={require('../../assets/dummyChat/dummy3.jpg')}
-                  style={{width: 110, height: 110, borderRadius: 110 / 2}}
-                  source={{uri: photo}}
-                />
-              )}
-              {!hasPohto && (
-                <View style={styles.addPhoto}>
-                  <Text style={styles.textAddPhoto}>Add Photo</Text>
-                </View>
-              )}
-            </TouchableOpacity>
-          </View>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
+      <Header title="Change Profile" onBack={() => navigation.goBack()} />
+      <ScrollView>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <TouchableOpacity style={styles.avatar} onPress={getImage}>
+            {hasPohto && (
+              <Image
+                // source={require('../../assets/dummyChat/dummy3.jpg')}
+                style={{width: 110, height: 110, borderRadius: 110 / 2}}
+                source={{uri: photo}}
+              />
+            )}
+            {!hasPohto && (
+              <View style={styles.addPhoto}>
+                <Text style={styles.textAddPhoto}>Add Photo</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
 
-          {/* Render TextInput */}
-          <View style={styles.InputContainer}>
-            <View>
-              <Text style={{marginLeft: 10}}>Full Name</Text>
-              <Input
-                placeholder={users.name}
-                input={styles.inputName}
-                value={name}
-                onChangeText={value => setEmail(value)}
-              />
-              {/* <Input placeholder={'Email'} type={text} input={styles.input} /> */}
-              <Text style={{marginLeft: 10, marginTop: 15}}>Phone Number</Text>
-              <Input
-                placeholder={users.number}
-                type={number}
-                value={number}
-                input={styles.inputNumber}
-                onChangeText={value => setNumber(value)}
-                keyboardType="number-pad"
-              />
-              {/* <Input placeholder={'Password'} type={number} TextEntry={true} input={styles.input} />
+        {/* Render TextInput */}
+        <View style={styles.InputContainer}>
+          <View>
+            <Text style={{marginLeft: 10}}>Full Name</Text>
+            <Input
+              placeholder={users.name}
+              input={styles.inputName}
+              value={name}
+              onChangeText={value => setEmail(value)}
+            />
+            {/* <Input placeholder={'Email'} type={text} input={styles.input} /> */}
+            <Text style={{marginLeft: 10, marginTop: 15}}>Phone Number</Text>
+            <Input
+              placeholder={users.number}
+              type={number}
+              value={number}
+              input={styles.inputNumber}
+              onChangeText={value => setNumber(value)}
+              keyboardType="number-pad"
+            />
+            {/* <Input placeholder={'Password'} type={number} TextEntry={true} input={styles.input} />
               <Input placeholder={'Confirm your password'} type={number} TextEntry={true} input={styles.input} /> */}
-            </View>
           </View>
+        </View>
 
-          {/* Render Button Sign Up dan Touchable Sign In */}
-          <Button
-            title={'Update Profile'}
-            btnView={styles.btnSignUp}
-            onPress={() => {
-              handleSumbit();
-              // pake show message
-              // pake navigate bale ke halaman sebeumnya
-            }}
-          />
-        </ScrollView>
-      </View>
-      {loading && <Loading />}
-    </>
+        {/* Render Button Sign Up dan Touchable Sign In */}
+        <Button
+          title={'Update Profile'}
+          btnView={styles.btnSignUp}
+          onPress={() => {
+            handleSumbit();
+            // pake show message
+            // pake navigate bale ke halaman sebeumnya
+          }}
+        />
+      </ScrollView>
+    </View>
   );
 };
 

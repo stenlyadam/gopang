@@ -13,7 +13,11 @@ import CheckBox from '@react-native-community/checkbox';
 import Button from '../../components/atoms/Button';
 
 const EditHomestay = ({navigation}) => {
-  const [centang, setCentang] = useState(false);
+  const [Bedroom, setBedroom] = useState(false);
+  const [Bathroom, setBathroom] = useState(false);
+  const [AC, setAC] = useState(false);
+  const [Wifi, setWifi] = useState(false);
+
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
       <Header
@@ -67,8 +71,8 @@ const EditHomestay = ({navigation}) => {
             <Text>bedroom</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Bedroom}
+              onValueChange={newValue => setBedroom(newValue)}
             />
           </View>
           <View
@@ -77,11 +81,11 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/bathtub.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>bathroom</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Bathroom}
+              onValueChange={newValue => setBathroom(newValue)}
             />
           </View>
           <View
@@ -90,11 +94,11 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/AC.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>AC</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={AC}
+              onValueChange={newValue => setAC(newValue)}
             />
           </View>
           <View
@@ -103,11 +107,11 @@ const EditHomestay = ({navigation}) => {
               source={require('../../assets/owner/wifi.png')}
               style={{height: 28, width: 28}}
             />
-            <Text>bedroom</Text>
+            <Text>Wifi</Text>
             <CheckBox
               disabled={false}
-              value={centang}
-              onValueChange={newValue => setCentang(newValue)}
+              value={Wifi}
+              onValueChange={newValue => setWifi(newValue)}
             />
           </View>
         </View>

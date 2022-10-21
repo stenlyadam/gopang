@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {useEffect, useState} from 'react';
 import {
   Image,
@@ -11,34 +12,50 @@ import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
 
+import Button from '../../components/atoms/Button';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+const dayjs = require('dayjs');
+
 const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
   const [status, setStatus] = useState('');
+  // const [Date, setDate] = useState('');
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [currentDatePickerContext, setCurrentDatePickerContext] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
-    setLoading(true);
-    const data = {
-      price: homestay.price,
-      name: homestay.name,
-      description: homestay.description,
-      alamat: homestay.alamat,
-      location: homestay.location,
-      photo: homestay.photo,
-      bedroom: homestay.bedroom,
-      bathroom: homestay.bathroom,
-      AC: homestay.AC,
-      wifi: homestay.wifi,
-      status: 'unavailable',
-    };
-    firebase.database().ref(`homestay/${homestayID}`).set(data);
-    setTimeout(() => {
-      setLoading(false);
-      navigation.navigate('OverviewPage', {uid: uid, homestayID: homestayID});
-    }, 2000);
+    {
+      checkInDate === null && checkOutDate === null ? (
+        alert('Please add Check In or Check Out ! ')
+      ) : (
+        <View>
+          {checkOutDate == null ? (
+            alert('Please add Check Out')
+          ) : (
+            <View>
+              {checkInDate == null
+                ? alert('Please add Check In')
+                : (setLoading(true),
+                  setTimeout(() => {
+                    setLoading(false);
+                    navigation.navigate('OverviewPage', {
+                      uid: uid,
+                      homestayID: homestayID,
+                      checkInDate: checkInDate.toString(),
+                      checkOutDate: checkOutDate.toString(),
+                    });
+                  }, 1000))}
+            </View>
+          )}
+        </View>
+      );
+    }
   };
 
   const getHomestay = () => {
@@ -58,6 +75,8 @@ const MenuGazebo = ({navigation, route}) => {
   useEffect(() => {
     getHomestay();
   }, []);
+
+  const toggleDatePicker = isVisible => setShowDatePicker(isVisible);
 
   return (
     <>
@@ -93,14 +112,24 @@ const MenuGazebo = ({navigation, route}) => {
                 }}>
                 {homestay.name}
               </Text>
-              <Image
-                source={require('../../assets/icon/Rating.png')}
+              <Text
                 style={{
-                  width: 51,
-                  height: 17,
+                  marginTop: 10,
+                  position: 'absolute',
+                  right: '11%',
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                }}>
+                {homestay.totalRating}
+              </Text>
+              <Image
+                source={require('../../assets/rating.png')}
+                style={{
+                  width: 15,
+                  height: 15,
                   marginTop: 12,
                   position: 'absolute',
-                  right: 20,
+                  right: '6%',
                 }}
               />
             </View>
@@ -193,55 +222,79 @@ const MenuGazebo = ({navigation, route}) => {
             </View>
 
             {/* Check in/out */}
-            <View style={{marginLeft: 37, marginTop: 22}}>
-              <Text
-                style={{marginBottom: 6.37, fontSize: 14, color: '#38A7D0'}}>
-                Check-in
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#F9F9F9',
-                  height: 40.54,
-                  marginRight: 121,
-                }}>
-                <Image
-                  source={require('../../assets/icon/Kalender.png')}
-                  style={{marginLeft: 13.18}}
-                />
-                <Text style={{fontSize: 18, marginLeft: 5}}>
-                  Sunday, 6 February 2022
-                </Text>
-              </View>
+            <View style={{marginLeft: '4.8%', marginTop: 22}}>
+              <View>
+                {[
+                  [
+                    'Check-in',
+                    () => {
+                      toggleDatePicker(true);
+                      setCurrentDatePickerContext('checkIn');
+                    },
+                    checkInDate,
+                  ],
+                  [
+                    'Check-out',
+                    () => {
+                      toggleDatePicker(true);
+                      setCurrentDatePickerContext('checkOut');
+                    },
+                    checkOutDate,
+                  ],
+                ].map((el, idx) => (
+                  <View key={idx} style={{marginBottom: 10}}>
+                    <Text
+                      style={{
+                        color: '#38A7D0',
+                      }}>
+                      {el[0]}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          // backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                          // borderBottomWidth: 3,
+                          // borderBottomColor: 'rgba(0, 0, 0, 0.09)',
+                          // borderRadius: 3,
+                          // padding: 5,
+                          paddingTop: 15,
+                          alignItems: 'center',
+                          borderRadius: 20,
+                          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+                          borderBottomColor: 'rgba(0, 0, 0, 0.10)',
+                          borderBottomWidth: 3,
+                          width: 200,
+                          height: 50,
+                        }}
+                        onPress={el[1]}>
+                        <Text>
+                          {el[2]
+                            ? dayjs(el[2]).format('dddd, DD MMMM YYYY')
+                            : `Please add a ${el[0].toLowerCase()} date`}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                ))}
 
-              <Text
-                style={{
-                  marginBottom: 6.37,
-                  marginTop: 15.68,
-                  fontSize: 14,
-                  color: '#38A7D0',
-                }}>
-                Check-out
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  backgroundColor: '#F9F9F9',
-                  height: 40.54,
-                  marginRight: 121,
-                }}>
-                <Image
-                  source={require('../../assets/icon/Kalender.png')}
-                  style={{marginLeft: 13.18}}
-                />
-                <Text style={{fontSize: 18, marginLeft: 5}}>
-                  Monday, 7 February 2022
+                <Text>Max. 31 Days</Text>
+
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 18,
+                  }}>
+                  {checkInDate && checkOutDate
+                    ? `${dayjs(checkOutDate).diff(
+                        dayjs(checkInDate),
+                        'day',
+                      )} Night`
+                    : '-'}
                 </Text>
               </View>
-              <Text style={{fontSize: 12}}>Max.31 Days</Text>
-              <Text style={{fontSize: 18, marginTop: 7.34}}>1 Malam</Text>
 
               <View
                 style={{
@@ -274,6 +327,20 @@ const MenuGazebo = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
+      <DateTimePickerModal
+        onConfirm={date => {
+          if (currentDatePickerContext === '')
+            return alert("Internal Error: Date Picker context isn't primed!");
+
+          currentDatePickerContext === 'checkIn'
+            ? setCheckInDate(date)
+            : setCheckOutDate(date);
+
+          toggleDatePicker(false);
+        }}
+        onCancel={() => toggleDatePicker(false)}
+        isVisible={showDatePicker}
+      />
       {loading && <Loading />}
     </>
   );
