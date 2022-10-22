@@ -108,13 +108,13 @@ const DetailOrderDone = ({navigation,route}) => {
 
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 28,
           marginTop: 3,
+          marginLeft:20,
+          marginRight:20,
+          alignItems:'flex-end'
         }}>
         <View>
-          <Text style={{fontSize: 18, marginLeft: '70%'}}>Delivered</Text>
+          <Text style={{fontSize: 18,marginRight:'9%'}}>Progress</Text>
         </View>
       </View>
 
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   garis2: {
     height: 1,
-    marginTop: 280,
+    marginTop: 50,
     marginBottom:10,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },

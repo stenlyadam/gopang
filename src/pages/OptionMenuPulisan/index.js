@@ -6,7 +6,8 @@ import {
   Image,
   ScrollView,
   Alert,
-  Linking
+  Linking,
+  BackHandler
 } from 'react-native';
 import React,{useCallback,useEffect} from 'react';
 import Header from '../../components/molecules/header';
@@ -65,7 +66,7 @@ const OptionMenuPulisan = ({navigation,route}) => {
             style={{width: 51, height: 17, marginTop: 12, marginLeft: '34%'}}
           />
         </View>
-        <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}}>
+        <View style={{marginLeft: 14, flexDirection: 'row'}}>
           <Image
             source={require('../../assets/icon/Direction.png')}
             style={{width: 20, height: 29}}
@@ -74,7 +75,7 @@ const OptionMenuPulisan = ({navigation,route}) => {
             Marinsow Village, East Likupang District, North Minahasa Regency,
             North Sulawesi
           </Text>
-        </TouchableOpacity>
+        </View>
         <View
           style={{marginLeft: '4.8%', marginRight: '4.8%', marginTop: '4.8%'}}>
           <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>

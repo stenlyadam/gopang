@@ -11,6 +11,7 @@ const TotalFood = ({navigation, route}) => {
   const [totalBayar, setTotalBayar] = useState(0);
   const [barang,setBarang] = useState(0);
 
+  const [warung,setWarung] = useState({});
   const [pelanggan, setPelanggan] = useState({});
   const [owner, setOwner] = useState({});
 
@@ -24,6 +25,7 @@ const TotalFood = ({navigation, route}) => {
       total: totalBayar,
       pesanan: DataOrder,
       IDwarung: WarungID,
+      namaWarung: warung.name,
       // jumlah:,
       // namaMakanan:,
     };
@@ -113,11 +115,24 @@ const TotalFood = ({navigation, route}) => {
       });
   };
 
+  const getWarung = () =>{
+    firebase
+
+      .database()
+      .ref(`warung/${WarungID}`)
+      .on('value',res=>{
+        if (res.val()){
+          setWarung(res.val());
+        }
+      })
+  }
+
   useEffect(() => {
     getOrder();
     total();
     getPelanggan();
     getOwner();
+    getWarung();
   }, []);
 
   return (

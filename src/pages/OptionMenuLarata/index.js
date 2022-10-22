@@ -6,7 +6,8 @@ import {
     Image,
     ScrollView,
     Alert,
-    Linking
+    Linking,
+    BackHandler
   } from 'react-native';
   import React, {useCallback,useEffect} from 'react';
   import Header from '../../components/molecules/header';
@@ -65,7 +66,7 @@ import {
               style={{width: 51, height: 17, marginTop: 12, marginLeft: '45.9%'}}
             />
           </View>
-          <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}} >
+          <View style={{marginLeft: 14, flexDirection: 'row'}} >
             <Image
               source={require('../../assets/icon/Direction.png')}
               style={{width: 20, height: 29}}
@@ -74,17 +75,18 @@ import {
               Marinsow Village, East Likupang District, North Minahasa Regency,
               North Sulawesi
             </Text>
-          </TouchableOpacity>
+          </View>
           <View
             style={{marginLeft: '4.8%', marginRight: '4.8%', marginTop: '4.8%'}}>
             <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>
               Overview
             </Text>
-            <Text style={{fontSize: 17}}>
-              Paal Beach is one of the tourist attractions in Likupang,North
-              Sulawesi. When visiting here, you will find a beach with clean white
-              sand strands on the shoreline and a beautiful turquoise sea like
-              crystal.
+            <Text style={{fontSize: 17,textAlign:'justify'}}>
+              Bukit Larata is a tourist attraction in the form of a natural panorama from the top of the highlands in North Sulawesi.
+              This beautiful hill is located in the northeast of the North Minahasa Regency administrative area or close to Aris Lumombo Beach and PLTS Likupang.
+              The Bukit Larata tourist attraction itself is a tourist spot located between a hill called Bukit Larata in Kinunang Village.
+              This hill has a height of approximately 45 meters above sea level.
+              For those of you who are confused about where to go on vacation, Bukit Larata in North Sulawesi is really worth it for you to visit.
             </Text>
           </View>
   

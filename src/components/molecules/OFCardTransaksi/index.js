@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
-const HCardTransaksi = props => {
+const FCardTransaksi = props => {
   //   const price = this.props.harga;
   return (
     <View>
@@ -19,8 +19,8 @@ const HCardTransaksi = props => {
           // source={require('../../../assets/homestay/HomestayWahyu.png')}
         />
         <View style={{marginLeft: 10, marginTop: 2}}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{props.nama}</Text>
-          <Text style={{fontSize: 10, marginTop: 3,fontWeight:'bold'}}>{props.alamat}</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{props.namaWarung}</Text>
+          <Text style={{fontSize: 10, marginTop: 3,fontWeight:'bold'}}>{props.pesanan}</Text>
           <Text style={{fontSize: 10, marginTop: 3}}>Customer :</Text>
           <Text style={{fontSize: 8}}>{props.customer}</Text>
           <Text style={{fontSize: 13, marginTop: 10, fontWeight: 'bold'}}>
@@ -69,6 +69,6 @@ const HCardTransaksi = props => {
   );
 };
 
-export default HCardTransaksi;
+export default FCardTransaksi;
 
 const styles = StyleSheet.create({});

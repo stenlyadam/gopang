@@ -47,6 +47,28 @@ const OwnerMenu = ({navigation, route}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header title="Home" />
+      <View
+        style={{
+          height: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: '100%',
+          alignSelf: 'center',
+        }}
+      />
+      <View
+        style={{
+          alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
+          alignSelf: 'center',
+          marginTop: 20,
+          width: 347,
+          height: '5%',
+          borderRadius: 10,
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#38A7D0'}}>
+          HOMESTAY
+        </Text>
+      </View>
       <View>
         {isHomestay === false && (
           <TouchableOpacity
@@ -87,7 +109,22 @@ const OwnerMenu = ({navigation, route}) => {
         )}
       </View>
 
-      <View style={{marginTop: 20}}>
+      <View
+        style={{
+          alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
+          alignSelf: 'center',
+          marginTop:20,
+          width: 347,
+          height: '5%',
+          borderRadius: 10,
+        }}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#38A7D0'}}>
+          RESTAURANT
+        </Text>
+      </View>
+
+      <View>
         {isWarung === false && (
           <TouchableOpacity
             onPress={() => navigation.navigate('OAddWarung', {uid: uid})}>
