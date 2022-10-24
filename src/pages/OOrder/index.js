@@ -106,14 +106,14 @@ const NavOrder = ({navigation,route}) => {
             .map(key => (
               <View>
                 <OFCardTransaksi
-                namaWarung={key.namaWarung}
-                // pesanan={key.alamatHomestay}
-                harga={key.total}
-                status={key.status}
-                customer={key.namaPemesan}
-                // photo={key.fotoHomestay}
-                // onPress={() => handleSubmit(key.id)}
-              />
+                  namaWarung={key.namaWarung}
+                  // pesanan={key.alamatHomestay}
+                  harga={key.total}
+                  status={key.status}
+                  customer={key.namaPemesan}
+                  photo={require('../../assets/icon/iconCardFood.png')}
+                  // onPress={() => handleSubmit(key.id)}
+                />
               </View>
             ))}
         </View>
@@ -123,6 +123,7 @@ const NavOrder = ({navigation,route}) => {
 
   const SecondRoute = () => {
     const [transaksi, setTransaksi] = useState([]);
+    const [transaksiFood, setTransaksiFood] = useState([]);
 
     const getTransaksiHomestay = () =>{
       firebase
@@ -144,10 +145,32 @@ const NavOrder = ({navigation,route}) => {
           }
         });
     }
+
+    const getTransaksiFood = () =>{
+      firebase
+        .database()
+        .ref(`transaksiFood`)
+        .on('value', res => {
+          if (res.val()) {
+            //ubah menjadi array object
+            const rawData = res.val();
+            const productArray = [];
+            // console.log(keranjang[0].namaProduk);
+            Object.keys(rawData).map(key => {
+              productArray.push({
+                id: key,
+                ...rawData[key],
+              });
+            });
+            setTransaksiFood(productArray);
+          }
+        });
+    }
     
     
     useEffect(() => {
       getTransaksiHomestay();
+      getTransaksiFood();
     }, []);
 
     const handleSubmit = key => {
@@ -179,6 +202,24 @@ const NavOrder = ({navigation,route}) => {
       </View>
       <View>
         <Text style={{marginTop:10,fontSize:20,fontWeight:'bold',left:20}}>Food</Text>
+        {transaksiFood
+            .filter(item =>
+                      item.IDwarung.includes(uid) &&
+                      item.status !== 'progress'&&
+                      item.status !== 'cooking'&&
+                      item.status !== 'food on the way',
+                      )
+            .map(key => (
+              <View>
+                <OFCardTransaksi
+                  harga={key.total}
+                  status={key.status}
+                  customer={key.namaPemesan}
+                  photo={require('../../assets/icon/iconCardFood.png')}
+                  // onPress={() => handleSubmit(key.id)}
+                />
+              </View>
+            ))}
       </View>
     </View>
     )

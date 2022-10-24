@@ -26,12 +26,13 @@ const TotalFood = ({navigation, route}) => {
       pesanan: DataOrder,
       IDwarung: WarungID,
       namaWarung: warung.name,
+      photo: warung.photo
       // jumlah:,
       // namaMakanan:,
     };
     firebase.database().ref(`transaksiFood`).push(data);
 
-    navigation.replace('DetailOrderDone', {
+    navigation.replace('DetailOrderFood', {
       uid: uid,
       WarungID: WarungID,
     });

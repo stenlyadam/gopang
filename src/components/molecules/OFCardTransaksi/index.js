@@ -1,58 +1,78 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
-const FCardTransaksi = props => {
+const OFCardTransaksi = props => {
   //   const price = this.props.harga;
   return (
-    <View>
-      <TouchableOpacity style={{flexDirection: 'row'}} onPress={props.onPress}>
+    <View >
+      <TouchableOpacity style={{flexDirection: 'row',marginTop:5}} onPress={props.onPress}>
         <Image
           style={{
             // position: 'absolute',
-            marginTop: 5,
             marginLeft: 20,
-            width: 87,
-            height: 87,
-            borderRadius: 10,
+            width: 50,
+            height: 50,
           }}
-          source={{uri: `data:image/jpeg;base64, ${props.photo}`}}
-          // source={require('../../../assets/homestay/HomestayWahyu.png')}
+          source={props.photo}
         />
-        <View style={{marginLeft: 10, marginTop: 2}}>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{props.namaWarung}</Text>
-          <Text style={{fontSize: 10, marginTop: 3,fontWeight:'bold'}}>{props.pesanan}</Text>
-          <Text style={{fontSize: 10, marginTop: 3}}>Customer :</Text>
+        <View style={{marginLeft: 15}}>
+          {/* <Text style={{fontSize: 15, fontWeight: 'bold'}}>warung {props.namaWarung}</Text> */}
+          <Text style={{fontSize: 10}}>Customer :</Text>
           <Text style={{fontSize: 8}}>{props.customer}</Text>
-          <Text style={{fontSize: 13, marginTop: 10, fontWeight: 'bold'}}>
+          <Text style={{fontSize: 13, marginTop: 3, fontWeight: 'bold'}}>
             Rp.
             {`${props.harga}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </Text>
         </View>
 
         {props.status != "completed" ?(
-          <Text
-            style={{
-              // position: 'absolute',
-              marginTop: 33,
-              marginLeft: '20%',
-              fontSize: 20,
-              fontWeight: '700',
-            }}>
-            {props.status}
-          </Text>
+          <View style={{
+            position: 'absolute',
+            marginLeft:260,
+            // backgroundColor:'red',
+            width:130,
+            height:55,
+          }}>
+            {props.status != "cooking" && props.status != "food on the way" ?(
+              <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '600',
+                alignSelf:'center',
+                marginTop:2,
+                textAlign:'center'
+                }}>{props.status}</Text>
+            ):(
+              <Text
+              style={{
+                fontSize: 18,
+                fontWeight: '600',
+                alignSelf:'center',
+                marginTop:3,
+                textAlign:'center',
+                width:100
+                }}>{props.status}</Text>
+            )}
+          </View>
         ):(
-          <Text
-            style={{
-              // position: 'absolute',
-              marginTop: 33,
-              marginLeft: '15%',
-              fontSize: 20,
-              color:'#38A7D0',
-              fontStyle:'italic',
-              fontWeight: '700',
+          <View style={{
+              position: 'absolute',
+              marginTop: 10,
+              marginLeft:260,
+              // backgroundColor:'red',
+              width:130,
+              height:55,
             }}>
-            {props.status}
-          </Text>
+            <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '700',
+              alignSelf:'center',
+              color:'#38A7D0',
+              textAlign:'center',
+              fontStyle:'italic',
+              }}>{props.status}</Text>
+          </View>
         )}
         
       </TouchableOpacity>
@@ -69,6 +89,6 @@ const FCardTransaksi = props => {
   );
 };
 
-export default FCardTransaksi;
+export default OFCardTransaksi;
 
 const styles = StyleSheet.create({});

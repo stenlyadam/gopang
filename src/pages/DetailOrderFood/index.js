@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import Header from '../../components/molecules/header';
 import ButtonChat from '../../components/atoms/ButtonChat';
 
-const DetailOrderDone = ({navigation,route}) => {
+const DetailOrderFood = ({navigation,route}) => {
   const {uid,WarungID} = route.params;
   const [DataOrder, setDataOrder] = useState([]);
   const [totalBayar, setTotalBayar] = useState(0);
@@ -180,7 +180,7 @@ const DetailOrderDone = ({navigation,route}) => {
   );
 };
 
-export default DetailOrderDone;
+export default DetailOrderFood;
 
 const styles = StyleSheet.create({
   garis1: {
