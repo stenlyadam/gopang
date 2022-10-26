@@ -7,24 +7,18 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  BackHandler
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 
 import CardFoodOwner from '../../components/molecules/CardFoodOwner';
-import {Modal} from 'react-native-paper';
 
 const Warung = ({navigation, route}) => {
   const {uid} = route.params;
   const [warung, setWarung] = useState({});
   const [pictures, setPictures] = useState([]);
   const [food, setFood] = useState(false);
-
-  const [statusModal, setStatusModal] = useState(false);
-
-  const [kategoriBaru, setKategoriBaru] = useState('');
-  const [nameBaru, setNameBaru] = useState('');
-  const [priceBaru, setPriceBaru] = useState('');
 
   const getWarung = () => {
     firebase
@@ -38,9 +32,20 @@ const Warung = ({navigation, route}) => {
       });
   };
 
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
+
   useEffect(() => {
     getWarung();
     getFood();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
   }, []);
 
   const getFood = () => {
@@ -69,13 +74,13 @@ const Warung = ({navigation, route}) => {
     firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
   };
 
-  const handleEdit = () => {
-    setStatusModal(false);
-    const data = {
-      name: nameBaru,
-      price: priceBaru,
-    };
-    firebase.database().ref(`warung/${uid}/food`).set(data);
+  const handleEdit = key => {
+    // const data = {
+    //   name: nameBaru,
+    //   price: priceBaru,
+    // };
+    // firebase.database().ref(`warung/${uid}/food`).set(data);
+    navigation.navigate('OEditFood',{uid:uid, foodId: key})
   };
   
   return (
@@ -117,7 +122,7 @@ const Warung = ({navigation, route}) => {
               style={{marginLeft: '5.1%', marginTop: 10}}
             />
             <Text style={{marginTop: 10, marginLeft: '2%', fontSize: 14}}>
-              {warung.alamat}
+              {warung.alamat} Village
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -126,7 +131,7 @@ const Warung = ({navigation, route}) => {
               style={{marginLeft: '5.1%', marginTop: 10}}
             />
             <Text style={{marginTop: 10, marginLeft: '1%', fontSize: 14}}>
-              {warung.delivery}
+              {warung.delivery} Minute Delivery Time
             </Text>
           </View>
 
@@ -159,7 +164,7 @@ const Warung = ({navigation, route}) => {
                   harga={key.price}
                   image={`${key.photo}`}
                   onDelete={() => handleDelete(key)}
-                  onEdit={() => setStatusModal(true)}
+                  onEdit={() => handleEdit(key.id)}
                   // myCondition={1}
                 />
               </View>
@@ -170,61 +175,6 @@ const Warung = ({navigation, route}) => {
 
         </View>
       </View>
-      <Modal visible={statusModal} transparent={true} animationType="slide">
-        <View style={styles.Box}>
-          <Text
-            style={{
-              left: 10,
-              fontSize: 18,
-              color: 'black',
-              top: 5,
-              fontWeight: '600',
-            }}>
-            Edit your food
-          </Text>
-          <Text
-            style={{
-              left: 10,
-              fontSize: 15,
-              color: 'black',
-              top: 8,
-              fontWeight: '600',
-            }}>
-            Name
-          </Text>
-          <TextInput
-            placeholder={'Name'}
-            style={styles.textInput}
-            value={nameBaru}
-            onChangeText={value => setNameBaru(value)}
-          />
-          <Text
-            style={{
-              left: 10,
-              fontSize: 15,
-              color: 'black',
-              top: 8,
-              fontWeight: '600',
-            }}>
-            Price
-          </Text>
-          <TextInput
-            placeholder={'Price'}
-            keyboardType="number-pad"
-            style={styles.textInput}
-            value={priceBaru}
-            onChangeText={value => setPriceBaru(value)}
-          />
-          <TouchableOpacity style={styles.Button} onPress={handleEdit}>
-            <Text style={styles.Save}>Save</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{position: 'absolute', bottom: 19, right: 27}}
-            onPress={() => setStatusModal(false)}>
-            <Text style={{color: 'black', fontSize: 15}}>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </ScrollView>
   );
 };

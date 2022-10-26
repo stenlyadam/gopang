@@ -189,6 +189,7 @@ const OAddWarung = ({navigation, route}) => {
             placeholder={'Delivery Time'}
             input={styles.input}
             value={delivery}
+            keyboardType="number-pad"
             onChangeText={value => setDelivery(value)}
           />
         </View>

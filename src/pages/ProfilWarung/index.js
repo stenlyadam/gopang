@@ -243,10 +243,10 @@ const ProfilWarung = ({navigation, route}) => {
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.NamaWarung}>Warung {onWarung.name}</Text>
           <View style={{marginTop: 17, marginLeft: 95}}>
-            <Image
-              style={{marginLeft: 90, width: 45}}
-              source={require('../../assets/icon/ratingfood.png')}
-            />
+            <View style={{flexDirection:'row',marginLeft:'45%'}}>
+              <Image source={require('../../assets/rating.png')} style={{width:15,height:15,alignSelf:'center'}}/>
+              <Text style={{fontSize:15,fontWeight:'bold',marginLeft:2}}>{onWarung.totalRating}</Text>
+            </View>
           </View>
         </View>
 

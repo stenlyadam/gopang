@@ -33,17 +33,8 @@ const Profile = ({navigation, route}) => {
       });
   };
 
-  const handleSubmitGoBack =()=>{
-    navigation.goBack();
-  };
-
   useEffect(() => {
     getUser();
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      handleSubmitGoBack();
-      return true;
-    })
-    return () => backHandler.remove()
   }, []);
 
   const onSignoutPress=()=>{

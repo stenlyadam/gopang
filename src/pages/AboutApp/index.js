@@ -1,9 +1,23 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
+import React,{useEffect} from 'react';
+import {StyleSheet, Text, View, ScrollView, Image,BackHandler} from 'react-native';
 
 import Header from '../../components/molecules/header';
 
 const AboutApp = ({navigation}) => {
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
+  }, []);
+
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <Header

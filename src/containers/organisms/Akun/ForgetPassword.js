@@ -3,12 +3,25 @@ import React, {useState} from 'react';
 import Header from '../../../components/molecules/header';
 import Input from '../../../components/atoms/Input';
 import Button from '../../../components/atoms/Button';
+import firebase from '../../../config/Firebase';
 
 const ForgetPassword = ({navigation}) => {
+  const [email,setEmail] = useState('');
 
+  const handleSubmitForgot=email=>{
+    console.log(email)
+    firebase
+    .auth()
+    .sendPasswordResetEmail(email)
+    .then(()=>{
+      alert('Reset password was sent to your email')
+    }).catch((error) =>{
+      alert(error)
+    })
+  }
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:'white'}}>
       <View style={{flex: 1}}>
         <Header onBack={() => navigation.goBack()} />
         <View style={{flex: 1, alignItems: 'center', marginTop: 16}}>
@@ -26,12 +39,13 @@ const ForgetPassword = ({navigation}) => {
               focus={true}
               input={styles.input}
               value={email}
-              // onChangeText={value => setEmail(value)}
+              onChangeText={value => setEmail(value)}
               keyboardType="email-address"
-            />
+          />
           <Button
             title={'Send intruction'}
             btnView={styles.btnView}
+            onPress={()=> handleSubmitForgot(email)}
           />
         </View>
       </View>

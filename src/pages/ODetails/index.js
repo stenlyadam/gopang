@@ -91,17 +91,19 @@ const ODetails = ({navigation, route}) => {
 
     setStatusModal(false);
     const data = {
-      AC: ACBaru,
-      alamat: alamatBaru,
-      bathroom: bathroomBaru,
-      bedroom: bedroomBaru,
-      description: descriptionBaru,
+      AC: ACBaru != '' ? ACBaru : false,
+      alamat: alamatBaru ? alamatBaru : homestay.alamat,
+      bathroom: bathroomBaru != '' ? bathroomBaru : false,
+      bedroom: bedroomBaru != '' ? bedroomBaru : false,
+      description: descriptionBaru ? descriptionBaru : homestay.description,
       location: homestay.location,
-      name: namaBaru,
+      name: namaBaru ? namaBaru : homestay.name,
       photo: homestay.photo,
-      price: priceBaru,
+      price: priceBaru ? priceBaru : homestay.price,
       status: homestay.status,
-      wifi: wifiBaru,
+      wifi: wifiBaru != '' ? wifiBaru : false,
+      ratings: homestay.ratings,
+      totalRating: homestay.totalRating,
     };
     firebase.database().ref(`homestay/${uid}`).set(data);
   };

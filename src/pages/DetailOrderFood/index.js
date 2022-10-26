@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image,BackHandler,Alert} from 'react-native';
+import {StyleSheet, Text, View, Image,BackHandler,Alert,Linking} from 'react-native';
 import React,{useState,useEffect} from 'react';
 import firebase from 'firebase';
 
@@ -11,6 +11,7 @@ const DetailOrderFood = ({navigation,route}) => {
   const [totalBayar, setTotalBayar] = useState(0);
   const [warung,setWarung] = useState({});
   const [barang,setBarang] = useState(0);
+  const [owner, setOwner] = useState({});
 
     const getOrder = () => {
       firebase
@@ -81,17 +82,49 @@ const DetailOrderFood = ({navigation,route}) => {
       navigation.replace('NavigationBar', {uid: uid});
     };
 
-  useEffect(() => {
-    getOrder();
-    total();
-    getWarung();
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      handleSubmitGoBack();
-      return true;
-    })
-    return () => backHandler.remove()
-  }, []);
-  console.log(WarungID)
+    const getOwner = () => {
+      firebase
+  
+        .database()
+        .ref(`users/owner/${WarungID}`)
+        .on('value', res => {
+          if (res.val()) {
+            setOwner(res.val());
+            //   setOnPhoto(true);
+            // console.log(users.photo);
+          }
+          // console.log('ini owner', users);
+        });
+    };
+
+    const sendOnWa = () => {
+      let mobile = owner.number;
+      if (mobile) {
+        // Kode negara 62 = Indonesia
+        let url = 'whatsapp://send?text=' + '&phone=62' + owner.number;
+        Linking.openURL(url)
+          .then(data => {
+            console.log('WhatsApp Opened');
+          })
+          .catch(() => {
+            alert('Make sure Whatsapp installed on your device');
+          });
+      } else {
+        alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
+      }
+    };
+
+    useEffect(() => {
+      getOrder();
+      total();
+      getWarung();
+      getOwner();
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
+    }, []);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -100,21 +133,20 @@ const DetailOrderFood = ({navigation,route}) => {
       <View style={{flexDirection: 'row'}}>
         <View>
           <Text style={styles.warung}>Warung {warung.name}</Text>
+          <Text style={{fontSize:10,marginTop:5,alignSelf:'center',fontWeight:'bold'}}>No : {owner.number}</Text>
         </View>
-        <View style={{marginLeft: 50, marginTop: 32}}>
+        <View style={{marginTop: 32,marginLeft:'16%'}}>
           <Image source={require('../../assets/icon/iconbluecek.png')} />
         </View>
       </View>
 
       <View
         style={{
-          marginTop: 3,
-          marginLeft:20,
-          marginRight:20,
-          alignItems:'flex-end'
+          marginLeft:'70%',
+          width:100,
         }}>
         <View>
-          <Text style={{fontSize: 18,marginRight:'9%'}}>Progress</Text>
+            <Text style={{fontSize: 18,textAlign:'center'}}>waiting to accepted</Text>
         </View>
       </View>
 
@@ -173,8 +205,8 @@ const DetailOrderFood = ({navigation,route}) => {
       {/* total dan Button Order */}
       <View style={styles.garis2} />
       <ButtonChat
-        title="Chat"
-        onPress={() => navigation.navigate('DetailOrderDone')}
+        title="Chat Owner"
+        onPress={() => sendOnWa()}
       />
     </View>
   );
@@ -211,9 +243,10 @@ const styles = StyleSheet.create({
   warung: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 15,
-    marginLeft: 31,
+    marginLeft: 20,
     marginTop: 52,
+    width:200,
+    textAlign:'center',
     // alignItems: 'center',
     // textAlign: 'center',
   },

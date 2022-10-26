@@ -11,7 +11,10 @@ const FoodCardHome = props => {
         <Image source={{uri: `data:image/jpeg;base64, ${props.image}`}} style={styles.foodStyle}/>
         <View style={{marginLeft:5}}>
             <Text style={{fontSize:12,fontWeight:'bold'}}>Warung {props.name}</Text>
-            <Image source={require('../../../assets/icon/Rating.png')}/>
+            <View style={{flexDirection:'row'}}>
+              <Image source={require('../../../assets/rating.png')} style={{width:10,height:10,alignSelf:'center'}}/>
+              <Text style={{fontSize:12,fontWeight:'bold',marginLeft:2}}>{props.totalRating}</Text>
+            </View>
             <View style={{flexDirection:'row'}}>
             <Image source={props.Ilocation} />
             <Text style={{fontSize:12,fontWeight:'bold',marginBottom:20}}>{props.location}</Text>

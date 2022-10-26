@@ -56,18 +56,18 @@ const CardHomestay = props => {
             flexDirection: 'row',
             position: 'absolute',
             top: '15%',
-            right: '-5%',
+            right: '-1%',
           }}>
+          <Image source={require('../../../assets/rating.png')} style={{width:15,height:15,alignSelf:'center'}} />
           <Text
             style={{
               fontWeight: 'bold',
-              right: '11%',
+              left: '11%',
               color: 'black',
-              fontSize: 14,
+              fontSize: 15,
             }}>
             {props.rating}
           </Text>
-          <Image source={require('../../../assets/rating.png')} />
         </View>
 
         <View

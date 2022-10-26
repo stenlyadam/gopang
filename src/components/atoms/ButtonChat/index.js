@@ -17,9 +17,9 @@ export default ButtonChat;
 const styles = StyleSheet.create({
   Button: {
     //alignItems: 'center',
-    marginLeft: '25%',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf:'center',
     borderRadius: 40,
     backgroundColor: '#38A7D0',
     width: 186,

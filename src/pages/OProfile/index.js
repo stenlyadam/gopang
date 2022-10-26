@@ -6,6 +6,7 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
+  BackHandler
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
@@ -30,9 +31,19 @@ const OProfile = ({navigation, route}) => {
         console.log('ini user', users);
       });
   };
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
 
   useEffect(() => {
     getUser();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
   }, []);
 
   const onSignoutPress=()=>{

@@ -323,6 +323,7 @@ const HomeMenu = ({navigation, route}) => {
                   name={key.name}
                   location={key.alamat}
                   image={`${key.photo}`}
+                  totalRating={key.totalRating}
                   onPress={() => handleWarung(key.id)}
                 />
               </View>

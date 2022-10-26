@@ -45,9 +45,9 @@ import {
     }, []);
   
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1,backgroundColor:'white'}}>
         {/* Header */}
-        <Header title={'Larata Beach'} onBack={() => navigation.goBack()} />
+        <Header title={'Larata Hill'} onBack={() => navigation.goBack()} />
   
         {/* Container */}
         <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -61,10 +61,6 @@ import {
             <Text style={{fontSize: 30, fontWeight: 'bold', marginLeft: '5.1%'}}>
               Larata Hill
             </Text>
-            <Image
-              source={require('../../assets/icon/Rating.png')}
-              style={{width: 51, height: 17, marginTop: 12, marginLeft: '45.9%'}}
-            />
           </View>
           <View style={{marginLeft: 14, flexDirection: 'row'}} >
             <Image
@@ -72,8 +68,7 @@ import {
               style={{width: 20, height: 29}}
             />
             <Text style={{fontSize: 15, width: 288, marginLeft: 3}}>
-              Marinsow Village, East Likupang District, North Minahasa Regency,
-              North Sulawesi
+              Kinunang Village, Kec. Likupang Tim., North Minahasa Regency, North Sulawesi
             </Text>
           </View>
           <View
@@ -92,9 +87,9 @@ import {
   
           {/* Category */}
           <CategoryFeature
-            onPress1={() => navigation.navigate('MenuHomestay')}
-            onPress2={() => navigation.navigate('MenuGazebo',{uid:uid})}
-            onPress3={() => navigation.navigate('MenuFood')}
+            onPress1={() => navigation.navigate('MenuHomestay',{uid:uid})}
+            onPress2={() => navigation.navigate('MenuGazeboKinunang',{uid:uid})}
+            onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
           />
           <View style={{marginLeft: 20, marginBottom: 27}}>
             <Text

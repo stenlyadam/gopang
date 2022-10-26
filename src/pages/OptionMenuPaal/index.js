@@ -45,7 +45,7 @@ const OptionMenuPaal = ({navigation,route}) => {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1,backgroundColor:'white'}}>
       {/* Header */}
       <Header title={'Paal Beach'} onBack={() => navigation.goBack()} />
 
@@ -61,10 +61,6 @@ const OptionMenuPaal = ({navigation,route}) => {
           <Text style={{fontSize: 30, fontWeight: 'bold', marginLeft: '5.1%'}}>
             Paal Beach
           </Text>
-          <Image
-            source={require('../../assets/icon/Rating.png')}
-            style={{width: 51, height: 17, marginTop: 12, marginLeft: '38.9%'}}
-          />
         </View>
         <View style={{marginLeft: 14, flexDirection: 'row'}} >
           <Image
@@ -89,7 +85,7 @@ const OptionMenuPaal = ({navigation,route}) => {
 
         {/* Category */}
         <CategoryFeature
-          onPress1={() => navigation.navigate('MenuHomestay')}
+          onPress1={() => navigation.navigate('MenuHomestay',{uid:uid})}
           onPress2={() => navigation.navigate('MenuGazeboPaal',{uid:uid,seletedValue:"Paal"})}
           onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
         />

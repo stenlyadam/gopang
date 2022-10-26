@@ -18,10 +18,11 @@ const TotalFood = ({navigation, route}) => {
   //Handle Submit
   const handleSubmit = () => {
     const data = {
-      status: 'Progress',
+      status: 'waiting to accepted',
       IDPemesan: uid,
       namaPemesan: pelanggan.name,
       phonePemesan: pelanggan.number,
+      phoneOwner: owner.number,
       total: totalBayar,
       pesanan: DataOrder,
       IDwarung: WarungID,

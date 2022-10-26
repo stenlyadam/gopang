@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
   TouchableOpacity,
+  BackHandler
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -184,8 +185,19 @@ const SignUpUser = ({navigation, route}) => {
     navigation.goBack({uid: uid});
   };
 
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
+
   useEffect(() => {
     getUser();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
   }, []);
 
   return (
@@ -244,6 +256,10 @@ const SignUpUser = ({navigation, route}) => {
             // pake navigate bale ke halaman sebeumnya
           }}
         />
+
+        <TouchableOpacity style={{alignSelf:'center',marginTop:20}} onPress={()=> navigation.navigate('ChangePassword')}>
+          <Text style={{fontStyle:'italic',fontWeight:'bold',textDecorationLine:'underline'}}>Change Password</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -296,7 +312,6 @@ const styles = StyleSheet.create({
   },
   btnSignUp: {
     marginTop: 40,
-    marginBottom: 58,
     alignItems: 'center',
   },
   ContainertxtSignIn: {

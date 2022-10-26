@@ -10,6 +10,7 @@ import {
   Alert,
   Linking,
   Modal,
+  BackHandler
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/molecules/header';
@@ -181,10 +182,21 @@ const TransactionDetails = ({navigation, route}) => {
     [navigation],
   );
 
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
+
   useEffect(() => {
     getUser();
     getTransaksi();
     getHomestay();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
   }, []);
 
   //quick fix for countdown component not updating
@@ -209,6 +221,54 @@ const TransactionDetails = ({navigation, route}) => {
     } else {
       alert('Nomor telepon pembeli tidak terdaftar di Whatsapp.');
     }
+  };
+
+  const handleSubmitCancel = () => {
+    setLoading(true);
+    const data = {
+      IDhomestay:transaksi.IDhomestay,
+      IDpenyewa:transaksi.IDpenyewa,
+      alamatHomestay:transaksi.alamatHomestay,
+      emailPenyewa:transaksi.emailPenyewa,
+      fotoHomestay:transaksi.fotoHomestay,
+      harga:transaksi.harga,
+      kategori:transaksi.kategori,
+      namaHomestay:transaksi.namaHomestay,
+      namaOwner:transaksi.namaOwner,
+      namaPenyewa:transaksi.namaPenyewa,
+      noHandphoneOwner:transaksi.noHandphoneOwner,
+      phonePenyewa:transaksi.phonePenyewa,
+      status: 'cancel',
+      total:transaksi.total,
+      time: 86400,
+      night:transaksi.night,
+      checkin: transaksi.checkin,
+      checkout: transaksi.checkout,
+      paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
+    };
+    firebase.database().ref(`transaksi/${homestayID}`).set(data);
+
+    const dataHomestay = {
+      price: homestay.price,
+      name: homestay.name,
+      description: homestay.description,
+      alamat: homestay.alamat,
+      location: homestay.location,
+      photo: homestay.photo,
+      bedroom: homestay.bedroom,
+      bathroom: homestay.bathroom,
+      AC: homestay.AC,
+      wifi: homestay.wifi,
+      ratings: homestay.ratings,
+      status: 'available',
+    };
+    firebase.database().ref(`homestay/${uid}`).set(dataHomestay);
+    
+    setTimeout(() => {
+      setLoading(false);
+      alert('Your payment time has expired');
+      navigation.replace('NavigationBar', {uid: uid})
+    }, 2000);
   };
 
   return (
@@ -446,7 +506,7 @@ const TransactionDetails = ({navigation, route}) => {
                     : 0
                 }
                 digitStyle={{backgroundColor: 'white'}}
-                onFinish={() => alert('finished')}
+                onFinish={handleSubmitCancel}
                 // onPress={() => alert('hello')}
                 size={15}
               />

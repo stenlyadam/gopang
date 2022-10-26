@@ -8,7 +8,8 @@ import {
     Touchable,
     TouchableHighlight,
     Alert,
-    Linking
+    Linking,
+    BackHandler
   } from 'react-native';
   import React, {useState, useEffect} from 'react';
   import Header from '../../components/molecules/header';
@@ -43,6 +44,12 @@ import {
         });
     };
 
+    const handleSubmitGoBack =()=>{
+      // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+  
+      navigation.goBack();
+    };
+
     const getHomestay = () => {
       firebase
   
@@ -64,6 +71,11 @@ import {
     useEffect(() => {
       getTransaksi();
       getHomestay();
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
     }, []);
 
     //quick fix for countdown component not updating
@@ -195,7 +207,7 @@ import {
                 style={{
                   fontSize: 14,
                 }}>
-                {transaksi.namaOwner}
+                {transaksi.namaOwner} <Text> </Text>
                 {transaksi.noHandphoneOwner}
               </Text>
             </View>

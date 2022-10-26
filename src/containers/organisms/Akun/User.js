@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  BackHandler
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Button from '../../../components/atoms/Button';
@@ -18,6 +19,7 @@ import firebase from '../../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
 import Header from '../../../components/molecules/header';
 import Loading from '../../../components/molecules/Loading';
+import { useEffect } from 'react';
 
 const User = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -45,6 +47,20 @@ const User = ({navigation}) => {
         });
       });
   };
+
+  const handleSubmitGoBack =()=>{
+    // firebase.database().ref(`users/pelanggan/${uid}/keranjang`).remove();
+
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
+  }, []);
 
   return (
     <>

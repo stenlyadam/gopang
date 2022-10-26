@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image, BackHandler,Alert} from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 
@@ -23,8 +23,28 @@ const OwnerMenu = ({navigation, route}) => {
       });
   };
 
+  const backPressed = () => {
+    Alert.alert(
+      'Exit App',
+      'Do you want to exit?',
+      [
+        {text: 'No', onPress: () => console.log('Cancel Pressed')},
+        {text: 'Yes', onPress: () => BackHandler.exitApp()},
+      ],
+      { cancelable: false });
+      return true;
+  }
+  const exit=()=>{
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      backPressed();
+      return true;
+    })
+    return () => backHandler.remove()
+  }
+
   useEffect(() => {
     getHomestay();
+    exit();
   }, []);
 
   const getWarung = () => {
@@ -90,7 +110,7 @@ const OwnerMenu = ({navigation, route}) => {
                   height: 152,
                   borderRadius: 8,
                   alignSelf: 'center',
-                  opacity: 0.4,
+                  opacity: 0.7,
                 }}
                 source={{uri: `data:image/jpeg;base64, ${homestay.photo}`}}
               />
@@ -117,7 +137,6 @@ const OwnerMenu = ({navigation, route}) => {
           marginTop:20,
           width: 347,
           height: '5%',
-          borderRadius: 10,
         }}>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#38A7D0'}}>
           RESTAURANT
@@ -145,9 +164,20 @@ const OwnerMenu = ({navigation, route}) => {
                   height: 152,
                   borderRadius: 8,
                   alignSelf: 'center',
+                  opacity: 0.7,
                 }}
                 source={{uri: `data:image/jpeg;base64, ${warung.photo}`}}
               />
+              <View
+                style={{
+                  position: 'absolute',
+                  alignSelf: 'center',
+                  marginTop: '15%',
+                }}>
+                <Text style={{fontSize: 30, fontWeight: '600', color: 'black'}}>
+                  {warung.name}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         )}

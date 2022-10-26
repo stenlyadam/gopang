@@ -128,6 +128,7 @@ const MenuHomestay = ({navigation, route}) => {
                       price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                       status={`${key.status}`}
                       onPress={() => handleSubmit(key.id)}
+                      rating={key.totalRating}
                     />
                   </View>
                 ))

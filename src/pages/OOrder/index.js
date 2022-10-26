@@ -75,6 +75,10 @@ const NavOrder = ({navigation,route}) => {
   const handleSubmit = key => {
     navigation.navigate('TDOwner', {uid: uid, homestayID: key});
   };
+  const handleSubmitFood = key => {
+    navigation.navigate('DetailOrderFoodOwner', {uid: uid, WarungID: key});
+  };
+  
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <View>
@@ -112,7 +116,7 @@ const NavOrder = ({navigation,route}) => {
                   status={key.status}
                   customer={key.namaPemesan}
                   photo={require('../../assets/icon/iconCardFood.png')}
-                  // onPress={() => handleSubmit(key.id)}
+                  onPress={() => handleSubmitFood(key.id)}
                 />
               </View>
             ))}
@@ -168,6 +172,7 @@ const NavOrder = ({navigation,route}) => {
     }
     
     
+    
     useEffect(() => {
       getTransaksiHomestay();
       getTransaksiFood();
@@ -175,6 +180,9 @@ const NavOrder = ({navigation,route}) => {
 
     const handleSubmit = key => {
       navigation.navigate('TDOwner', {uid: uid, homestayID: key});
+    };
+    const handleSubmitFood = key => {
+      navigation.navigate('DetailOrderFoodOwner', {uid: uid, WarungID: key});
     };
     
     return (
@@ -205,7 +213,7 @@ const NavOrder = ({navigation,route}) => {
         {transaksiFood
             .filter(item =>
                       item.IDwarung.includes(uid) &&
-                      item.status !== 'progress'&&
+                      item.status !== 'waiting to accepted'&&
                       item.status !== 'cooking'&&
                       item.status !== 'food on the way',
                       )
@@ -216,7 +224,7 @@ const NavOrder = ({navigation,route}) => {
                   status={key.status}
                   customer={key.namaPemesan}
                   photo={require('../../assets/icon/iconCardFood.png')}
-                  // onPress={() => handleSubmit(key.id)}
+                  onPress={() => handleSubmitFood(key.id)}
                 />
               </View>
             ))}
