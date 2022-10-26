@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import ButtonAdd from '../../atoms/buttonAdd';
+import firebase from 'firebase';
 
 const CardKeranjang = props => {
   console.log('card warung:', props);
@@ -16,7 +16,16 @@ const CardKeranjang = props => {
         alignItems: 'flex-start',
         padding: 0,
       }}>
-      <Image source={props.image} style={{marginTop: 14, marginBottom: 14}} />
+      <Image
+        source={props.image}
+        style={{
+          marginTop: 14,
+          marginBottom: 14,
+          width: 120,
+          height: 88,
+          borderRadius: 20,
+        }}
+      />
       <View
         style={{
           marginLeft: 12,
@@ -29,6 +38,7 @@ const CardKeranjang = props => {
             height: 60,
             flexDirection: 'column',
           }}>
+          {/* Nama Makanan */}
           <View
             style={{
               flexDirection: 'row',
@@ -39,16 +49,22 @@ const CardKeranjang = props => {
             </View>
           </View>
 
+          {/* Harga makanan */}
           <View style={{flexDirection: 'row', marginLeft: 11}}>
-            <Text style={styles.harga}>{props.harga}</Text>
+            <Text style={styles.harga}>Rp.{props.harga}</Text>
           </View>
         </View>
+
+        {/* Button Input Jumlah Makanan */}
+
         <View style={styles.plusminus}>
-          <TouchableOpacity style={{right: '50%'}}>
+          <TouchableOpacity style={{right: '50%'}} onPress={props.onMinus}>
             <Image source={require('../../../assets/icon/minus.png')} />
           </TouchableOpacity>
-          <Text style={{fontSize: 20}}>1</Text>
-          <TouchableOpacity style={{left: '50%'}}>
+
+          <Text style={{fontSize: 20}}>{props.jumlah}</Text>
+
+          <TouchableOpacity style={{left: '50%'}} onPress={props.onPlus}>
             <Image source={require('../../../assets/icon/plus.png')} />
           </TouchableOpacity>
         </View>
@@ -71,14 +87,14 @@ const styles = StyleSheet.create({
     width: 187,
     height: 25,
   },
-  location: {
-    flexDirection: 'row',
-    fontWeight: 'normal',
-    fontSize: 13,
-    width: 187,
-    height: 50,
-    marginLeft: 4,
-  },
+  // location: {
+  //   flexDirection: 'row',
+  //   fontWeight: 'normal',
+  //   fontSize: 13,
+  //   width: 187,
+  //   height: 50,
+  //   marginLeft: 4,
+  // },
   containerTitle: {
     width: 167,
     height: 22,
@@ -90,7 +106,7 @@ const styles = StyleSheet.create({
   plusminus: {
     flexDirection: 'row',
 
-    marginLeft: '65%',
+    marginLeft: '58%',
     marginBottom: 4,
   },
 });

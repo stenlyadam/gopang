@@ -17,16 +17,19 @@ import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
 
 const OEditFood = ({navigation, route}) => {
-  const {uid} = route.params;
+  const {uid, foodId} = route.params;
+  const [newName, setNewName] = useState('');
+  const [newPrice, setNewPrice] = useState('');
+  const [newkategori, setNewKategori] = useState('');
+
+  //
+  const [food, setFood] = useState({});
   const [users, setUsers] = useState({});
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  //const [facility, setFacility] = useState('');
+  const [warung, setGetWarung] = useState({});
+  //
   const [photo, setPhoto] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
-  const [kategori, setKategori] = useState('');
-  console.log(uid);
 
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +42,30 @@ const OEditFood = ({navigation, route}) => {
         if (res.val()) {
           setUsers(res.val());
           console.log('ini', users);
+        }
+      });
+  };
+
+  const getWarung = () => {
+    firebase
+      .database()
+      .ref(`warung/${uid}`)
+      .on('value', res => {
+        if (res.val()) {
+          setGetWarung(res.val());
+          console.log('ini warung', warung);
+        }
+      });
+  };
+
+  const getFood = () => {
+    firebase
+      .database()
+      .ref(`warung/${uid}/food/${foodId}`)
+      .on('value', res => {
+        if (res.val()) {
+          setFood(res.val());
+          console.log('ini food', food);
         }
       });
   };
@@ -64,55 +91,43 @@ const OEditFood = ({navigation, route}) => {
     );
   };
 
-  const handleSubmit = () => {
+  const handleUpdate = () => {
     setLoading(true);
-    if (name.length == 0 || price.length == 0 || hasPhoto == false) {
-      showMessage({
-        message: 'All data must be filled!!',
-        type: 'default',
-        backgroundColor: '#D9435E',
-        color: 'white',
-      });
-    } else {
-      const data = {
-        name: name,
-        price: price,
-        photo: photoBase64,
-        kategori: kategori,
-      };
-      firebase.database().ref(`warung/${uid}/food/`).push(data);
-      setTimeout(() => {
-        setLoading(false);
-        navigation.navigate('Warung', {uid: uid});
-        showMessage({
-          message: 'Sucsess Add Add',
-          type: 'default',
-          backgroundColor: 'green',
-          color: 'white',
-        });
-      }, 2000);
+    if (newName === '') {
+      setNewName(food.name);
     }
-    // if (price) {
-    //   const data = {
-    //     price: price,
-    //     name: name,
-    //     description: desc,
-    //     location: location,
-    //     photo: photoBase64,
-    //   };
-    //   firebase.database().ref(`homestay/${uid}`).set(data);
-    //   navigate(`/src/containers/organisms/Akun/User.js/${uid}`);
-    //   showMessage({
-    //     message: 'Perubahan berhasil dilakukan',
-    //     type: 'default',
-    //     backgroundColor: 'green',
-    //     color: 'white',
-    //   });
-    // }
+    if (newPrice === '') {
+      setNewPrice(food.price);
+    }
+    if (newkategori === '') {
+      setNewKategori(food.kategori);
+    }
+    if (photoBase64 === '') {
+      setPhotoBase64(food.photo);
+    }
+
+    const data = {
+      name: newName ? newName : food.name,
+      price: newPrice ? newPrice : food.price,
+      kategori: newkategori ? newkategori : food.kategori,
+      photo: photoBase64 ? photoBase64 : food.photo,
+    };
+    firebase.database().ref(`warung/${uid}/food/${foodId}`).set(data);
+    // firebase.database().ref(`warung/${uid}/food/${uid}`).set(data);
+    setLoading(false);
+    navigation.navigate('OWarung', {uid: uid});
+    showMessage({
+      message: 'update success',
+      type: 'default',
+      backgroundColor: 'green',
+      color: 'white',
+    });
   };
 
   useEffect(() => {
     getUser();
+    getFood();
+    getWarung();
   }, []);
 
   const data = [
@@ -129,16 +144,14 @@ const OEditFood = ({navigation, route}) => {
       value: 'Drink',
     },
   ];
-
   return (
     <>
       <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
         <Header
-          title="Add Food"
+          title="Edit Food"
           navigation={navigation}
           onBack={() => navigation.goBack()}
         />
-
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <TouchableOpacity style={styles.avatar} onPress={getImage}>
             {hasPhoto && (
@@ -150,7 +163,7 @@ const OEditFood = ({navigation, route}) => {
             )}
             {!hasPhoto && (
               <View style={styles.addPhoto}>
-                <Text style={styles.textAddPhoto}>Add Photo Food</Text>
+                <Text style={styles.textAddPhoto}>Add New Photo</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -162,10 +175,10 @@ const OEditFood = ({navigation, route}) => {
           </Text>
           <View style={{alignItems: 'center', marginTop: 5}}>
             <Input
-              placeholder={'Food Name'}
+              placeholder={food.name}
               input={styles.input}
-              value={name}
-              onChangeText={value => setName(value)}
+              value={newName}
+              onChangeText={value => setNewName(value)}
             />
           </View>
 
@@ -180,13 +193,14 @@ const OEditFood = ({navigation, route}) => {
           </Text>
           <View style={{alignItems: 'center', marginTop: 5}}>
             <Input
-              placeholder={'Price'}
+              placeholder={food.price}
               keyboardType="number-pad"
               input={styles.input}
-              value={price}
-              onChangeText={value => setPrice(value)}
+              value={newPrice}
+              onChangeText={value => setNewPrice(value)}
             />
           </View>
+          {/* {'New Price'} */}
 
           <View
             style={{
@@ -197,7 +211,7 @@ const OEditFood = ({navigation, route}) => {
             <Text style={{fontSize: 16, fontWeight: 'bold'}}>Category</Text>
             <RadioButtonRN
               data={data}
-              selectedBtn={e => setKategori(e.value)}
+              selectedBtn={e => setNewKategori(e.value)}
               withoutBox="false"
             />
           </View>
@@ -205,12 +219,12 @@ const OEditFood = ({navigation, route}) => {
           <View
             style={{marginTop: 63, marginBottom: 57.69, alignItems: 'center'}}>
             <Button
-              title={'Add Food'}
+              title={'Update'}
               onPress={() => {
-                handleSubmit();
+                handleUpdate();
               }}
-              onValueChange={data => setKategori(data)}
-              style={{width: 206, height: 58}}
+              onValueChange={data => setNewKategori(data)}
+              // style={{width: 206, height: 58}}
               // onPress={() => navigation.navigate('DetailsOwner')}
             />
           </View>
@@ -252,3 +266,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+// if (newname === '') {
+//   setNewName(foods.newname);
+// }
+// if (newprice === '') {
+//   setNewPrice(foods.newprice);
+// }
+
+// const newData = {
+//   name: newname,
+//   price: newprice,
+// };

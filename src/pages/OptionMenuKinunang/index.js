@@ -6,9 +6,10 @@ import {
     Image,
     ScrollView,
     Alert,
-    Linking
+    Linking,
+    BackHandler
   } from 'react-native';
-  import React,{useCallback} from 'react';
+  import React,{useCallback,useEffect} from 'react';
   import Header from '../../components/molecules/header';
   import CategoryFeature from '../../components/molecules/CategoryFeature';
   import Button from '../../components/atoms/Button';
@@ -30,6 +31,18 @@ import {
   
       return <Button title={children} onPress={handlePress} />;
     };
+
+    const handleSubmitGoBack =()=>{
+      navigation.goBack();
+    };
+  
+    useEffect(() => {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
+    }, []);
 
     return (
       <View style={{flex: 1}}>
@@ -53,7 +66,7 @@ import {
               style={{width: 51, height: 17, marginTop: 12, marginLeft: '27%'}}
             />
           </View>
-          <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}}>
+          <View style={{marginLeft: 14, flexDirection: 'row'}}>
             <Image
               source={require('../../assets/icon/Direction.png')}
               style={{width: 20, height: 29}}
@@ -62,17 +75,18 @@ import {
               Marinsow Village, East Likupang District, North Minahasa Regency,
               North Sulawesi
             </Text>
-          </TouchableOpacity>
+          </View>
           <View
             style={{marginLeft: '4.8%', marginRight: '4.8%', marginTop: '4.8%'}}>
             <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>
               Overview
             </Text>
-            <Text style={{fontSize: 17}}>
-              Paal Beach is one of the tourist attractions in Likupang,North
-              Sulawesi. When visiting here, you will find a beach with clean white
-              sand strands on the shoreline and a beautiful turquoise sea like
-              crystal.
+            <Text style={{fontSize: 17,textAlign:'justify'}}>
+              The blue stretch of beach combined with white sand immediately attracts anyone who comes to Kinunang Beach in Likupang Village, North Minahasa Regency.
+              Another uniqueness of Kinunang Beach is the long cluster of coral reefs that can be seen when the water recedes, there are about 100 meters of coral clusters which the residents of Kampung Kinunang call 'Nyare'.
+              Not only that, if you have a long time, you can try several dive spots not far from that location.
+              Only by using a snorkel, various types of reef fish and live coral reefs can spoil your eyes.
+              You don't need big guts to play between the corals, because to see coral reefs, you only need to dive no more than three meters.
             </Text>
           </View>
   

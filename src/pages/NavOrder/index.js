@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,BackHandler} from 'react-native';
 import Header from '../../components/molecules/header';
 import TabOrder from '../../components/molecules/TabOrder';
 import React,{useState,useEffect} from 'react';
@@ -19,7 +19,9 @@ const NavOrder = ({navigation,route}) => {
 
   const FirstRoute = () => {
     const [transaksi, setTransaksi] = useState([]);
-
+    const handleSubmitGoBack =()=>{
+      navigation.goBack();
+    };
     
     useEffect(() => {
       firebase
@@ -40,6 +42,11 @@ const NavOrder = ({navigation,route}) => {
             setTransaksi(productArray);
           }
         });
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+          handleSubmitGoBack();
+          return true;
+        })
+        return () => backHandler.remove()
     }, []);
 
     
@@ -70,7 +77,9 @@ const NavOrder = ({navigation,route}) => {
 
   const SecondRoute = () => {
     const [transaksi, setTransaksi] = useState([]);
-
+    const handleSubmitGoBack =()=>{
+      navigation.goBack();
+    };
     
     useEffect(() => {
       firebase
@@ -91,6 +100,12 @@ const NavOrder = ({navigation,route}) => {
             setTransaksi(productArray);
           }
         });
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+          handleSubmitGoBack();
+          return true;
+        })
+        return () => backHandler.remove()
     }, []);
 
     const handleSubmit = key => {

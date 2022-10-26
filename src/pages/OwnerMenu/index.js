@@ -49,20 +49,27 @@ const OwnerMenu = ({navigation, route}) => {
       <Header title="Home" />
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
+          height: 1,
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          width: '100%',
           alignSelf: 'center',
-          top: 5,
-          backgroundColor: '#00FFEF',
-          width: '33%',
+        }}
+      />
+      <View
+        style={{
+          alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
+          alignSelf: 'center',
+          marginTop: 20,
+          width: 347,
           height: '5%',
-          borderRadius: 20,
+          borderRadius: 10,
         }}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#38A7D0'}}>
           HOMESTAY
         </Text>
       </View>
-      <View style={{top: '2%'}}>
+      <View>
         {isHomestay === false && (
           <TouchableOpacity
             onPress={() => navigation.navigate('AddHomestay', {uid: uid})}>
@@ -104,21 +111,20 @@ const OwnerMenu = ({navigation, route}) => {
 
       <View
         style={{
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
           alignSelf: 'center',
-          top: '4%',
-          backgroundColor: '#00FFEF',
-          width: '33%',
+          marginTop:20,
+          width: 347,
           height: '5%',
-          borderRadius: 20,
+          borderRadius: 10,
         }}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>
-          RESTAURANTT
+        <Text style={{fontSize: 20, fontWeight: 'bold', color: '#38A7D0'}}>
+          RESTAURANT
         </Text>
       </View>
 
-      <View style={{marginTop: '12%'}}>
+      <View>
         {isWarung === false && (
           <TouchableOpacity
             onPress={() => navigation.navigate('OAddWarung', {uid: uid})}>

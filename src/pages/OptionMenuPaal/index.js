@@ -6,9 +6,10 @@ import {
   Image,
   ScrollView,
   Alert,
-  Linking
+  Linking,
+  BackHandler
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback,useEffect} from 'react';
 import Header from '../../components/molecules/header';
 import CategoryFeature from '../../components/molecules/CategoryFeature';
 import Button from '../../components/atoms/Button';
@@ -30,6 +31,18 @@ const OptionMenuPaal = ({navigation,route}) => {
 
     return <Button title={children} onPress={handlePress} />;
   };
+
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
+  }, []);
 
   return (
     <View style={{flex: 1}}>
@@ -53,7 +66,7 @@ const OptionMenuPaal = ({navigation,route}) => {
             style={{width: 51, height: 17, marginTop: 12, marginLeft: '38.9%'}}
           />
         </View>
-        <TouchableOpacity style={{marginLeft: 14, flexDirection: 'row'}} >
+        <View style={{marginLeft: 14, flexDirection: 'row'}} >
           <Image
             source={require('../../assets/icon/Direction.png')}
             style={{width: 20, height: 29}}
@@ -62,7 +75,7 @@ const OptionMenuPaal = ({navigation,route}) => {
             Marinsow Village, East Likupang District, North Minahasa Regency,
             North Sulawesi
           </Text>
-        </TouchableOpacity>
+        </View>
         <View
           style={{marginLeft: '4.8%', marginRight: '4.8%', marginTop: '4.8%'}}>
           <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 12}}>

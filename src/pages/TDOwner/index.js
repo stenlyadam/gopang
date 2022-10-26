@@ -89,6 +89,7 @@ import {
         status: 'paid',
         total:transaksi.total,
         time: 86400,
+        night:transaksi.night,
         checkin: transaksi.checkin,
         checkout: transaksi.checkout,
         paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
@@ -118,6 +119,7 @@ import {
         status: 'completed',
         total:transaksi.total,
         time: 86400,
+        night:transaksi.night,
         checkin: transaksi.checkin,
         checkout: transaksi.checkout,
         paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
@@ -168,7 +170,7 @@ import {
       <>
       <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
-        <Header title="Transaction" />
+        <Header title="Transaction" onBack={()=>navigation.goBack()} />
   
         <View style={{flexDirection: 'row'}}>
           <View style={{marginLeft: 20, marginRight: 61, marginTop: 30}}>
@@ -255,6 +257,71 @@ import {
             width: 371,
             alignSelf: 'center',
             marginBottom:10
+          }}
+        />
+
+        <View
+          style={{
+            justifyContent: 'space-between',
+            marginBottom: 13,
+            marginLeft: 20,
+            flexDirection: 'row',
+          }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: '#38A7D0',
+              }}>
+              Check In
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 14,
+                marginTop: 5,
+              }}>
+              {dayjs(transaksi.checkin).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            marginTop: 5,
+            justifyContent: 'space-between',
+            marginBottom: 13,
+            marginLeft: 20,
+            flexDirection: 'row',
+          }}>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: '#38A7D0',
+              }}>
+              Check Out
+            </Text>
+          </View>
+          <View style={{flexDirection: 'row', marginRight: 20}}>
+            <Text
+              style={{
+                fontSize: 14,
+                marginTop: 5,
+              }}>
+              {dayjs(transaksi.checkout).format('dddd, DD MMMM YYYY')}
+            </Text>
+          </View>
+        </View>
+
+        <View
+          style={{
+            height: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            width: 371,
+            alignSelf: 'center',
+            marginBottom: 13,
           }}
         />
   

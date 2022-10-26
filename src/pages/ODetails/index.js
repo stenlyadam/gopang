@@ -22,15 +22,15 @@ const ODetails = ({navigation, route}) => {
   const [homestay, setHomestay] = useState({});
   const [harga, setHarga] = useState('');
   const [statusModal, setStatusModal] = useState(false);
-  const [namaBaru, setNamaBaru] = useState('');
+  const [nameBaru, setNameBaru] = useState('');
   const [alamatBaru, setAlamatBaru] = useState('');
   const [descriptionBaru, setDescriptionBaru] = useState('');
   const [priceBaru, setPriceBaru] = useState('');
 
-  const [bedroomBaru, setBedroomBaru] = useState(false);
-  const [bathroomBaru, setBathroomBaru] = useState(false);
-  const [ACBaru, setACBaru] = useState(false);
-  const [wifiBaru, setWifiBaru] = useState(false);
+  const [bedroomBaru, setBedroomBaru] = useState('');
+  const [bathroomBaru, setBathroomBaru] = useState('');
+  const [ACBaru, setACBaru] = useState('');
+  const [wifiBaru, setWifiBaru] = useState('');
 
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState('');
@@ -64,8 +64,8 @@ const ODetails = ({navigation, route}) => {
   };
 
   const handleSubmit = () => {
-    if (namaBaru === '') {
-      setNamaBaru(homestay.nama);
+    if (nameBaru === '') {
+      setNameBaru(homestay.name);
     }
     if (alamatBaru === '') {
       setAlamatBaru(homestay.alamat);
@@ -76,32 +76,34 @@ const ODetails = ({navigation, route}) => {
     if (priceBaru === '') {
       setPriceBaru(homestay.price);
     }
-    if (bedroomBaru === false) {
+    if (bedroomBaru === '') {
       setBedroomBaru(homestay.bedroom);
     }
-    if (bathroomBaru === false) {
+    if (bathroomBaru === '') {
       setBathroomBaru(homestay.bathroom);
     }
-    if (ACBaru === false) {
+    if (ACBaru === '') {
       setACBaru(homestay.AC);
     }
-    if (wifiBaru === false) {
+    if (wifiBaru === '') {
       setWifiBaru(homestay.wifi);
     }
 
     setStatusModal(false);
     const data = {
-      AC: ACBaru,
-      alamat: alamatBaru,
-      bathroom: bathroomBaru,
-      bedroom: bedroomBaru,
-      description: descriptionBaru,
+      AC: ACBaru != '' ? ACBaru : false,
+      alamat: alamatBaru ? alamatBaru : homestay.alamat,
+      bathroom: bathroomBaru != '' ? bathroomBaru : false,
+      bedroom: bedroomBaru != '' ? bedroomBaru : false,
+      description: descriptionBaru ? descriptionBaru : homestay.description,
       location: homestay.location,
-      name: namaBaru,
+      name: nameBaru ? nameBaru : homestay.name,
       photo: homestay.photo,
-      price: priceBaru,
+      price: priceBaru ? priceBaru : homestay.price,
       status: homestay.status,
-      wifi: wifiBaru,
+      wifi: wifiBaru != '' ? wifiBaru : false,
+      ratings: homestay.ratings,
+      totalRating: homestay.totalRating,
     };
     firebase.database().ref(`homestay/${uid}`).set(data);
   };
@@ -159,8 +161,8 @@ const ODetails = ({navigation, route}) => {
                   paddingLeft: 15,
                   marginBottom: 15,
                 }}
-                value={namaBaru}
-                onChangeText={value => setNamaBaru(value)}
+                value={nameBaru}
+                onChangeText={value => setNameBaru(value)}
               />
               <Text
                 style={{
@@ -171,7 +173,7 @@ const ODetails = ({navigation, route}) => {
                 Address
               </Text>
               <TextInput
-                placeholder={homestay.description}
+                placeholder={homestay.alamat}
                 style={{
                   borderColor: '#020202',
                   borderWidth: 1,
@@ -283,7 +285,7 @@ const ODetails = ({navigation, route}) => {
                 Price
               </Text>
               <TextInput
-                placeholder={homestay.description}
+                placeholder={homestay.price}
                 style={{
                   borderColor: '#020202',
                   borderWidth: 1,

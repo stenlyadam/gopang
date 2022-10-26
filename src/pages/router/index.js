@@ -35,7 +35,7 @@ import ProfilWarung from '../ProfilWarung';
 import MenuFood from '../MenuFood';
 import ChartFood from '../ChartFood';
 import TotalFood from '../TotalFood';
-import DetailOrderDone from '../DetailOrderDone';
+import DetailOrderFood from '../DetailOrderFood';
 import DetailOrderDelivered from '../DetailOrderDelivered';
 import OProfile from '../OProfile';
 import OnavigationBar from '../OnavigationBar';
@@ -52,6 +52,7 @@ import MenuGazeboPaal from '../../pages/MenuGazeboPaal';
 import MenuGazeboPulisan from '../ManuGazeboPulisan';
 import MenuGazeboKinunang from '../MenuGazeboKinunang';
 import TDOwner from '../TDOwner';
+import OEditProfile from '../OEditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -98,7 +99,7 @@ const Router = () => {
       <Stack.Screen name="MenuFood" component={MenuFood} />
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
-      <Stack.Screen name="DetailOrderDone" component={DetailOrderDone} />
+      <Stack.Screen name="DetailOrderFood" component={DetailOrderFood} />
       <Stack.Screen name="TabOrderr" component={TabOrderr} />
       <Stack.Screen name="TabOrder" component={TabOrder} />
       <Stack.Screen
@@ -111,6 +112,7 @@ const Router = () => {
       <Stack.Screen name="OWarung" component={OWarung} />
       <Stack.Screen name="OAddFood" component={OAddFood} />
       <Stack.Screen name="OEditFood" component={OEditFood} />
+      <Stack.Screen name="OEditProfile" component={OEditProfile} />
     </Stack.Navigator>
   );
 };

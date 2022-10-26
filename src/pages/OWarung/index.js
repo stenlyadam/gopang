@@ -20,11 +20,11 @@ const Warung = ({navigation, route}) => {
   const [pictures, setPictures] = useState([]);
   const [food, setFood] = useState(false);
 
-  const [statusModal, setStatusModal] = useState(false);
+  // const [statusModal, setStatusModal] = useState(false);
 
-  const [kategoriBaru, setKategoriBaru] = useState('');
-  const [nameBaru, setNameBaru] = useState('');
-  const [priceBaru, setPriceBaru] = useState('');
+  // const [kategoriBaru, setKategoriBaru] = useState('');
+  // const [nameBaru, setNameBaru] = useState('');
+  // const [priceBaru, setPriceBaru] = useState('');
 
   const getWarung = () => {
     firebase
@@ -67,16 +67,18 @@ const Warung = ({navigation, route}) => {
 
   const handleDelete = key => {
     firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
+    // navigation.navigate('OWarung', {uid: uid});
   };
 
-  const handleEdit = () => {
-    setStatusModal(false);
-    // const data = {
-    //   name: nameBaru,
-    //   price: priceBaru,
-    // };
-    // firebase.database().ref(`warung/${uid}/food`).set(data);
-  };
+  // const handleEdit = () => {
+  //   // setStatusModal(false);
+  //   navigation.navigate('DetailsOwner');
+  //   // const data = {
+  //   //   name: nameBaru,
+  //   //   price: priceBaru,
+  //   // };
+  //   // firebase.database().ref(`warung/${uid}/food`).set(data);
+  // };
 
   return (
     <ScrollView
@@ -159,7 +161,10 @@ const Warung = ({navigation, route}) => {
                   harga={key.price}
                   image={`${key.photo}`}
                   onDelete={() => handleDelete(key)}
-                  onEdit={() => setStatusModal(true)}
+                  onEdit={() =>
+                    navigation.navigate('OEditFood', {uid: uid, foodId: key.id})
+                  }
+                  // onPress={() => navigation.navigate('DetailsOwner')}
                   // myCondition={1}
                 />
               </View>
@@ -180,7 +185,7 @@ const Warung = ({navigation, route}) => {
           ))} */}
         </View>
       </View>
-      <Modal visible={statusModal} transparent={true} animationType="slide">
+      {/* <Modal visible={statusModal} transparent={true} animationType="slide">
         <View style={styles.Box}>
           <Text
             style={{
@@ -234,7 +239,7 @@ const Warung = ({navigation, route}) => {
             <Text style={{color: 'black', fontSize: 15}}>Cancel</Text>
           </TouchableOpacity>
         </View>
-      </Modal>
+      </Modal> */}
     </ScrollView>
   );
 };

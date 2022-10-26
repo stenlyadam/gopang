@@ -9,7 +9,7 @@ const HCardTransaksi = props => {
         <Image
           style={{
             // position: 'absolute',
-            marginTop: 30,
+            marginTop: 5,
             marginLeft: 20,
             width: 87,
             height: 87,
@@ -18,7 +18,7 @@ const HCardTransaksi = props => {
           source={{uri: `data:image/jpeg;base64, ${props.photo}`}}
           // source={require('../../../assets/homestay/HomestayWahyu.png')}
         />
-        <View style={{marginLeft: 10, marginTop: 24}}>
+        <View style={{marginLeft: 10, marginTop: 2}}>
           <Text style={{fontSize: 15, fontWeight: 'bold'}}>{props.nama}</Text>
           <Text style={{fontSize: 10, marginTop: 3,fontWeight:'bold'}}>{props.alamat}</Text>
           <Text style={{fontSize: 10, marginTop: 3}}>Customer :</Text>
@@ -33,7 +33,7 @@ const HCardTransaksi = props => {
           <Text
             style={{
               // position: 'absolute',
-              marginTop: 55,
+              marginTop: 33,
               marginLeft: '20%',
               fontSize: 20,
               fontWeight: '700',
@@ -44,7 +44,7 @@ const HCardTransaksi = props => {
           <Text
             style={{
               // position: 'absolute',
-              marginTop: 55,
+              marginTop: 33,
               marginLeft: '15%',
               fontSize: 20,
               color:'#38A7D0',

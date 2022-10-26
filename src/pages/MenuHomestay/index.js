@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  BackHandler
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import CardHomestay from '../../components/molecules/CardHomestay';
@@ -19,6 +20,10 @@ const MenuHomestay = ({navigation, route}) => {
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
+  };
+
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -40,7 +45,16 @@ const MenuHomestay = ({navigation, route}) => {
           setPictures(productArray);
         }
       });
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
   }, []);
+
+  
+
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -63,7 +77,7 @@ const MenuHomestay = ({navigation, route}) => {
             {/* Filter */}
             <View style={{marginLeft: 6, marginTop: 12}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Filter', {uid: uid})}
+                onPress={() => navigation.navigate('Filter',{uid: uid})}
                 style={{
                   width: 63,
                   height: 24,
@@ -90,9 +104,7 @@ const MenuHomestay = ({navigation, route}) => {
                           title={key.name}
                           image={`${key.photo}`}
                           location={key.location}
-                          price={key.price
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                          price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                           status={`${key.status}`}
                           onPress={() => handleSubmit(key.id)}
                           rating={key.totalRating}
@@ -103,8 +115,9 @@ const MenuHomestay = ({navigation, route}) => {
               </View>
             ) : (
               pictures
-                .filter(homestay =>
-                  homestay.name.toLowerCase().includes(search.toLowerCase()),
+                .filter(
+                  homestay =>
+                    homestay.name.toLowerCase().includes(search.toLowerCase()),
                 )
                 .map(key => (
                   <View>
@@ -112,9 +125,7 @@ const MenuHomestay = ({navigation, route}) => {
                       title={key.name}
                       image={`${key.photo}`}
                       location={key.location}
-                      price={key.price
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                      price={key.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                       status={`${key.status}`}
                       onPress={() => handleSubmit(key.id)}
                     />

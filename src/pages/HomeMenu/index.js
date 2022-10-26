@@ -6,6 +6,8 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
+  Alert
 } from 'react-native';
 import firebase from '../../config/Firebase';
 import FoodCardHome from '../../components/molecules/FoodCardHome';
@@ -24,13 +26,32 @@ const HomeMenu = ({navigation, route}) => {
   const handleWarung = key => {
     navigation.navigate('ProfilWarung', {uid: uid, WarungID: key});
   };
+  const backPressed = () => {
+    Alert.alert(
+      'Exit App',
+      'Do you want to exit?',
+      [
+        {text: 'No', onPress: () => console.log('Cancel Pressed')},
+        {text: 'Yes', onPress: () => BackHandler.exitApp()},
+      ],
+      { cancelable: false });
+      return true;
+  }
+  const exit=()=>{
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      backPressed();
+      return true;
+    })
+    return () => backHandler.remove()
+  }
 
   useEffect(() => {
     getHomestay();
     getWarung();
+    exit();
   }, []);
 
-  const getWarung = () => {
+  const getWarung=()=>{
     firebase
       .database()
       .ref(`warung`)
@@ -49,7 +70,7 @@ const HomeMenu = ({navigation, route}) => {
           setOnWarung(productArray);
         }
       });
-  };
+  }
 
   const getHomestay = async () => {
     firebase
@@ -80,9 +101,10 @@ const HomeMenu = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
+      
       <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
         {/*Likupang North*/}
-        <View style={{position: 'relative'}}>
+        <View style={{position:'relative'}}>
           <Image
             source={require('../../assets/home/Likupang.png')}
             style={{
@@ -127,7 +149,7 @@ const HomeMenu = ({navigation, route}) => {
             justifyContent: 'space-between',
           }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MenuHomestay', {uid: uid})}
+            onPress={() => navigation.navigate('MenuHomestay',{uid:uid})}
             style={{
               width: '60%',
               alignItems: 'center',
@@ -138,7 +160,7 @@ const HomeMenu = ({navigation, route}) => {
             <Text style={{fontSize: 15, textAlign: 'center'}}>Homestay</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MenuGazebo', {uid: uid})}
+            onPress={() => navigation.navigate('MenuGazebo',{uid:uid})}
             style={{
               width: '60%',
               alignItems: 'center',
@@ -153,27 +175,27 @@ const HomeMenu = ({navigation, route}) => {
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
         <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
-          {selectedValue === 'Paal' && (
-            <View>
-              {pictures
-                // .filter(homestay => homestay.location.includes(locationPaal))
-                .map(key => (
+          {selectedValue === "Paal" &&(
                   <View>
-                    <CardHomestay
-                      title={key.name}
-                      image={`${key.photo}`}
-                      location={key.location}
-                      price={key.price
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
-                      // status={`${key.status}`}
-                      onPress={() => handleSubmit(key.id)}
-                      rating={key.totalRating}
-                    />
+                    {pictures
+                    // .filter(homestay => homestay.location.includes(locationPaal))
+                    .map(key => (
+                        <View>
+                          <CardHomestay
+                            title={key.name}
+                            image={`${key.photo}`}
+                            location={key.location}
+                            price={key.price
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                            // status={`${key.status}`}
+                            onPress={() => handleSubmit(key.id)}
+                            rating={key.totalRating}
+                          />
+                        </View>
+                      ))}
                   </View>
-                ))}
-            </View>
-          )}
+              )}
         </View>
 
         {/*Popular Destinations*/}
@@ -189,128 +211,96 @@ const HomeMenu = ({navigation, route}) => {
         <View style={styles.Gdestination}>
           <View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('OptionMenuPaal', {uid: uid})}
+              onPress={() => navigation.navigate('OptionMenuPaal',{uid:uid})}
               activeOpacity={0.8}>
               <Image
                 source={require('../../assets/pantai/Paal/Paal4.png')}
-                style={{height: 170, width: 173, borderRadius: 20}}
+                style={{height: 170, width: 173,borderRadius:20}}
               />
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '40%',
-                  fontSize: 20,
-                  color: 'white',
-                }}>
-                Paal Beach
-              </Text>
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '53%',
-                  fontSize: 13,
-                  color: 'white',
-                }}>
-                Homestay • Gazebo • Food
-              </Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'40%',
+                fontSize:20,
+                color:'white'}} >Paal Beach</Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'53%',
+                fontSize:13,
+                color:'white'}} >Homestay • Gazebo • Food</Text>
             </TouchableOpacity>
           </View>
           <View style={{marginLeft: 20}}>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('OptionMenuPulisan', {uid: uid})
-              }
+              onPress={() => navigation.navigate('OptionMenuPulisan',{uid:uid})}
               activeOpacity={0.8}>
               <Image
                 source={require('../../assets/pantai/Pulisan/Pulisan5.jpg')}
-                style={{height: 170, width: 173, borderRadius: 20}}
+                style={{height: 170, width: 173,borderRadius:20}}
               />
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '40%',
-                  fontSize: 20,
-                  color: 'white',
-                }}>
-                Pulisan Beach
-              </Text>
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '53%',
-                  fontSize: 13,
-                  color: 'white',
-                }}>
-                Homestay • Gazebo • Food
-              </Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'40%',
+                fontSize:20,
+                color:'white'}} >Pulisan Beach</Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'53%',
+                fontSize:13,
+                color:'white'}} >Homestay • Gazebo • Food</Text>
             </TouchableOpacity>
           </View>
           <View style={{marginTop: 25}}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('OptionMenuKinunang', {uid: uid})
-              }
-              activeOpacity={0.8}>
+            <TouchableOpacity onPress={() => navigation.navigate('OptionMenuKinunang',{uid:uid})}
+            activeOpacity={0.8}>
               <Image
                 source={require('../../assets/pantai/Kinunang/Kinunang1.jpg')}
-                style={{height: 170, width: 173, borderRadius: 20}}
+                style={{height: 170, width: 173,borderRadius:20}}
               />
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '40%',
-                  fontSize: 20,
-                  color: 'white',
-                }}>
-                Kinunang Beach
-              </Text>
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '53%',
-                  fontSize: 13,
-                  color: 'white',
-                }}>
-                Homestay • Gazebo • Food
-              </Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'40%',
+                fontSize:20,
+                color:'white'}} >Kinunang Beach</Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'53%',
+                fontSize:13,
+                color:'white'}} >Homestay • Gazebo • Food</Text>
             </TouchableOpacity>
           </View>
           <View style={{marginLeft: 20, marginTop: 25}}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('OptionMenuLarata', {uid: uid})
-              }
-              activeOpacity={0.8}>
+            <TouchableOpacity onPress={() => navigation.navigate('OptionMenuLarata',{uid:uid})}
+            activeOpacity={0.8}>
               <Image
                 source={require('../../assets/pantai/Larata/Larata1.jpg')}
-                style={{height: 170, width: 173, borderRadius: 20}}
+                style={{height: 170, width: 173,borderRadius:20}}
               />
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '40%',
-                  fontSize: 20,
-                  color: 'white',
-                }}>
-                Larata Hill
-              </Text>
-              <Text
-                style={{
-                  position: 'absolute',
-                  alignSelf: 'center',
-                  marginTop: '53%',
-                  fontSize: 13,
-                  color: 'white',
-                }}>
-                Homestay • Food
-              </Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'40%',
+                fontSize:20,
+                color:'white'}} >Larata Hill</Text>
+              <Text 
+              style={{
+                position:'absolute',
+                alignSelf:'center',
+                marginTop:'53%',
+                fontSize:13,
+                color:'white'}} >Homestay • Food</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -325,8 +315,8 @@ const HomeMenu = ({navigation, route}) => {
           }}>
           Trending Restaurant
         </Text>
-        <View style={styles.restaurant}>
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={styles.restaurant}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {onWarung.map(key => (
               <View style={{flexDirection: 'row'}}>
                 <FoodCardHome
@@ -337,8 +327,8 @@ const HomeMenu = ({navigation, route}) => {
                 />
               </View>
             ))}
-          </ScrollView>
-        </View>
+            </ScrollView>
+          </View>
       </ScrollView>
     </View>
   );
@@ -398,7 +388,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 17,
     marginTop: 15,
-    marginBottom: 55,
+    marginBottom:55
   },
   Trestaurant: {
     marginRight: 21,
@@ -410,9 +400,9 @@ const styles = StyleSheet.create({
     height: 16,
     marginLeft: 4,
   },
-  foodStyle: {
-    width: 112,
-    height: 124,
-    borderRadius: 5,
-  },
+  foodStyle:{
+    width:112,
+    height:124,
+    borderRadius:5
+  }
 });

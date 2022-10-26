@@ -109,6 +109,7 @@ const AddFood = ({navigation, route}) => {
     //     color: 'white',
     //   });
     // }
+    navigation.navigate('OWarung',{uid:uid});
   };
 
   useEffect(() => {

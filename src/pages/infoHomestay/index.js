@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  BackHandler,
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
@@ -72,8 +73,17 @@ const MenuGazebo = ({navigation, route}) => {
       });
   };
 
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
+  };
+
   useEffect(() => {
     getHomestay();
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      handleSubmitGoBack();
+      return true;
+    })
+    return () => backHandler.remove()
   }, []);
 
   const toggleDatePicker = isVisible => setShowDatePicker(isVisible);

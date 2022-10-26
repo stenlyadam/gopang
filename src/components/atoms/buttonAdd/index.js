@@ -6,7 +6,7 @@ const buttonAdd = props => {
   console.log('props:', props);
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate('charts')}
+      onPress={props.onPress}
       style={styles.buttonAdd}>
       <Text style={styles.textAdd}>Add</Text>
     </TouchableOpacity>

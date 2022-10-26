@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   ScrollView,
+  BackHandler
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import CardGazebo from '../../components/molecules/CardGazebo';
@@ -26,6 +27,10 @@ const MenuGazebo = ({navigation, route}) => {
   const handleSubmit = key => {
     navigation.navigate('InfoGazebo', {uid: uid, gazeboID: key});
     console.log('ini gazebo', uid);
+  };
+
+  const handleSubmitGoBack =()=>{
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -48,6 +53,12 @@ const MenuGazebo = ({navigation, route}) => {
           // console.log(productArray);
         }
       });
+
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        handleSubmitGoBack();
+        return true;
+      })
+      return () => backHandler.remove()
   }, []);
 
   return (
