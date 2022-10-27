@@ -92,7 +92,7 @@ const ProfilWarung = ({navigation, route}) => {
   const getFood = () => {
     firebase
       .database()
-      .ref(`warung/${WarungID}/food`)
+      .ref(`food`)
       .on('value', res => {
         if (res.val()) {
           //ubah menjadi array object
@@ -270,7 +270,9 @@ const ProfilWarung = ({navigation, route}) => {
         </Text>
 
         <View style={{marginBottom: 90}}>
-          {onFood.map(key => (
+          {onFood
+          .filter(items=> items.IDwarung.includes(WarungID))
+          .map(key => (
             <View style={{flexDirection: 'row'}}>
               <CardWarung
                 title={key.name}

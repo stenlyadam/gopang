@@ -61,7 +61,7 @@ const OEditFood = ({navigation, route}) => {
   const getFood = () => {
     firebase
       .database()
-      .ref(`warung/${uid}/food/${foodId}`)
+      .ref(`food/${foodId}`)
       .on('value', res => {
         if (res.val()) {
           setFood(res.val());
@@ -111,9 +111,11 @@ const OEditFood = ({navigation, route}) => {
       price: newPrice ? newPrice : food.price,
       kategori: newkategori ? newkategori : food.kategori,
       photo: photoBase64 ? photoBase64 : food.photo,
+      location: food.location,
+      IDwarung: food.IDwarung,
+      namaWarung: food.name,
     };
-    firebase.database().ref(`warung/${uid}/food/${foodId}`).set(data);
-    // firebase.database().ref(`warung/${uid}/food/${uid}`).set(data);
+    firebase.database().ref(`food/${foodId}`).set(data);
     setLoading(false);
     navigation.navigate('OWarung', {uid: uid});
     showMessage({

@@ -5,6 +5,7 @@ const CardFood = props => {
   //console.log(props)
 
   return (
+    <TouchableOpacity onPress={props.onPress} >
     <View
       style={{
         height: 100,
@@ -14,7 +15,14 @@ const CardFood = props => {
         flexDirection: 'row',
         alignItems: 'flex-start',
       }}>
-      <Image source={props.image} style={{marginTop: 14, marginBottom: 14}} />
+      <Image source={{uri: `data:image/jpeg;base64, ${props.image}`}} 
+             style={{
+              marginTop: 14, 
+              marginBottom: 14,
+              width:80,
+              height:80,
+              borderRadius:10
+            }}/>
       <View
         style={{
           marginLeft: 12,
@@ -38,27 +46,13 @@ const CardFood = props => {
           </View>
 
           <View style={{flexDirection: 'row', marginLeft: 11}}>
-            <Text style={styles.harga}>{props.harga}</Text>
+            <Text style={styles.harga}>Rp. {`${props.harga}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</Text>
           </View>
 
           <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 6}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
-            <Text style={styles.location}>{props.location}</Text>
+            <Text style={styles.location}>{props.alamat}, Warung {props.warung}</Text>
           </View>
-
-          {/* {
-              props.myCondition == 1?
-              
-              :
-              <TouchableOpacity onPress={
-                () =>{
-                  alert("ok")
-                }
-                 }>
-                   <Text>button</Text>
-                   
-              </TouchableOpacity>
-            } */}
         </View>
         <View
           style={{
@@ -72,6 +66,7 @@ const CardFood = props => {
           }}></View>
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 

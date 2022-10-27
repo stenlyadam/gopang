@@ -26,6 +26,7 @@ const AddFood = ({navigation, route}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
   const [kategori, setKategori] = useState('');
+  const [warung, setWarung] = useState({});
   console.log(uid);
 
   const [loading, setLoading] = useState(false);
@@ -64,6 +65,18 @@ const AddFood = ({navigation, route}) => {
     );
   };
 
+  const getWarung = () => {
+    firebase
+
+      .database()
+      .ref(`warung/${uid}`)
+      .on('value', res => {
+        if (res.val()) {
+          setWarung(res.val());
+        }
+      });
+  };
+
   const handleSubmit = () => {
     setLoading(true);
     if (name.length == 0 || price.length == 0 || hasPhoto == false) {
@@ -79,11 +92,13 @@ const AddFood = ({navigation, route}) => {
         price: price,
         photo: photoBase64,
         kategori: kategori,
+        IDwarung: uid,
+        location: warung.alamat,
+        namaWarung: warung.name,
       };
-      firebase.database().ref(`warung/${uid}/food/`).push(data);
+      firebase.database().ref(`food`).push(data);
       setTimeout(() => {
         setLoading(false);
-        navigation.navigate('Warung', {uid: uid});
         showMessage({
           message: 'Sucsess Add Add',
           type: 'default',
@@ -114,6 +129,7 @@ const AddFood = ({navigation, route}) => {
 
   useEffect(() => {
     getUser();
+    getWarung();
   }, []);
 
   const data = [

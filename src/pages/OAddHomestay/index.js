@@ -14,6 +14,7 @@ import Button from '../../components/atoms/Button';
 import firebase from '../../config/Firebase';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Picker} from '@react-native-picker/picker';
 
 const OAddHomestay = ({navigation, route}) => {
   const [Bedroom, setBedroom] = useState(false);
@@ -32,7 +33,8 @@ const OAddHomestay = ({navigation, route}) => {
   const [photo, setPhoto] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
-  console.log(uid);
+  const [selectedValue, setSelectedValue] = useState('Paal');
+  const [selectedStatus, setSelectedStatus] = useState('unavailable');
 
   const getUser = () => {
     firebase
@@ -72,13 +74,13 @@ const OAddHomestay = ({navigation, route}) => {
     if (
       name.length == 0 ||
       alamat.length == 0 ||
-      location.length == 0 ||
+      selectedValue.length == 0 ||
       desc.length == 0 ||
       price.length == 0 ||
       hasPhoto == false
     ) {
       showMessage({
-        message: 'mana mana jo dang dulu',
+        message: 'All must be included',
         type: 'default',
         backgroundColor: '#D9435E',
         color: 'white',
@@ -89,12 +91,13 @@ const OAddHomestay = ({navigation, route}) => {
         name: name,
         description: desc,
         alamat: alamat,
-        location: location,
+        location: selectedValue,
         photo: photoBase64,
         bedroom: Bedroom,
         bathroom: Bathroom,
         AC: AC,
         wifi: Wifi,
+        ratings:'',
         totalRating: 0,
         status: 'available',
       };
@@ -107,23 +110,6 @@ const OAddHomestay = ({navigation, route}) => {
         color: 'white',
       });
     }
-    // if (price) {
-    //   const data = {
-    //     price: price,
-    //     name: name,
-    //     description: desc,
-    //     location: location,
-    //     photo: photoBase64,
-    //   };
-    //   firebase.database().ref(`homestay/${uid}`).set(data);
-    //   navigate(`/src/containers/organisms/Akun/User.js/${uid}`);
-    //   showMessage({
-    //     message: 'Perubahan berhasil dilakukan',
-    //     type: 'default',
-    //     backgroundColor: 'green',
-    //     color: 'white',
-    //   });
-    // }
   };
 
   useEffect(() => {
@@ -137,13 +123,6 @@ const OAddHomestay = ({navigation, route}) => {
         navigation={navigation}
         onBack={() => navigation.goBack()}
       />
-
-      {/* <TouchableOpacity>
-        <Image
-          source={require('../../assets/owner/ButtonAddFood.png')}
-          style={{margin: 32, width: 347, height: 152}}
-        />
-      </TouchableOpacity> */}
 
       <View style={{alignItems: 'center', justifyContent: 'center'}}>
         <TouchableOpacity style={styles.avatar} onPress={getImage}>
@@ -200,13 +179,40 @@ const OAddHomestay = ({navigation, route}) => {
           }}>
           Location
         </Text>
-        <View style={{alignItems: 'center', marginTop: 5}}>
-          <Input
-            placeholder={'Location'}
-            input={styles.input}
-            value={location}
-            onChangeText={value => setLocation(value)}
-          />
+        <View
+          style={{
+            borderWidth: 0.3,
+            height: 41,
+            width: 146,
+            borderRadius: 10,
+            marginLeft: 20,
+          }}>
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+            selectedStatus={selectedStatus}
+            onStatusChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+            >
+            <Picker.Item
+              label="Paal"
+              value="Paal"
+              style={{fontSize: 15}}
+            />
+            <Picker.Item
+              label="Pulisan"
+              value="Pulisan"
+              style={{fontSize: 15}}
+            />
+            <Picker.Item
+              label="Kinunang"
+              value="Kinunang"
+              style={{fontSize: 15}}
+            />
+          </Picker>
         </View>
         <View style={styles.fasilitas}>
           <View
@@ -304,7 +310,6 @@ const OAddHomestay = ({navigation, route}) => {
             onPress={() => {
               handleSubmit();
             }}
-            // onPress={() => navigation.navigate('DetailsOwner')}
           />
         </View>
       </View>

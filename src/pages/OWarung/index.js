@@ -51,7 +51,7 @@ const Warung = ({navigation, route}) => {
   const getFood = () => {
     firebase
       .database()
-      .ref(`warung/${uid}/food`)
+      .ref(`food`)
       .on('value', res => {
         if (res.val()) {
           //ubah menjadi array object
@@ -71,7 +71,7 @@ const Warung = ({navigation, route}) => {
   };
 
   const handleDelete = key => {
-    firebase.database().ref(`warung/${uid}/food/${key.id}`).remove();
+    firebase.database().ref(`food/${key.id}`).remove();
   };
 
   const handleEdit = key => {
@@ -157,7 +157,9 @@ const Warung = ({navigation, route}) => {
 
         <View style={{top: 15}}>
           {food == true ? (
-            pictures.map(key => (
+            pictures
+            .filter(items=> items.IDwarung.includes(uid))
+            .map(key => (
               <View style={{flexDirection: 'row'}}>
                 <CardFoodOwner
                   title={key.name}

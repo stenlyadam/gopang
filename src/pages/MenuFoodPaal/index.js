@@ -12,9 +12,10 @@ import Header from '../../components/molecules/header';
 import CardFood from '../../components/molecules/CardFood';
 import firebase from 'firebase';
 
-const MenuFood = ({navigation, route}) => {
+const MenuFoodPaal = ({navigation, route}) => {
   const {uid, WarungID} = route.params;
   const [Food, setFood] = useState([]);
+  const [locationPaal,setLocationPaal] = useState('Paal');
   // const id = '-NCumY_JVMDRjmWmXJXN';
   // console.log(Food[0]);
 
@@ -42,7 +43,7 @@ const MenuFood = ({navigation, route}) => {
   const getFood = () => {
     firebase
       .database()
-      .ref(`warung`)
+      .ref(`food`)
       .on('value', res => {
         if (res.val()) {
           //ubah menjadi array object
@@ -64,20 +65,15 @@ const MenuFood = ({navigation, route}) => {
     getFood();
   }, []);
 
+  const handleSubmit=key=>{
+    navigation.navigate('ProfilWarung', {uid: uid, WarungID: key});
+  }
+
   return (
     <>
       <View>
         <Header onBack={() => navigation.goBack()} />
       </View>
-      {/* chart */}
-      <TouchableOpacity
-        style={{position: 'absolute', marginLeft: 320, top: 13}}
-        onPress={() => navigation.navigate('ChartFood')}>
-        <Image
-          source={require('../../assets/icon/chart.png')}
-          style={{height: 43, width: 50}}
-        />
-      </TouchableOpacity>
       <ScrollView
         style={{flex: 1, backgroundColor: 'white'}}
         showsVerticalScrollIndicator={false}>
@@ -88,9 +84,8 @@ const MenuFood = ({navigation, route}) => {
             source={require('../../assets/icon/search.png')}
             style={styles.ImageStyle}
           />
-
           {/* Fitur Seach  */}
-          <TextInput style={{flex: 1}} placeholder="Food / Restaurant name" />
+          <TextInput style={{flex: 1}} placeholder="Searching Food" />
         </View>
 
         <View
@@ -126,9 +121,7 @@ const MenuFood = ({navigation, route}) => {
 
           <View>
             {/* drink */}
-            <TouchableOpacity
-            // onPress={() => navigation.replace('MenuHomestay')}
-            >
+            <TouchableOpacity>
               <View style={styles.drink}>
                 <Image source={require('../../assets/icon/drink.png')} />
               </View>
@@ -139,61 +132,32 @@ const MenuFood = ({navigation, route}) => {
 
         {/* Menu makan */}
         <View style={styles.garis} />
-        <TouchableOpacity>
-          {Food.map(key => (
+          {Food
+          .filter(items=> items.location.includes(locationPaal))
+          .map(key => (
             <CardFood
               title={key.name}
               harga={key.price}
-              image={require('../../assets/imgFood/kerpek.png')}
-              location="Warung Jessica, Paal Beach"
+              image={key.photo}
+              warung={key.namaWarung}
+              alamat={key.location}
               myCondition={1}
+              onPress={()=> handleSubmit(key.IDwarung)}
             />
           ))}
-        </TouchableOpacity>
 
-        <View style={styles.garis} />
-        {/* 
-        <CardFood
-          title="Nutrisari"
-          harga="Rp. 5.000"
-          image={require('../../assets/imgFood/Nutrisari.png')}
-          location="Warung Jessica, Paal Beach"
-          myCondition={1}
-        />
-
-        <View style={styles.garis} />
-
-        <CardFood
-          title="Jagung Rebus"
-          harga="Rp. 10.000"
-          image={require('../../assets/imgFood/jagung.png')}
-          location="Warung Wahyu, Paal Beach"
-          myCondition={1}
-        />
-
-        <View style={styles.garis} />
-
-        <CardFood
-          title="Nasi Kuning"
-          harga="Rp. 15.000"
-          image={require('../../assets/imgFood/naskun.png')}
-          location="Warung Wahyu, Paal Beach"
-          myCondition={1}
-        /> */}
-
-        {/* <View style={styles.garis} /> */}
+        <View style={styles.garis1} />
       </ScrollView>
     </>
   );
 };
 
-export default MenuFood;
+export default MenuFoodPaal;
 
 const styles = StyleSheet.create({
   eat: {
     fontSize: 35,
     fontWeight: 'bold',
-    marginLeft: 20,
     alignItems: 'center',
     textAlign: 'center',
     //color: 'black',
@@ -235,6 +199,12 @@ const styles = StyleSheet.create({
   garis: {
     height: 1,
     marginTop: 21,
+    marginLeft: 20,
+    marginRight: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  garis1: {
+    height: 1,
     marginLeft: 20,
     marginRight: 20,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',

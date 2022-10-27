@@ -133,26 +133,45 @@ const OverviewPage = ({navigation, route}) => {
               {homestay.name}
             </Text>
             <Text style={{fontSize: 15, marginTop: 3}}>{homestay.alamat}</Text>
-            <Image
-              style={{width: 51, height: 20, marginTop: 7}}
-              source={require('../../assets/icon/Rating.png')}
-            />
-            <Text
+            <View
               style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 18,
+                flexDirection: 'row',
               }}>
-              Owner : {userss.name}
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: 'bold',
-                marginTop: 8,
-              }}>
-              {userss.number}
-            </Text>
+              <Image source={require('../../assets/rating.png')} style={{width:15,height:15,alignSelf:'center'}} />
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  left: '11%',
+                  color: 'black',
+                  fontSize: 15,
+                }}>
+                {homestay.totalRating}
+              </Text>
+            </View>
+            
+            <View style={{flexDirection: 'column'}}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  marginTop: 12,
+                }}>
+                Owner
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginTop: 5,
+                }}>
+                {userss.name}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                }}>
+                {userss.number}
+              </Text>
+            </View>
           </View>
           <Image
             style={{
@@ -178,10 +197,18 @@ const OverviewPage = ({navigation, route}) => {
         />
 
         <View style={{marginTop: 13, marginBottom: 13, marginLeft: 20}}>
-          <Text
+        <Text
             style={{
               fontSize: 15,
               fontWeight: 'bold',
+              marginBottom: 12,
+            }}>
+            Customer
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              marginTop:5,
             }}>
             {users.name}
           </Text>

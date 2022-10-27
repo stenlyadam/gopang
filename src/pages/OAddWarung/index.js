@@ -14,6 +14,7 @@ import Button from '../../components/atoms/Button';
 import firebase from '../../config/Firebase';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Picker} from '@react-native-picker/picker';
 
 const OAddWarung = ({navigation, route}) => {
   const {uid} = route.params;
@@ -25,7 +26,8 @@ const OAddWarung = ({navigation, route}) => {
   const [photo, setPhoto] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
-  console.log(uid);
+  const [selectedValue, setSelectedValue] = useState('Paal');
+  const [selectedStatus, setSelectedStatus] = useState('unavailable');
 
   const getUser = () => {
     firebase
@@ -39,6 +41,7 @@ const OAddWarung = ({navigation, route}) => {
         }
       });
   };
+  console.log(selectedValue)
 
   const getImage = () => {
     launchImageLibrary(
@@ -64,7 +67,7 @@ const OAddWarung = ({navigation, route}) => {
   const handleSubmit = () => {
     if (
       name.length == 0 ||
-      alamat.length == 0 ||
+      selectedValue.length == 0 ||
       delivery.length == 0 ||
       hasPhoto == false
     ) {
@@ -77,7 +80,7 @@ const OAddWarung = ({navigation, route}) => {
     } else {
       const data = {
         name: name,
-        alamat: alamat,
+        alamat: selectedValue,
         delivery: delivery,
         photo: photoBase64,
       };
@@ -90,23 +93,6 @@ const OAddWarung = ({navigation, route}) => {
         color: 'white',
       });
     }
-    // if (price) {
-    //   const data = {
-    //     price: price,
-    //     name: name,
-    //     description: desc,
-    //     location: location,
-    //     photo: photoBase64,
-    //   };
-    //   firebase.database().ref(`homestay/${uid}`).set(data);
-    //   navigate(`/src/containers/organisms/Akun/User.js/${uid}`);
-    //   showMessage({
-    //     message: 'Perubahan berhasil dilakukan',
-    //     type: 'default',
-    //     backgroundColor: 'green',
-    //     color: 'white',
-    //   });
-    // }
   };
 
   useEffect(() => {
@@ -164,15 +150,51 @@ const OAddWarung = ({navigation, route}) => {
             fontWeight: 'bold',
             fontSize: 16,
           }}>
-          Address
+          Location
         </Text>
-        <View style={{alignItems: 'center', marginTop: 5}}>
+        {/* <View style={{alignItems: 'center', marginTop: 5}}>
           <Input
             placeholder={'Address'}
             input={styles.input}
             value={alamat}
             onChangeText={value => setAlamat(value)}
           />
+        </View> */}
+
+        <View
+          style={{
+            borderWidth: 0.3,
+            height: 41,
+            width: 146,
+            borderRadius: 10,
+            marginLeft: 20,
+          }}>
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+            selectedStatus={selectedStatus}
+            onStatusChange={(itemValue, itemIndex) =>
+              setSelectedValue(itemValue)
+            }
+            >
+            <Picker.Item
+              label="Paal"
+              value="Paal"
+              style={{fontSize: 15}}
+            />
+            <Picker.Item
+              label="Pulisan"
+              value="Pulisan"
+              style={{fontSize: 15}}
+            />
+            <Picker.Item
+              label="Kinunang"
+              value="Kinunang"
+              style={{fontSize: 15}}
+            />
+          </Picker>
         </View>
 
         <Text

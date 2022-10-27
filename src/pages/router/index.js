@@ -32,7 +32,7 @@ import AddHomestay from '../OAddHomestay';
 import DetailsOwner from '../ODetails';
 import EditHomestay from '../OEditHomestay';
 import ProfilWarung from '../ProfilWarung';
-import MenuFood from '../MenuFood';
+import MenuFoodPaal from '../MenuFoodPaal';
 import ChartFood from '../ChartFood';
 import TotalFood from '../TotalFood';
 import DetailOrderFood from '../DetailOrderFood';
@@ -99,7 +99,7 @@ const Router = () => {
       <Stack.Screen name="DetailsOwner" component={DetailsOwner} />
       <Stack.Screen name="EditHomestay" component={EditHomestay} />
       <Stack.Screen name="ProfilWarung" component={ProfilWarung} />
-      <Stack.Screen name="MenuFood" component={MenuFood} />
+      <Stack.Screen name="MenuFoodPaal" component={MenuFoodPaal} />
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
       <Stack.Screen name="DetailOrderFood" component={DetailOrderFood} />

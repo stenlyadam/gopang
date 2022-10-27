@@ -16,7 +16,7 @@ import {
   
   const OptionMenuLarata = ({navigation,route}) => {
     const {uid} = route.params;
-    const supportedURL = "https://goo.gl/maps/77NtLwHhC4E5bc4w7";
+    const supportedURL = "https://goo.gl/maps/mTaMYN11Gi1qQ9Eo8";
   
     const OpenURLButton = ({ url, children }) => {
       const handlePress = useCallback(async () => {
@@ -89,7 +89,7 @@ import {
           <CategoryFeature
             onPress1={() => navigation.navigate('MenuHomestay',{uid:uid})}
             onPress2={() => navigation.navigate('MenuGazeboKinunang',{uid:uid})}
-            onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
+            // onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
           />
           <View style={{marginLeft: 20, marginBottom: 27}}>
             <Text
