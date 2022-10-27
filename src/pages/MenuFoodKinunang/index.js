@@ -11,12 +11,11 @@ import {
 import Header from '../../components/molecules/header';
 import CardFood from '../../components/molecules/CardFood';
 import firebase from 'firebase';
-import Input from '../../components/atoms/Input';
 
-const MenuFoodPaal = ({navigation, route}) => {
+const MenuFoodKinunang = ({navigation, route}) => {
   const {uid, WarungID} = route.params;
   const [Food, setFood] = useState([]);
-  const [locationPaal,setLocationPaal] = useState('Paal');
+  const [locationKinunang,setLocationKinunang] = useState('Kinunang');
   const [search, setSearch] = useState('');
   const [choose,setChoose] = useState('');
 
@@ -118,30 +117,13 @@ const MenuFoodPaal = ({navigation, route}) => {
           </View>
         </View>
 
-        {/* Menu makan */}
-        {/* <View style={styles.garis} />
-          {Food
-          .filter(items=> items.location.includes(locationPaal))
-          .map(key => (
-            <CardFood
-              title={key.name}
-              harga={key.price}
-              image={key.photo}
-              warung={key.namaWarung}
-              alamat={key.location}
-              kategori={key.kategori}
-              myCondition={1}
-              onPress={()=> handleSubmit(key.IDwarung)}
-            />
-          ))} */}
-
         <ScrollView contentContainerStyle={styles.productContainer}>
         <View style={styles.garis} />
             {search.length === 0 ? (
               <View>
                 <View>
                   {Food
-                    .filter(food => food.location.includes(locationPaal)&&
+                    .filter(food => food.location.includes(locationKinunang)&&
                                     food.name.includes(search)&&
                                     food.kategori.includes(choose))
                     .map(key => (
@@ -163,7 +145,7 @@ const MenuFoodPaal = ({navigation, route}) => {
             ) : (
               Food
                 .filter(
-                  food => food.location.includes(locationPaal)&&
+                  food => food.location.includes(locationKinunang)&&
                           food.name.toLowerCase().includes(search.toLowerCase()))
                 .map(key => (
                   <View>
@@ -187,7 +169,7 @@ const MenuFoodPaal = ({navigation, route}) => {
   );
 };
 
-export default MenuFoodPaal;
+export default MenuFoodKinunang;
 
 const styles = StyleSheet.create({
   eat: {

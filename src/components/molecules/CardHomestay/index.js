@@ -47,7 +47,7 @@ const CardHomestay = props => {
           </View>
           <View style={{flexDirection: 'row', marginLeft: 11}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
-            <Text style={styles.location}>{props.location}</Text>
+            <Text style={styles.location}>{props.location} village</Text>
           </View>
         </View>
 

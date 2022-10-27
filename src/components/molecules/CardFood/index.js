@@ -41,15 +41,16 @@ const CardFood = props => {
               alignItems: 'center',
             }}>
             <View style={styles.containerTitle}>
+              <Text style={styles.kategori}>{props.kategori}</Text>
               <Text style={styles.namaMakanan}>{props.title}</Text>
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginLeft: 11}}>
-            <Text style={styles.harga}>Rp. {`${props.harga}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</Text>
+          <View style={{flexDirection: 'row', marginLeft: 11,marginTop:7}}>
+            <Text style={styles.harga}>Rp.{`${props.harga}`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}</Text>
           </View>
 
-          <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 6}}>
+          <View style={{flexDirection: 'row', marginLeft: 11, marginTop: 5}}>
             <Image source={require('../../../assets/icon/Direction.png')} />
             <Text style={styles.location}>{props.alamat}, Warung {props.warung}</Text>
           </View>
@@ -74,9 +75,12 @@ export default CardFood;
 
 const styles = StyleSheet.create({
   namaMakanan: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
-    height: 30,
+    height: 25,
+  },
+  kategori: {
+    fontSize:10,
   },
   harga: {
     fontWeight: 'normal',

@@ -23,7 +23,7 @@ import CardHomestay from '../../components/molecules/CardHomestay';
 const Filter = ({navigation,route}) => {
   const {uid,homestayID} = route.params;
   const [selectedValue, setSelectedValue] = useState('All');
-  const [locationPaal, setLocationPaal] = useState('Paal');
+  const [locationPaal, setLocationPaal] = useState('Marinsow');
   const [locationPulisan, setLocationPulisan] = useState('Pulisan');
   const [locationKinunang, setLocationKinunang] = useState('Kinunang');
   const [pictures, setPictures] = useState([]);
@@ -128,8 +128,8 @@ const Filter = ({navigation,route}) => {
                   style={{fontSize: 15}}
                 />
                 <Picker.Item
-                  label="Paal"
-                  value="Paal"
+                  label="Marinsow"
+                  value="Marinsow"
                   style={{fontSize: 15}}
                 />
                 <Picker.Item
@@ -173,7 +173,7 @@ const Filter = ({navigation,route}) => {
                     ))}
                 </View>
             )}
-            {selectedValue === "Paal" &&(
+            {selectedValue === "Marinsow" &&(
                 <View>
                   {pictures
                   .filter(homestay => homestay.location.includes(locationPaal) && homestay.status=='available' )

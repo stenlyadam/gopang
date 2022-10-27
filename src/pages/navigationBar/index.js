@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
@@ -7,11 +7,26 @@ import MenuHome from '../HomeMenu';
 import ChatBox from '../ChatBox';
 import NavOrder from '../NavOrder';
 import Profile from '../Profile';
-import {View, Image} from 'react-native';
+import {View, Image,Text} from 'react-native';
+import Header from '../../components/molecules/header';
+import firebase from '../../config/Firebase';
 
 const Tabs = ({navigation, route}) => {
   const {uid} = route.params;
-  return (
+  const [onUser, setOnUser] = useState(false);
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`users/pelanggan/${uid}`)
+      .on("value", (res) => {
+        if (res.val()) {
+          setOnUser(true);
+        }
+      });
+  }, []);
+
+  return onUser === true ? (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
@@ -103,7 +118,17 @@ const Tabs = ({navigation, route}) => {
         }}
       />
     </Tab.Navigator>
-  );
+  ):(
+    <View style={{flex:1,backgroundColor:'white'}}>
+      <Header
+        navigation={navigation}
+        onBack={() => navigation.goBack()}
+      />
+      <Text style={{alignSelf:'center',marginTop:'50%',fontSize:30,fontWeight:'bold',marginBottom:10}}>Memuat...</Text>
+      <Text style={{alignSelf:'center'}}>Your account is not registered as a user.</Text>
+      <Text style={{alignSelf:'center'}}>and you will not be able to enter the user's page</Text>
+    </View>
+  )
 };
 
 export default Tabs;

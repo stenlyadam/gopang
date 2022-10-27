@@ -91,7 +91,7 @@ const OptionMenuPulisan = ({navigation,route}) => {
         <CategoryFeature
           onPress1={() => navigation.navigate('MenuHomestay',{uid:uid})}
           onPress2={() => navigation.navigate('MenuGazeboPulisan',{uid:uid})}
-          // onPress3={() => navigation.navigate('MenuFood',{uid:uid})}
+          onPress3={() => navigation.navigate('MenuFoodPulisan',{uid:uid})}
         />
         <View style={{marginLeft: 20, marginBottom: 27}}>
           <Text

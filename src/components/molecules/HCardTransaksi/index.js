@@ -29,24 +29,26 @@ const HCardTransaksi = props => {
         {props.status != "completed" ?(
           <Text
             style={{
-              // position: 'absolute',
+              position: 'absolute',
               marginTop: 35,
-              marginLeft: '25%',
+              marginLeft: '75%',
               fontSize: 20,
               fontWeight: '700',
+              textAlign:'center'
             }}>
             {props.status}
           </Text>
         ):(
           <Text
             style={{
-              // position: 'absolute',
+              position: 'absolute',
               marginTop: 35,
-              marginLeft: '25%',
+              marginLeft: '70%',
               fontSize: 20,
               color:'#38A7D0',
               fontStyle:'italic',
               fontWeight: '700',
+              textAlign:'center',
             }}>
             {props.status}
           </Text>

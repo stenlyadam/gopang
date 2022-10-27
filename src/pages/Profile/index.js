@@ -136,7 +136,7 @@ const Profile = ({navigation, route}) => {
         </View>
         <View style={{alignItems: 'center', marginTop: 10}}>
           <View style={{height: 128, width: 343, alignItems: 'center'}}>
-            <TouchableOpacity style={styles.buttonLogout}>
+            <TouchableOpacity style={styles.buttonLogout} onPress={()=> navigation.navigate('Help')}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/Help.png')}
               />

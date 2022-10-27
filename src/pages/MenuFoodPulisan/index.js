@@ -11,12 +11,11 @@ import {
 import Header from '../../components/molecules/header';
 import CardFood from '../../components/molecules/CardFood';
 import firebase from 'firebase';
-import Input from '../../components/atoms/Input';
 
-const MenuFoodPaal = ({navigation, route}) => {
+const MenuFoodPulisan = ({navigation, route}) => {
   const {uid, WarungID} = route.params;
   const [Food, setFood] = useState([]);
-  const [locationPaal,setLocationPaal] = useState('Paal');
+  const [locationPulisan,setLocationPulisan] = useState('Pulisan');
   const [search, setSearch] = useState('');
   const [choose,setChoose] = useState('');
 
@@ -141,7 +140,7 @@ const MenuFoodPaal = ({navigation, route}) => {
               <View>
                 <View>
                   {Food
-                    .filter(food => food.location.includes(locationPaal)&&
+                    .filter(food => food.location.includes(locationPulisan)&&
                                     food.name.includes(search)&&
                                     food.kategori.includes(choose))
                     .map(key => (
@@ -163,7 +162,7 @@ const MenuFoodPaal = ({navigation, route}) => {
             ) : (
               Food
                 .filter(
-                  food => food.location.includes(locationPaal)&&
+                  food => food.location.includes(locationPulisan)&&
                           food.name.toLowerCase().includes(search.toLowerCase()))
                 .map(key => (
                   <View>
@@ -187,7 +186,7 @@ const MenuFoodPaal = ({navigation, route}) => {
   );
 };
 
-export default MenuFoodPaal;
+export default MenuFoodPulisan;
 
 const styles = StyleSheet.create({
   eat: {

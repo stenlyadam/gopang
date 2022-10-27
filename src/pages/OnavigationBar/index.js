@@ -1,17 +1,32 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import firebase from '../../config/Firebase';
 
 const Tab = createBottomTabNavigator();
 import OwnerMenu from '../OwnerMenu';
 import OChatBox from '../OChatBox';
 import OOrder from '../OOrder';
 import OProfile from '../OProfile';
-import {View, Image} from 'react-native';
+import {View, Image,Text} from 'react-native';
+import Header from '../../components/molecules/header';
 
 const Tabs = ({navigation, route}) => {
   const {uid} = route.params;
-  return (
+  const [onAdmin, setOnAdmin] = useState(false);
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(`users/owner/${uid}`)
+      .on("value", (res) => {
+        if (res.val()) {
+          setOnAdmin(true);
+        }
+      });
+  }, []);
+
+  return onAdmin === true ? (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
@@ -108,6 +123,16 @@ const Tabs = ({navigation, route}) => {
         }}
       />
     </Tab.Navigator>
+  ) : (
+    <View style={{flex:1,backgroundColor:'white'}}>
+      <Header
+        navigation={navigation}
+        onBack={() => navigation.goBack()}
+      />
+      <Text style={{alignSelf:'center',marginTop:'50%',fontSize:30,fontWeight:'bold',marginBottom:10}}>Memuat...</Text>
+      <Text style={{alignSelf:'center'}}>Your account is not registered as a owner.</Text>
+      <Text style={{alignSelf:'center'}}>and you will not be able to enter the owner's page</Text>
+    </View>
   );
 };
 

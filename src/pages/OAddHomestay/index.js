@@ -33,7 +33,7 @@ const OAddHomestay = ({navigation, route}) => {
   const [photo, setPhoto] = useState('');
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photoBase64, setPhotoBase64] = useState('');
-  const [selectedValue, setSelectedValue] = useState('Paal');
+  const [selectedValue, setSelectedValue] = useState('Marinsow');
   const [selectedStatus, setSelectedStatus] = useState('unavailable');
 
   const getUser = () => {
@@ -198,8 +198,8 @@ const OAddHomestay = ({navigation, route}) => {
             }
             >
             <Picker.Item
-              label="Paal"
-              value="Paal"
+              label="Marinsow"
+              value="Marinsow"
               style={{fontSize: 15}}
             />
             <Picker.Item

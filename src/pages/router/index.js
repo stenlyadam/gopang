@@ -56,6 +56,9 @@ import OEditProfile from '../OEditProfile';
 import DetailOrderFoodOwner from '../DetailOrderFoodOwner';
 import DetailOrderFoodUser from '../DetailOrderFoodUser';
 import ChangePassword from '../ChangePassword';
+import MenuFoodPulisan from '../MenuFoodPulisan';
+import MenuFoodKinunang from '../MenuFoodKinunang';
+import Help from '../Help';
 
 const Stack = createNativeStackNavigator();
 
@@ -100,6 +103,8 @@ const Router = () => {
       <Stack.Screen name="EditHomestay" component={EditHomestay} />
       <Stack.Screen name="ProfilWarung" component={ProfilWarung} />
       <Stack.Screen name="MenuFoodPaal" component={MenuFoodPaal} />
+      <Stack.Screen name="MenuFoodPulisan" component={MenuFoodPulisan} />
+      <Stack.Screen name="MenuFoodKinunang" component={MenuFoodKinunang} />
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
       <Stack.Screen name="DetailOrderFood" component={DetailOrderFood} />
@@ -119,6 +124,7 @@ const Router = () => {
       <Stack.Screen name="DetailOrderFoodOwner" component={DetailOrderFoodOwner} />
       <Stack.Screen name="DetailOrderFoodUser" component={DetailOrderFoodUser} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="Help" component={Help} />
     </Stack.Navigator>
   );
 };

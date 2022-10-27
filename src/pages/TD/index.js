@@ -535,7 +535,7 @@ const TransactionDetails = ({navigation, route}) => {
           }}
         />
 
-        <View style={{alignSelf: 'center', marginTop: 40}}>
+        <View style={{alignSelf: 'center', marginTop: 40,flex:1,backgroundColor:'white'}}>
           <View>
             {/* <ButtonTransaction
               title={'Paid'}

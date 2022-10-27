@@ -189,7 +189,7 @@ import {
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
               {transaksi.namaHomestay}
             </Text>
-            <Text style={{fontSize: 15, marginTop: 3}}>{transaksi.alamatHomestay} Beach</Text>
+            <Text style={{fontSize: 15, marginTop: 3,width:220}}>{transaksi.alamatHomestay} Beach</Text>
             {/* <Image
               style={{width: 51, height: 20, marginTop: 7}}
               source={require('../../assets/icon/Rating.png')}
