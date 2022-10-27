@@ -58,11 +58,12 @@ const InfoGazebo = ({navigation, route}) => {
         onBack={() => navigation.goBack()}
       />
 
+      <Image source={{uri: `${gazebo.photo}`}} style={styles.gambar} />
       <View style={{flexDirection: 'row'}}>
         <View>
-          <Image source={{uri: `${gazebo.photo}`}} style={styles.gambar} />
+          
           <View style={{flexDirection: 'row', paddingTop: 12}}>
-            <Text style={styles.namaGazebo}>Gazebo Wahyu</Text>
+            <Text style={styles.namaGazebo}>Gazebo {gazebo.name}</Text>
             <Text style={styles.ukuran}>{gazebo.size}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -108,18 +109,14 @@ const InfoGazebo = ({navigation, route}) => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity style={{flexDirection: 'row', marginTop: 22}}>
+            <TouchableOpacity style={{flexDirection: 'row', marginTop: 22}} onPress={() => sendOnWa()}>
               <Image
                 source={require('../../assets/icon/iconChatAktif.png')}
                 style={{width: 35, height: 40}}
               />
-              <TouchableOpacity
-                onPress={() => sendOnWa()}
-                style={{marginTop: 8, marginLeft: 10}}>
-                <Text style={{fontSize: 15, fontWeight: 'bold'}}>
+                <Text style={{fontSize: 15, fontWeight: 'bold',marginTop: 8, marginLeft: 10}}>
                   Chat Owner
                 </Text>
-              </TouchableOpacity>
             </TouchableOpacity>
           </View>
         </View>
@@ -132,8 +129,8 @@ export default InfoGazebo;
 
 const styles = StyleSheet.create({
   gambar: {
-    width: '110%',
-    height: '40%',
+    width: '100%',
+    height: 280,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     // backgroundColor: 'red',
