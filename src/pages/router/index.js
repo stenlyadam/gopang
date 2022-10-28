@@ -1,4 +1,4 @@
-import {NavigationContainer} from '@react-navigation/native';
+
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {StyleSheet} from 'react-native';
@@ -9,8 +9,6 @@ import ForgetPassword from '../../containers/organisms/Akun/ForgetPassword';
 import LoginOptionsScreen from '../../containers/organisms/LoginOptions';
 import OnboardScreen from '../../containers/organisms/Onboarding';
 import Splash from '../../containers/organisms/Splash';
-import Chat from '../Chat';
-import ChatBox from '../ChatBox';
 import MenuHome from '../HomeMenu';
 import InfoGazebo from '../InfoGazebo';
 import MenuGazebo from '../MenuGazebo';
@@ -18,10 +16,8 @@ import MenuHometay from '../MenuHomestay';
 import NavigationBar from '../navigationBar';
 import infoHomestay from '../infoHomestay';
 import Filter from '../Filter';
-import Biodata from '../Biodata';
 import OverviewPage from '../OverviewPage';
 import TransactionDetails from '../TransactionDetails';
-import SuccessPage from '../SuccessPage';
 import OptionMenuPaal from '../OptionMenuPaal';
 import OptionMenuPulisan from '../OptionMenuPulisan';
 import EditProfile from '../EditProfile';
@@ -30,18 +26,15 @@ import SignUpOwner from '../../containers/organisms/Akun/SignUpOwner';
 import OwnerMenu from '../OwnerMenu';
 import AddHomestay from '../OAddHomestay';
 import DetailsOwner from '../ODetails';
-import EditHomestay from '../OEditHomestay';
 import ProfilWarung from '../ProfilWarung';
 import MenuFoodPaal from '../MenuFoodPaal';
 import ChartFood from '../ChartFood';
 import TotalFood from '../TotalFood';
 import DetailOrderFood from '../DetailOrderFood';
-import DetailOrderDelivered from '../DetailOrderDelivered';
 import OProfile from '../OProfile';
 import OnavigationBar from '../OnavigationBar';
 import OptionMenuKinunang from '../OptionMenuKinunang';
 import OptionMenuLarata from '../OptionMenuLarata';
-import TabOrderr from '../../components/molecules/TabOrder2';
 import TabOrder from '../../components/molecules/TabOrder';
 import TD from '../../pages/TD';
 import OAddWarung from '../../pages/OAddWarung';
@@ -81,16 +74,12 @@ const Router = () => {
       <Stack.Screen name="MenuGazeboKinunang" component={MenuGazeboKinunang} />
       <Stack.Screen name="MenuHomestay" component={MenuHometay} />
       <Stack.Screen name="InfoGazebo" component={InfoGazebo} />
-      <Stack.Screen name="Chat" component={Chat} />
-      <Stack.Screen name="ChatBox" component={ChatBox} />
       <Stack.Screen name="infoHomestay" component={infoHomestay} />
       <Stack.Screen name="Filter" component={Filter} />
-      <Stack.Screen name="Biodata" component={Biodata} />
       <Stack.Screen name="OverviewPage" component={OverviewPage} />
       <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
       <Stack.Screen name="TD" component={TD} />
       <Stack.Screen name="TDOwner" component={TDOwner} />
-      <Stack.Screen name="SuccessPage" component={SuccessPage} />
       <Stack.Screen name="OptionMenuPaal" component={OptionMenuPaal} />
       <Stack.Screen name="OptionMenuPulisan" component={OptionMenuPulisan} />
       <Stack.Screen name="OptionMenuKinunang" component={OptionMenuKinunang} />
@@ -100,7 +89,6 @@ const Router = () => {
       <Stack.Screen name="OwnerMenu" component={OwnerMenu} />
       <Stack.Screen name="AddHomestay" component={AddHomestay} />
       <Stack.Screen name="DetailsOwner" component={DetailsOwner} />
-      <Stack.Screen name="EditHomestay" component={EditHomestay} />
       <Stack.Screen name="ProfilWarung" component={ProfilWarung} />
       <Stack.Screen name="MenuFoodPaal" component={MenuFoodPaal} />
       <Stack.Screen name="MenuFoodPulisan" component={MenuFoodPulisan} />
@@ -108,12 +96,7 @@ const Router = () => {
       <Stack.Screen name="ChartFood" component={ChartFood} />
       <Stack.Screen name="TotalFood" component={TotalFood} />
       <Stack.Screen name="DetailOrderFood" component={DetailOrderFood} />
-      <Stack.Screen name="TabOrderr" component={TabOrderr} />
       <Stack.Screen name="TabOrder" component={TabOrder} />
-      <Stack.Screen
-        name="DetailOrderDelivered"
-        component={DetailOrderDelivered}
-      />
       <Stack.Screen name="OProfile" component={OProfile} />
       <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
       <Stack.Screen name="OAddWarung" component={OAddWarung} />

@@ -22,7 +22,7 @@ const FirstRoute = () => (
           borderRadius: 10,
         }}
         // source={{uri: `data:image/jpeg;base64, ${homestay.photo}`}}
-        source={require('../../../assets/homestay/HomestayWahyu.png')}
+        // source={require('../../../assets/homestay/HomestayWahyu.png')}
       />
       <View style={{marginLeft: 10, marginTop: 24}}>
         <Text style={{fontSize: 15, fontWeight: 'bold'}}>Wahyu Homestay</Text>
