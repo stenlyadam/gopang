@@ -10,11 +10,9 @@ import {
   View,
   BackHandler
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import Button from '../../../components/atoms/Button';
 import Input from '../../../components/atoms/Input';
 import TextTouchable from '../../../components/atoms/TextTouchable';
-import {setForm} from '../../../redux';
 import firebase from '../../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
 import Header from '../../../components/molecules/header';

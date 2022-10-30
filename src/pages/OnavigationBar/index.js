@@ -5,7 +5,6 @@ import firebase from '../../config/Firebase';
 
 const Tab = createBottomTabNavigator();
 import OwnerMenu from '../OwnerMenu';
-import OChatBox from '../OChatBox';
 import OOrder from '../OOrder';
 import OProfile from '../OProfile';
 import {View, Image,Text} from 'react-native';
@@ -98,25 +97,6 @@ const Tabs = ({navigation, route}) => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Message"
-        component={OChatBox}
-        initialParams={{uid: uid}}
-        options={{
-          tabBarShowLabel: false,
-          tabBarIcon: ({color}) => (
-            <View style={{marginTop: 16}}>
-              {color == '#28384D' ? (
-                <Image
-                  source={require('../../assets/icon/iconChatAktif.png')}
-                />
-              ) : (
-                <Image source={require('../../assets/icon/iconChat.png')} />
-              )}
-            </View>
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Profile"
         component={OProfile}

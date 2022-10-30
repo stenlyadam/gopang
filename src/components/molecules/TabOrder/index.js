@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import {View, useWindowDimensions, StatusBar, Text} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import TabOrderOngoing from '../TabOrder2';
-import TabOrderHistory from '../TabOder3';
 import firebase from '../../../config/Firebase';
 import HCardTransaksi from '../HCardTransaksi';
 
@@ -72,7 +70,6 @@ const TabOrder = ({uid,navigation}) => {
 
   const SecondRoute = () => (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <TabOrderHistory style={{flex: 1}} />
     </View>
   );
 

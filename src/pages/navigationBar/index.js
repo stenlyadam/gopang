@@ -4,7 +4,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 import MenuHome from '../HomeMenu';
-import ChatBox from '../ChatBox';
 import NavOrder from '../NavOrder';
 import Profile from '../Profile';
 import {View, Image,Text} from 'react-native';
