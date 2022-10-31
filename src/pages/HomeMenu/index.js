@@ -18,7 +18,6 @@ const HomeMenu = ({navigation, route}) => {
   const [pictures, setPictures] = useState([]);
   const [onWarung, setOnWarung] = useState([]);
   const [selectedValue] = useState('Paal');
-  const [locationPaal] = useState('Paal');
 
   const handleSubmit = key => {
     navigation.navigate('infoHomestay', {uid: uid, homestayID: key});
@@ -51,7 +50,7 @@ const HomeMenu = ({navigation, route}) => {
     exit();
   }, []);
 
-  const getWarung=()=>{
+  const getWarung = async () => {
     firebase
       .database()
       .ref(`warung`)
@@ -60,6 +59,7 @@ const HomeMenu = ({navigation, route}) => {
           //ubah menjadi array object
           const rawData = res.val();
           const productArray = [];
+
           // console.log(keranjang[0].namaProduk);
           Object.keys(rawData).map(key => {
             productArray.push({
@@ -67,7 +67,12 @@ const HomeMenu = ({navigation, route}) => {
               ...rawData[key],
             });
           });
-          setOnWarung(productArray);
+          const sort = productArray.sort(
+            (a, b) => a.totalRating - b.totalRating,
+          );
+          const descending = sort;
+          const slice = descending.slice(0, 4);
+          setOnWarung(slice);
         }
       });
   }

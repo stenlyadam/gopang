@@ -137,13 +137,13 @@ const MenuGazebo = ({navigation, route}) => {
                 style={{
                   width: 15,
                   height: 15,
-                  marginTop: 12,
+                  marginTop: 13,
                   position: 'absolute',
                   right: '6%',
                 }}
               />
             </View>
-            <TouchableOpacity style={{marginLeft: 20, flexDirection: 'row'}}>
+            <View style={{marginLeft: 20, flexDirection: 'row'}}>
               <Image
                 source={require('../../assets/icon/Direction.png')}
                 style={{
@@ -159,7 +159,7 @@ const MenuGazebo = ({navigation, route}) => {
                 }}>
                 {homestay.alamat}
               </Text>
-            </TouchableOpacity>
+            </View>
 
             {/* Fasilitas */}
             <View
