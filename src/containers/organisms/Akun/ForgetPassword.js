@@ -4,6 +4,7 @@ import Header from '../../../components/molecules/header';
 import Input from '../../../components/atoms/Input';
 import Button from '../../../components/atoms/Button';
 import firebase from '../../../config/Firebase';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
 const ForgetPassword = ({navigation}) => {
   const [email,setEmail] = useState('');
@@ -58,8 +59,8 @@ export default ForgetPassword;
 const styles = StyleSheet.create({
   image: {
     marginTop: 10,
-    width: 247,
-    height: 220,
+    width: responsiveWidth(247),
+    height: responsiveHeight(220),
   },
   fontResetPass: {
     fontWeight: 'bold',
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 54,
-    width: 343,
+    width: responsiveWidth(343),
     padding: 10,
     fontSize: 16,
     borderRadius: 6,
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   textReset: {
     marginTop: 4,
-    width: 286,
+    width: responsiveWidth(286),
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',

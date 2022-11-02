@@ -19,6 +19,7 @@ import Header from '../../components/molecules/header';
 import {Picker} from '@react-native-picker/picker';
 import firebase from '../../config/Firebase';
 import CardHomestay from '../../components/molecules/CardHomestay';
+import { responsiveWidth } from '../../utils/responsive';
 
 const Filter = ({navigation,route}) => {
   const {uid,homestayID} = route.params;
@@ -153,13 +154,13 @@ const Filter = ({navigation,route}) => {
             <Text style={{alignSelf:'center',marginBottom:2,marginLeft:4,color:'green'}} >Available</Text>
           </View>
           
-          <ScrollView>
+          <ScrollView contentContainerStyle={styles.productContainer}>
           {selectedValue === "All" &&(
                 <View>
                   {pictures
                   .filter(homestay => homestay.status=='available')
                   .map(key => (
-                      <View>
+                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -178,7 +179,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationPaal) && homestay.status=='available' )
                   .map(key => (
-                      <View>
+                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -197,7 +198,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationPulisan) && homestay.status=='available')
                   .map(key => (
-                      <View>
+                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -216,7 +217,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationKinunang) && homestay.status=='available')
                   .map(key => (
-                      <View>
+                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -230,7 +231,6 @@ const Filter = ({navigation,route}) => {
                     ))}
                 </View>
             )}
-            
           </ScrollView>
         </View>
       </View>
@@ -249,5 +249,8 @@ const styles = StyleSheet.create({
   },
   picker:{
     backgroundColor:'grey'
+  },
+  productContainer:{
+    marginTop: 10,alignSelf:'center',justifyContent:'center'
   },
 });

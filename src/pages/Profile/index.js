@@ -11,6 +11,7 @@ import {
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 const Profile = ({navigation, route}) => {
   const {uid} = route.params;
@@ -95,7 +96,7 @@ const Profile = ({navigation, route}) => {
         </View>
 
         <View style={{alignItems: 'center', marginTop: 79}}>
-          <View style={{height: 128, width: 343, alignItems: 'center'}}>
+          <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.buttonEditProfile}
               onPress={() => navigation.navigate('EditProfile', {uid: uid})}>
@@ -135,7 +136,7 @@ const Profile = ({navigation, route}) => {
           </View>
         </View>
         <View style={{alignItems: 'center', marginTop: 10}}>
-          <View style={{height: 128, width: 343, alignItems: 'center'}}>
+          <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
             <TouchableOpacity style={styles.buttonLogout} onPress={()=> navigation.navigate('Help')}>
               <Image
                 source={require('../../assets/icon/ScreenProfile/Help.png')}
@@ -189,13 +190,13 @@ const styles = StyleSheet.create({
   buttonEditProfile: {
     flexDirection: 'row',
     height: 40,
-    width: '90%',
+    width: responsiveWidth(300),
     marginTop: 13,
   },
   buttonLogout: {
     flexDirection: 'row',
     height: 40,
-    width: '90%',
+    width: responsiveWidth(300),
     marginTop: 21,
   },
   imageStyle: {

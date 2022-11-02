@@ -10,7 +10,6 @@ const FCardTransaksi = props => {
           style={{
             // position: 'absolute',
             marginTop: 15,
-            marginLeft: 20,
             width: 60,
             height: 60,
             borderRadius: 10,
@@ -32,7 +31,7 @@ const FCardTransaksi = props => {
             style={{
               position: 'absolute',
               marginTop: 20,
-              marginLeft: '65%',
+              marginLeft: '70%',
               width:50,
               textAlign:'center',
               fontSize: 20,
@@ -45,7 +44,7 @@ const FCardTransaksi = props => {
             style={{
               position: 'absolute',
               marginTop: 30,
-              marginLeft: '65%',
+              marginLeft: '70%',
               width:50,
               textAlign:'center',
               fontSize: 20,

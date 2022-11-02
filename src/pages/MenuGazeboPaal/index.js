@@ -12,6 +12,7 @@ import Header from '../../components/molecules/header';
 import CardGazebo from '../../components/molecules/CardGazebo';
 import firebase from '../../config/Firebase';
 import {Picker} from '@react-native-picker/picker';
+import { responsiveWidth } from '../../utils/responsive';
 
 const MenuGazeboPaal = ({navigation, route}) => {
   const {uid} = route.params;
@@ -89,11 +90,6 @@ const MenuGazeboPaal = ({navigation, route}) => {
                   value="5x4"
                   style={{fontSize: 15}}
                 />
-                <Picker.Item
-                  label="Kinunang"
-                  value="Kinunang"
-                  style={{fontSize: 15}}
-                />
               </Picker>
             </View>
           </View>
@@ -108,9 +104,9 @@ const MenuGazeboPaal = ({navigation, route}) => {
                 {gazebo
                 .filter(gazebo => gazebo.location.includes(locationPaal))
                 .map(key => (
-                    <View>
+                    <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
-                        title="Gazebo Wahyu"
+                        title={key.name}
                         location={key.location}
                         image={`${key.photo}`}
                         size={key.size}
@@ -127,9 +123,9 @@ const MenuGazeboPaal = ({navigation, route}) => {
                 .filter(gazebo => gazebo.location.includes(locationPaal)&&
                 gazebo.size == '3x4')
                 .map(key => (
-                    <View>
+                    <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
-                        title="Gazebo Wahyu"
+                        title={key.name}
                         location={key.location}
                         image={`${key.photo}`}
                         size={key.size}
@@ -145,9 +141,9 @@ const MenuGazeboPaal = ({navigation, route}) => {
                 .filter(gazebo => gazebo.location.includes(locationPaal)&&
                 gazebo.size == '5x4')
                 .map(key => (
-                    <View>
+                    <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
-                        title="Gazebo Wahyu"
+                        title={key.name}
                         location={key.location}
                         image={`${key.photo}`}
                         size={key.size}

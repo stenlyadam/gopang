@@ -12,6 +12,7 @@ import {
 import firebase from '../../config/Firebase';
 import FoodCardHome from '../../components/molecules/FoodCardHome';
 import CardHomestay from '../../components/molecules/CardHomestay';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 const HomeMenu = ({navigation, route}) => {
   const {uid} = route.params;
@@ -179,13 +180,13 @@ const HomeMenu = ({navigation, route}) => {
 
         {/*Recomended Homestay*/}
         <Text style={styles.recomHomestay}>Recomended Homestay</Text>
-        <View style={{marginTop: 10, width: '100%', justifyContent: 'center'}}>
+        <View style={{marginTop: 10,alignSelf:'center',justifyContent:'center'}}>
           {selectedValue === "Paal" &&(
                   <View>
                     {pictures
                     // .filter(homestay => homestay.location.includes(locationPaal))
                     .map(key => (
-                        <View>
+                        <View style={{width: responsiveWidth(370),alignSelf:'center'}}>
                           <CardHomestay
                             title={key.name}
                             image={`${key.photo}`}
@@ -214,98 +215,96 @@ const HomeMenu = ({navigation, route}) => {
           Popular Destinations
         </Text>
         <View style={styles.Gdestination}>
-          <View>
+          <View style={{flexDirection:'row',alignSelf:'center'}}>
             <TouchableOpacity
               onPress={() => navigation.navigate('OptionMenuPaal',{uid:uid})}
-              activeOpacity={0.8}>
+              activeOpacity={0.8} style={{justifyContent:'center'}}>
               <Image
                 source={require('../../assets/pantai/Paal/Paal4.png')}
-                style={{height: 170, width: 173,borderRadius:20}}
+                style={{height: responsiveHeight(170), width: responsiveWidth(173),borderRadius:20}}
               />
+              <View style={{position:'absolute',alignSelf:'center'}}>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'40%',
-                fontSize:20,
+                fontSize:16,
+                textAlign:'center',
                 color:'white'}} >Paal Beach</Text>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'53%',
-                fontSize:13,
+                fontSize:10,
+                textAlign:'center',
                 color:'white'}} >Homestay • Gazebo • Food</Text>
+              </View>
             </TouchableOpacity>
-          </View>
-          <View style={{marginLeft: 20}}>
+
             <TouchableOpacity
               onPress={() => navigation.navigate('OptionMenuPulisan',{uid:uid})}
-              activeOpacity={0.8}>
+              activeOpacity={0.8} style={{marginLeft:20,justifyContent:'center'}}>
               <Image
                 source={require('../../assets/pantai/Pulisan/Pulisan5.jpg')}
-                style={{height: 170, width: 173,borderRadius:20}}
+                style={{height: responsiveHeight(170), width: responsiveWidth(173),borderRadius:20}}
               />
+              <View style={{position:'absolute',alignSelf:'center'}}>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'40%',
-                fontSize:20,
+                fontSize:16,
+                textAlign:'center',
                 color:'white'}} >Pulisan Beach</Text>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'53%',
-                fontSize:13,
+                fontSize:10,
+                textAlign:'center',
                 color:'white'}} >Homestay • Gazebo • Food</Text>
+              </View>
             </TouchableOpacity>
           </View>
-          <View style={{marginTop: 25}}>
+          <View style={{marginTop: 20,flexDirection:'row',alignSelf:'center'}}>
             <TouchableOpacity onPress={() => navigation.navigate('OptionMenuKinunang',{uid:uid})}
-            activeOpacity={0.8}>
+            activeOpacity={0.8} style={{justifyContent:'center'}}>
               <Image
                 source={require('../../assets/pantai/Kinunang/Kinunang1.jpg')}
-                style={{height: 170, width: 173,borderRadius:20}}
+                style={{height: responsiveHeight(170), width: responsiveWidth(173),borderRadius:20}}
               />
+              <View style={{position:'absolute',alignSelf:'center'}}>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'40%',
-                fontSize:20,
+                fontSize:16,
+                textAlign:'center',
                 color:'white'}} >Kinunang Beach</Text>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'53%',
-                fontSize:13,
+                fontSize:10,
+                textAlign:'center',
                 color:'white'}} >Homestay • Gazebo • Food</Text>
+              </View>
             </TouchableOpacity>
-          </View>
-          <View style={{marginLeft: 20, marginTop: 25}}>
+
             <TouchableOpacity onPress={() => navigation.navigate('OptionMenuLarata',{uid:uid})}
-            activeOpacity={0.8}>
+            activeOpacity={0.8} style={{marginLeft:20,justifyContent:'center'}}>
               <Image
                 source={require('../../assets/pantai/Larata/Larata1.jpg')}
-                style={{height: 170, width: 173,borderRadius:20}}
+                style={{height: responsiveHeight(170), width: responsiveWidth(173),borderRadius:20}}
               />
+              <View style={{position:'absolute',alignSelf:'center'}}>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'40%',
-                fontSize:20,
+                fontSize:16,
+                textAlign:'center',
                 color:'white'}} >Larata Hill</Text>
               <Text 
               style={{
-                position:'absolute',
                 alignSelf:'center',
-                marginTop:'53%',
-                fontSize:13,
+                fontSize:10,
+                textAlign:'center',
                 color:'white'}} >Homestay • Food</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
@@ -380,11 +379,12 @@ const styles = StyleSheet.create({
     marginLeft: 11,
   },
   Gdestination: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
     marginTop: 10,
-    width: '100%',
+    width: responsiveWidth(380),
     justifyContent: 'center',
+    alignContent:'center',
+    alignSelf:'center',
+    flexDirection:'column',
   },
   Fdestination: {
     flexDirection: 'row',

@@ -8,8 +8,6 @@ const CardGazebo = props => {
       style={{
         height: 118,
         width: 371,
-        marginLeft: 20,
-        marginRight: 20,
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 0,

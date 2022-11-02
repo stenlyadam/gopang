@@ -18,6 +18,7 @@ import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 import firebase from '../../config/Firebase';
 import CountDown from 'react-native-countdown-component';
 import ButtonChat from '../../components/atoms/ButtonChat';
+import { responsiveWidth } from '../../utils/responsive';
 const dayjs = require('dayjs');
 
 const TransactionDetails = ({navigation, route}) => {
@@ -272,9 +273,9 @@ const TransactionDetails = ({navigation, route}) => {
   };
 
   return (
-    <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Header title="Transaction" />
+        <ScrollView>
+        <Header title="Transaction" onBack={()=> handleSubmitGoBack()} />
 
         <Modal visible={ratingModal} transparent={true} animationType="slide">
           <View style={styles.Box}>
@@ -305,7 +306,7 @@ const TransactionDetails = ({navigation, route}) => {
             <Text style={{fontSize: 20, fontWeight: 'bold'}}>
               {transaksi.namaHomestay}
             </Text>
-            <Text style={{fontSize: 15, marginTop: 3}}>
+            <Text style={{fontSize: 15, marginTop: 3,width:responsiveWidth(245)}}>
               {transaksi.alamatHomestay} Beach
             </Text>
             {/* <Image
@@ -592,8 +593,8 @@ const TransactionDetails = ({navigation, route}) => {
             {/* <ButtonTransaction title={'Rating'} onPress={()=> setRatingModal(true)} /> */}
           </View>
         </View>
+        </ScrollView>
       </View>
-    </ScrollView>
   );
 };
 

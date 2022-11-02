@@ -1,15 +1,19 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Button from '../../components/atoms/Button';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 const LoginOptions = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.font}>GOPANG</Text>
-      <Image
-        style={styles.Logo}
-        source={require('../../assets/logo/LogoGOPANG.png')}
-      />
+      <View style={{width:200,alignSelf:'center'}}>
+        <Image
+          style={styles.Logo}
+          source={require('../../assets/logo/LogoGOPANG.png')}
+        />
+      </View>
+      
       <Text style={styles.loginAs}>Login as :</Text>
       <View style={styles.button1}>
         {/* da props dri component button didalam folder atoms-button*/}
@@ -34,10 +38,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   Logo: {
-    marginLeft: 133,
+    alignSelf:'center',
+    marginLeft:50
   },
   loginAs: {
-    marginTop: 123,
+    marginTop: 50,
     fontSize: 13,
     fontWeight: 'bold',
     paddingLeft: 55,
@@ -55,16 +60,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  Button: {
-    paddingTop: 15,
-    alignItems: 'center',
-    borderRadius: 20,
-    backgroundColor: '#38A7D0',
-    width: 293.49,
-    height: 55.05,
-  },
   button1: {
     marginTop: 10,
-    alignItems: 'center',
+    width: responsiveWidth(300),
+    alignSelf:'center',
+    alignItems:'center',
   },
 });

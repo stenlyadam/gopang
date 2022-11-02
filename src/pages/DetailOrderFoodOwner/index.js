@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image,BackHandler,Alert,Linking} from 'react-native';
+import {StyleSheet, Text, View, Image,BackHandler,Alert,Linking, TouchableOpacity} from 'react-native';
 import React,{useState,useEffect} from 'react';
 import firebase from 'firebase';
 
@@ -101,6 +101,17 @@ const DetailOrderFoodOwner = ({navigation,route}) => {
       setLoading(false);
       alert('Order accepted.');
     }, 1000);
+  }
+
+  const handleSubmitReject =()=>{
+    setLoading(true);
+    firebase.database().ref(`transaksiFood/${WarungID}`).remove();
+    
+    setTimeout(() => {
+      setLoading(false);
+      alert('Transaction has been rejected');
+    }, 1000);
+    handleSubmitGoBack();
   }
 
   const handleSubmitOtw =()=>{
@@ -298,6 +309,10 @@ const DetailOrderFoodOwner = ({navigation,route}) => {
           title='Accept' 
           onPress={() => handleSubmitAccepted(WarungID)}
           />
+          <Text style={{marginTop:5,marginBottom:5}}>Or</Text>
+          <TouchableOpacity onPress={()=> handleSubmitReject(WarungID)}>
+            <Text style={{color:'red',fontStyle:'italic',fontSize:15,textDecorationLine:'underline'}}>Reject</Text>
+          </TouchableOpacity>
         </View>
       )}
       

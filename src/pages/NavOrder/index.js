@@ -92,6 +92,7 @@ const NavOrder = ({navigation,route}) => {
                               item.status !== 'completed',
                               )
                 .map(key => (
+                  <View style={{width:'90%',alignSelf:'center'}}>
                   <HCardTransaksi
                     nama={key.namaHomestay}
                     alamat={key.alamatHomestay}
@@ -100,6 +101,7 @@ const NavOrder = ({navigation,route}) => {
                     photo={key.fotoHomestay}
                     onPress={() => handleSubmit(key.id)}
                   />
+                  </View>
                 ))}
             </View>
             <View>
@@ -109,7 +111,7 @@ const NavOrder = ({navigation,route}) => {
                             item.status !== 'completed',
                             )
               .map(key => (
-                <View>
+                <View style={{width:'90%',alignSelf:'center'}}>
                   <FCardTransaksi
                     namaWarung={key.namaWarung}
                     // pesanan={key.alamatHomestay}
@@ -200,6 +202,7 @@ const NavOrder = ({navigation,route}) => {
                 item.status !== 'paid',
             )
             .map(key => (
+              <View style={{width:'90%',alignSelf:'center'}}>
               <HCardTransaksi
                 nama={key.namaHomestay}
                 alamat={key.alamatHomestay}
@@ -208,6 +211,7 @@ const NavOrder = ({navigation,route}) => {
                 photo={key.fotoHomestay}
                 onPress={() => handleSubmit(key.id)}
               />
+              </View>
             ))}
       </View>
       <View>
@@ -219,7 +223,7 @@ const NavOrder = ({navigation,route}) => {
                             item.status !== 'food on the way',
                             )
               .map(key => (
-                <View>
+                <View style={{width:'90%',alignSelf:'center'}}>
                   <FCardTransaksi
                     namaWarung={key.namaWarung}
                     // pesanan={key.alamatHomestay}

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { responsiveWidth } from '../../../utils/responsive';
 
 const buttonDetails = ({onSubmit}) => {
   return (
@@ -16,9 +17,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    width: 55,
-    height: 25,
-    marginLeft:100,
+    width: responsiveWidth(55),
+    height: responsiveWidth(25),
     backgroundColor: '#38A7D0',
     alignItems:'center'
   },

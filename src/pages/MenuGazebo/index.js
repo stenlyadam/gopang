@@ -14,6 +14,7 @@ import CardGazebo from '../../components/molecules/CardGazebo';
 import firebase from '../../config/Firebase';
 import {Picker} from '@react-native-picker/picker';
 import {G} from 'react-native-svg';
+import { responsiveWidth } from '../../utils/responsive';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid} = route.params;
@@ -117,7 +118,7 @@ const MenuGazebo = ({navigation, route}) => {
         {selectedValue === 'All' && (
           <View>
             {gazebo.map(key => (
-              <View>
+              <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                 <CardGazebo
                   title={key.name}
                   location={key.location}
@@ -135,7 +136,7 @@ const MenuGazebo = ({navigation, route}) => {
             {gazebo
               .filter(gazebo => gazebo.location.includes(locationPaal))
               .map(key => (
-                <View>
+                <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
                     title="Gazebo Wahyu"
                     location={key.location}
@@ -152,7 +153,7 @@ const MenuGazebo = ({navigation, route}) => {
             {gazebo
               .filter(gazebo => gazebo.location.includes(locationPulisan))
               .map(key => (
-                <View>
+                <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
                     title="Gazebo Wahyu"
                     location={key.location}
@@ -169,7 +170,7 @@ const MenuGazebo = ({navigation, route}) => {
             {gazebo
               .filter(gazebo => gazebo.location.includes(locationKinunang))
               .map(key => (
-                <View>
+                <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
                     title="Gazebo Wahyu"
                     location={key.location}

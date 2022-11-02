@@ -12,6 +12,7 @@ import Header from '../../components/molecules/header';
 import CardHomestay from '../../components/molecules/CardHomestay';
 import Input from '../../components/atoms/Input';
 import firebase from '../../config/Firebase';
+import { responsiveWidth } from '../../utils/responsive';
 
 const MenuHomestay = ({navigation, route}) => {
   const {uid} = route.params;
@@ -95,11 +96,10 @@ const MenuHomestay = ({navigation, route}) => {
           <ScrollView contentContainerStyle={styles.productContainer}>
             {search.length === 0 ? (
               <View>
-                <View>
                   {pictures
                     .filter(homestay => homestay.name.includes(search))
                     .map(key => (
-                      <View>
+                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -111,7 +111,6 @@ const MenuHomestay = ({navigation, route}) => {
                         />
                       </View>
                     ))}
-                </View>
               </View>
             ) : (
               pictures
@@ -120,7 +119,7 @@ const MenuHomestay = ({navigation, route}) => {
                     homestay.name.toLowerCase().includes(search.toLowerCase()),
                 )
                 .map(key => (
-                  <View>
+                  <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
                     <CardHomestay
                       title={key.name}
                       image={`${key.photo}`}
@@ -146,6 +145,9 @@ const styles = StyleSheet.create({
   elevation: {
     paddingBottom: 8,
     paddingLeft: 20,
+  },
+  productContainer:{
+    marginTop: 10,alignSelf:'center',justifyContent:'center'
   },
   searchBox: {
     height: 45,

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 import ButtonDetails from '../../atoms/buttonDetails';
 
 const CardHomestay = props => {
@@ -7,9 +8,7 @@ const CardHomestay = props => {
     <View
       style={{
         height: 118,
-        width: '90.2%',
-        marginLeft: 20,
-        marginRight: 20,
+        width: responsiveWidth(370),
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 0,
@@ -19,8 +18,8 @@ const CardHomestay = props => {
         style={{
           marginTop: 14,
           marginBottom: 14,
-          width: 80,
-          height: 90,
+          width: responsiveWidth(80),
+          height: responsiveHeight(90),
           borderRadius: 10,
         }}
       />
@@ -33,7 +32,8 @@ const CardHomestay = props => {
         }}>
         <View
           style={{
-            height: 60,
+            height: responsiveHeight(70),
+            width:responsiveWidth(205),
             flexDirection: 'column',
           }}>
           <View
@@ -56,15 +56,16 @@ const CardHomestay = props => {
             flexDirection: 'row',
             position: 'absolute',
             top: '15%',
-            right: '-1%',
+            width:responsiveWidth(40),
+            right: '-30%',
           }}>
-          <Image source={require('../../../assets/rating.png')} style={{width:15,height:15,alignSelf:'center'}} />
+          <Image source={require('../../../assets/rating.png')} style={{width:12,height:12,alignSelf:'center'}} />
           <Text
             style={{
               fontWeight: 'bold',
               left: '11%',
               color: 'black',
-              fontSize: 15,
+              fontSize: 13,
             }}>
             {props.rating}
           </Text>
@@ -72,12 +73,11 @@ const CardHomestay = props => {
 
         <View
           style={{
-            width: 110,
-            height: 14,
+            width: responsiveWidth(110),
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginTop: 29,
+            marginTop: 15,
             marginLeft: 11,
           }}>
           <View style={{flexDirection: 'row'}}>
@@ -89,7 +89,7 @@ const CardHomestay = props => {
             </Text>
           </View>
           <View
-            style={{position: 'absolute', marginLeft: 80, marginBottom: 50}}>
+            style={{position: 'absolute', marginLeft: 188, marginBottom: 50,width:60,alignItems:'center'}}>
             {props.status === 'available' && (
               <Text style={styles.status}>{props.status}</Text>
             )}
@@ -108,14 +108,13 @@ export default CardHomestay;
 
 const styles = StyleSheet.create({
   wahyu: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   location: {
     fontWeight: 'normal',
     fontSize: 12,
     width: 187,
-    height: 16,
     marginLeft: 4,
   },
   containerTitle: {
@@ -129,7 +128,6 @@ const styles = StyleSheet.create({
   },
   status: {
     fontSize: 10,
-    marginLeft: '69%',
     marginTop: -12,
     color: 'green',
   },
@@ -137,7 +135,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 3,
     marginTop: -12,
-    marginLeft: '66%',
     color: 'black',
   },
 });

@@ -16,6 +16,7 @@ import firebase from '../../../config/Firebase';
 import {showMessage} from 'react-native-flash-message';
 import Loading from '../../../components/molecules/Loading';
 import Header from '../../../components/molecules/header';
+import { responsiveWidth } from '../../../utils/responsive';
 
 const User = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -59,7 +60,7 @@ const User = ({navigation}) => {
           </View>
 
           {/* Render Logo GOPANG */}
-          <View>
+          <View style={{width:200,alignSelf:'center'}}>
             <Image
               source={require('../../../assets/logo/LogoGOPANG.png')}
               style={styles.logo}
@@ -131,28 +132,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#A8A6A7',
-    marginLeft: 90,
+    alignSelf:'center',
     marginTop: 25,
   },
   fontSignin: {
     fontWeight: 'bold',
     fontSize: 40,
     marginTop: 4,
-    marginLeft: 139,
+    alignSelf:'center',
     color: '#000000',
   },
   fontUser: {
     fontSize: 17,
     fontWeight: 'bold',
-    marginTop: 90,
-    marginLeft: 183,
+    alignSelf:'center',
     color: '#000000',
+    marginTop: 30,
   },
   logo: {
     width: 184,
     height: 185,
     marginTop: 4,
-    marginLeft: 130,
+    marginLeft: 50,
+    alignSelf:'center'
   },
   Button: {
     paddingTop: 15,
@@ -164,7 +166,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 54,
-    width: 343,
+    width: responsiveWidth(343),
     padding: 10,
     fontSize: 16,
     borderRadius: 6,

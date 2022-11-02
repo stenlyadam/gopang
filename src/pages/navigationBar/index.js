@@ -123,9 +123,9 @@ const Tabs = ({navigation, route}) => {
         navigation={navigation}
         onBack={() => navigation.goBack()}
       />
-      <Text style={{alignSelf:'center',marginTop:'50%',fontSize:30,fontWeight:'bold',marginBottom:10}}>Memuat...</Text>
-      <Text style={{alignSelf:'center'}}>Your account is not registered as a user.</Text>
-      <Text style={{alignSelf:'center'}}>and you will not be able to enter the user's page</Text>
+      <Text style={{alignSelf:'center',marginTop:'50%',fontSize:30,fontWeight:'bold',marginBottom:10}}>Loading...</Text>
+      <Text style={{alignSelf:'center'}}>Wait a second.</Text>
+      <Text style={{alignSelf:'center'}}>Maybe Your account is not registered as a user.</Text>
     </View>
   )
 };
