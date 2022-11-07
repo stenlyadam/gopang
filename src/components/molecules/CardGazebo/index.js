@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { responsiveWidth } from '../../../utils/responsive';
 import ButtonDetails from '../../atoms/buttonDetails';
 
 const CardGazebo = props => {
@@ -7,7 +8,7 @@ const CardGazebo = props => {
     <View
       style={{
         height: 118,
-        width: 371,
+        width: responsiveWidth(371),
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 0,
@@ -46,7 +47,7 @@ const CardGazebo = props => {
         </View>
         <View
           style={{
-            width: 110,
+            width: responsiveWidth(190),
             height: 20,
             flexDirection: 'row',
             alignItems: 'center',
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
-    marginLeft: '77%',
+    marginLeft: '100%',
   },
   Imagee: {
     width: 80,

@@ -11,6 +11,7 @@ import {
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
 import Loading from '../../components/molecules/Loading';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 const OProfile = ({navigation, route}) => {
   const {uid} = route.params;
@@ -101,88 +102,90 @@ const OProfile = ({navigation, route}) => {
               </View>
             </View>
 
-            <View style={{alignItems: 'center', marginTop: 79}}>
-              <View style={{height: 128, width: 343, alignItems: 'center'}}>
-                <TouchableOpacity
-                  style={styles.buttonEditProfile}
-                  onPress={() => navigation.navigate('OEditProfile', {uid: uid})}>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/iconProfile.png')}
-                  />
-                  <View style={{marginLeft: 16}}>
-                    <Text style={{fontSize: 13, marginBottom: 3}}>
-                      Edit Profile
-                    </Text>
-                    <Text style={{fontSize: 11, color: '#ABABAB'}}>
-                      Make changes to your profile
-                    </Text>
-                  </View>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                    style={{marginTop: 13, marginLeft: 110}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.buttonEditProfile}
-                  onPress={onSignoutPress}>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/Logout.png')}
-                  />
-                  <View style={{marginLeft: 16}}>
-                    <Text style={{fontSize: 13, marginBottom: 3}}>Log out</Text>
-                    <Text style={{fontSize: 11, color: '#ABABAB'}}>
-                      Further secure your account for safety
-                    </Text>
-                  </View>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                    style={{marginTop: 13, marginLeft: 70}}
-                  />
-                </TouchableOpacity>
+            <View style={{alignItems:'center'}}>
+        <View style={{marginTop: 79}}>
+          <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
+            <TouchableOpacity
+              style={styles.buttonEditProfile}
+              onPress={() => navigation.navigate('OEditProfile', {uid: uid})}>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/iconProfile.png')}
+              />
+              <View style={{marginLeft: 16}}>
+                <Text style={{fontSize: 13, marginBottom: 3}}>
+                  Edit Profile
+                </Text>
+                <Text style={{fontSize: 11, color: '#ABABAB'}}>
+                  Make changes to your profile
+                </Text>
               </View>
-            </View>
-            <View style={{alignItems: 'center', marginTop: 10}}>
-              <View style={{height: 128, width: 343, alignItems: 'center'}}>
-                <TouchableOpacity style={styles.buttonLogout} onPress={()=> navigation.navigate('Help')}>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/Help.png')}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      marginBottom: 3,
-                      alignSelf: 'center',
-                      marginLeft: 16,
-                    }}>
-                    Help
-                  </Text>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                    style={{marginTop: 13, marginLeft: 217}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.buttonLogout}
-                  onPress={() => navigation.navigate('AboutApp')}>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/AboutApp.png')}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      marginBottom: 3,
-                      alignSelf: 'center',
-                      marginLeft: 16,
-                    }}>
-                    About App
-                  </Text>
-                  <Image
-                    source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                    style={{marginTop: 13, marginLeft: 185}}
-                  />
-                </TouchableOpacity>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonEditProfile}
+              onPress={onSignoutPress}>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/Logout.png')}
+              />
+              <View style={{marginLeft: 16}}>
+                <Text style={{fontSize: 13, marginBottom: 3}}>Log out</Text>
+                <Text style={{fontSize: 11, color: '#ABABAB'}}>
+                  Further secure your account for safety
+                </Text>
               </View>
-            </View>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{marginTop: 10}}>
+          <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
+            <TouchableOpacity style={styles.buttonLogout} onPress={()=> navigation.navigate('Help')}>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/Help.png')}
+              />
+              <Text
+                style={{
+                  fontSize: 13,
+                  marginBottom: 3,
+                  alignSelf: 'center',
+                  marginLeft: 16,
+                }}>
+                Help
+              </Text>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonLogout}
+              onPress={() => navigation.navigate('AboutApp')}>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/AboutApp.png')}
+              />
+              <Text
+                style={{
+                  fontSize: 13,
+                  marginBottom: 3,
+                  alignSelf: 'center',
+                  marginLeft: 16,
+                }}>
+                About App
+              </Text>
+              <Image
+                source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        </View>
           </View>
         </View>
         </>

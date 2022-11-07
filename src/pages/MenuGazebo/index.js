@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
   elevation: {
     paddingBottom: 8,
     // paddingLeft: 20,
+    flex:1,
   },
   searchBox: {
     width: '95%',

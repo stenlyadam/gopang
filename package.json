@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ilterugur/react-native-countdown-component": "^3.0.1",
-    "@react-native-community/checkbox": "^0.5.12",
+    "@react-native-community/checkbox": "^0.5.14",
     "@react-native-community/datetimepicker": "^6.4.0",
     "@react-native-picker/picker": "^2.4.0",
     "@react-navigation/bottom-tabs": "^6.2.0",
@@ -27,7 +27,7 @@
     "react-native-flash-message": "^0.2.1",
     "react-native-image-picker": "^4.7.3",
     "react-native-modal-datetime-picker": "^14.0.0",
-    "react-native-pager-view": "^5.4.15",
+    "react-native-pager-view": "^5.4.25",
     "react-native-paper": "^4.11.2",
     "react-native-ratings": "^8.1.0",
     "react-native-safe-area-context": "^3.4.1",

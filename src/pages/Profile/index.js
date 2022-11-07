@@ -94,8 +94,9 @@ const Profile = ({navigation, route}) => {
             </Text>
           </View>
         </View>
-
-        <View style={{alignItems: 'center', marginTop: 79}}>
+        
+        <View style={{alignItems:'center'}}>
+        <View style={{marginTop: 79}}>
           <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
             <TouchableOpacity
               style={styles.buttonEditProfile}
@@ -113,7 +114,7 @@ const Profile = ({navigation, route}) => {
               </View>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 110}}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -130,12 +131,12 @@ const Profile = ({navigation, route}) => {
               </View>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 70}}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{alignItems: 'center', marginTop: 10}}>
+        <View style={{marginTop: 10}}>
           <View style={{height: responsiveHeight(128), width: responsiveWidth(343), alignItems: 'center'}}>
             <TouchableOpacity style={styles.buttonLogout} onPress={()=> navigation.navigate('Help')}>
               <Image
@@ -152,7 +153,7 @@ const Profile = ({navigation, route}) => {
               </Text>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 217}}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -172,10 +173,11 @@ const Profile = ({navigation, route}) => {
               </Text>
               <Image
                 source={require('../../assets/icon/ScreenProfile/ArrowRight.png')}
-                style={{marginTop: 13, marginLeft: 185}}
+                style={{marginTop: 13, marginLeft: 250,position:'absolute'}}
               />
             </TouchableOpacity>
           </View>
+        </View>
         </View>
       </View>
     </View>

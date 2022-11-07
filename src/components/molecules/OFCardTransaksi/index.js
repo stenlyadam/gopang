@@ -58,10 +58,9 @@ const OFCardTransaksi = props => {
           <View style={{
               position: 'absolute',
               marginTop: 10,
-              marginLeft:260,
-              // backgroundColor:'red',
+              marginLeft:230,
               width:130,
-              height:55,
+              height:30,
             }}>
             <Text
             style={{

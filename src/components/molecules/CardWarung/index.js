@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import ButtonAdd from '../../atoms/buttonAdd';
 import React, {useState} from 'react';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
 const CardWarung = props => {
   return (
@@ -25,14 +26,15 @@ const CardWarung = props => {
         }}
       />
 
-      <View style={{marginTop: 20, marginLeft: 20}}>
+      <View style={{marginTop: 20, marginLeft: 20,width:responsiveWidth(210)}}>
         <Text style={{fontSize: 13, fontWeight: 'bold'}}>{props.title}</Text>
         <Text style={{marginTop: 6, fontSize: 13}}>Rp.{props.harga}</Text>
         <View
           style={{
             flexDirection: 'column',
             marginTop: '7%',
-            marginLeft: '-15%',
+            marginLeft:100,
+            width: responsiveWidth(100),
           }}>
           <ButtonAdd onPress={props.onPress} />
         </View>

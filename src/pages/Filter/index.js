@@ -154,13 +154,13 @@ const Filter = ({navigation,route}) => {
             <Text style={{alignSelf:'center',marginBottom:2,marginLeft:4,color:'green'}} >Available</Text>
           </View>
           
-          <ScrollView contentContainerStyle={styles.productContainer}>
+          <ScrollView style={{flex:1}} contentContainerStyle={styles.productContainer}>
           {selectedValue === "All" &&(
                 <View>
                   {pictures
                   .filter(homestay => homestay.status=='available')
                   .map(key => (
-                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                      <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -179,7 +179,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationPaal) && homestay.status=='available' )
                   .map(key => (
-                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                      <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -198,7 +198,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationPulisan) && homestay.status=='available')
                   .map(key => (
-                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                      <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -217,7 +217,7 @@ const Filter = ({navigation,route}) => {
                   {pictures
                   .filter(homestay => homestay.location.includes(locationKinunang) && homestay.status=='available')
                   .map(key => (
-                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                      <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -251,6 +251,9 @@ const styles = StyleSheet.create({
     backgroundColor:'grey'
   },
   productContainer:{
-    marginTop: 10,alignSelf:'center',justifyContent:'center'
+    marginTop: 10,
+    alignSelf:'center',
+    justifyContent:'center',
+    width:responsiveWidth(411),
   },
 });

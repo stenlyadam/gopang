@@ -6,6 +6,8 @@ import Header from '../../components/molecules/header';
 import ButtonChat from '../../components/atoms/ButtonChat';
 import ButtonTransaction from '../../components/atoms/ButtonTransaction';
 import Loading from '../../components/molecules/Loading';
+import { responsiveWidth } from '../../utils/responsive';
+
 
 const DetailOrderFoodOwner = ({navigation,route}) => {
   const {uid,WarungID} = route.params;
@@ -201,7 +203,13 @@ const DetailOrderFoodOwner = ({navigation,route}) => {
             <View></View>
           )}
         </View>
-        <View style={{marginTop: 32,marginLeft:'16%'}}>
+        <View style={{
+          marginTop: 32,
+          marginLeft:'67%',
+          width:responsiveWidth(100),
+          alignItems:'center',
+          position:'absolute'
+          }}>
           <Image source={require('../../assets/icon/iconbluecek.png')} />
         </View>
       </View>
@@ -209,6 +217,7 @@ const DetailOrderFoodOwner = ({navigation,route}) => {
       <View
         style={{
           marginLeft:'70%',
+          marginTop:40,
           width:100,
         }}>
         <View>

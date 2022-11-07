@@ -10,7 +10,6 @@ const HCardTransaksi = props => {
           style={{
             // position: 'absolute',
             marginTop: 5,
-            marginLeft: 20,
             width: 87,
             height: 87,
             borderRadius: 10,
@@ -46,7 +45,7 @@ const HCardTransaksi = props => {
             style={{
               position: 'absolute',
               marginTop: 33,
-              marginLeft: '75%',
+              marginLeft: '70%',
               fontSize: 20,
               color:'#38A7D0',
               fontStyle:'italic',

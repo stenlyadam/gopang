@@ -1,5 +1,6 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
 // const buttonAdd = ({onSubmit, navigation}) => {
 const buttonAdd = props => {
@@ -20,9 +21,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    width: 86,
-    height: 25,
-    marginLeft: 150,
+    width: responsiveWidth(86),
+    height: responsiveHeight(25),
     backgroundColor: '#38A7D0',
     alignItems: 'center',
   },

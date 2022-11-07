@@ -16,6 +16,7 @@ import Loading from '../../components/molecules/Loading';
 import Button from '../../components/atoms/Button';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 const dayjs = require('dayjs');
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 const MenuGazebo = ({navigation, route}) => {
   const {uid, homestayID} = route.params;
@@ -380,8 +381,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
-    width: 191,
-    height: 57.35,
+    width: responsiveWidth(191),
+    height: responsiveHeight(57),
     marginLeft: 14,
   },
   button2: {
@@ -389,8 +390,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: 'grey',
-    width: 191,
-    height: 57.35,
+    width: responsiveWidth(191),
+    height: responsiveHeight(57),
     marginLeft: 14,
   },
   textButton: {

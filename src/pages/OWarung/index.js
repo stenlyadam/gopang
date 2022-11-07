@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 
 import CardFoodOwner from '../../components/molecules/CardFoodOwner';
 
@@ -155,7 +156,7 @@ const Warung = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
 
-        <View style={{top: 15}}>
+        <View style={{top: 15,flex:1,marginBottom:15}}>
           {food == true ? (
             pictures
             .filter(items=> items.IDwarung.includes(uid))

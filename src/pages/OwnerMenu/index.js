@@ -95,7 +95,7 @@ const OwnerMenu = ({navigation, route}) => {
             onPress={() => navigation.navigate('AddHomestay', {uid: uid})}>
             <Image
               source={require('../../assets/owner/ButtonAddFood.png')}
-              style={{margin: 20, width: 345, height: 170}}
+              style={{width: 345, height: 170,alignSelf:'center'}}
             />
           </TouchableOpacity>
         )}
@@ -149,7 +149,7 @@ const OwnerMenu = ({navigation, route}) => {
             onPress={() => navigation.navigate('OAddWarung', {uid: uid})}>
             <Image
               source={require('../../assets/owner/ButtonAddFood.png')}
-              style={{margin: 20, width: 345, height: 170}}
+              style={{width: 345, height: 170,alignSelf: 'center',}}
             />
           </TouchableOpacity>
         )}

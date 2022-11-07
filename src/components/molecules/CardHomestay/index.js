@@ -8,7 +8,7 @@ const CardHomestay = props => {
     <View
       style={{
         height: 118,
-        width: responsiveWidth(370),
+        width: '100%',
         flexDirection: 'row',
         alignItems: 'flex-start',
         padding: 0,
@@ -40,6 +40,8 @@ const CardHomestay = props => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              width:responsiveWidth(205),
+              height: responsiveHeight(35)
             }}>
             <View style={styles.containerTitle}>
               <Text style={styles.wahyu}>{props.title}</Text>
@@ -57,7 +59,7 @@ const CardHomestay = props => {
             position: 'absolute',
             top: '15%',
             width:responsiveWidth(40),
-            right: '-30%',
+            right: '-25%',
           }}>
           <Image source={require('../../../assets/rating.png')} style={{width:12,height:12,alignSelf:'center'}} />
           <Text
@@ -80,7 +82,7 @@ const CardHomestay = props => {
             marginTop: 15,
             marginLeft: 11,
           }}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row',width: responsiveWidth(110)}}>
             <Text style={{color: '#38A7D0', fontWeight: 'bold', fontSize: 12}}>
               IDR {props.price}
             </Text>
@@ -89,7 +91,7 @@ const CardHomestay = props => {
             </Text>
           </View>
           <View
-            style={{position: 'absolute', marginLeft: 188, marginBottom: 50,width:60,alignItems:'center'}}>
+            style={{position: 'absolute', marginLeft: 175, marginBottom: 50,width:responsiveWidth(60),alignItems:'center'}}>
             {props.status === 'available' && (
               <Text style={styles.status}>{props.status}</Text>
             )}

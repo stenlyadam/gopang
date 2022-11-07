@@ -99,7 +99,7 @@ const MenuHomestay = ({navigation, route}) => {
                   {pictures
                     .filter(homestay => homestay.name.includes(search))
                     .map(key => (
-                      <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                      <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                         <CardHomestay
                           title={key.name}
                           image={`${key.photo}`}
@@ -113,13 +113,10 @@ const MenuHomestay = ({navigation, route}) => {
                     ))}
               </View>
             ) : (
-              pictures
-                .filter(
-                  homestay =>
-                    homestay.name.toLowerCase().includes(search.toLowerCase()),
-                )
+                pictures
+                .filter(homestay =>homestay.name.toLowerCase().includes(search.toLowerCase()))
                 .map(key => (
-                  <View style={{width: responsiveWidth(370),alignSelf:'center',justifyContent:'center'}}>
+                  <View style={{width: responsiveWidth(350),alignSelf:'center',justifyContent:'center'}}>
                     <CardHomestay
                       title={key.name}
                       image={`${key.photo}`}
@@ -147,7 +144,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   productContainer:{
-    marginTop: 10,alignSelf:'center',justifyContent:'center'
+    marginTop: 10,
+    width:responsiveWidth(411),
+    justifyContent:'center'
   },
   searchBox: {
     height: 45,
