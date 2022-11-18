@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
 const ButtonOrder = (props, {navigation}) => {
   return (
@@ -19,9 +20,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 20,
-    width: 130,
-    height: 34,
-    marginLeft: 65,
+    width: responsiveWidth(130),
+    height: responsiveHeight(34),
+    marginLeft: 40,
     marginTop: 10,
     backgroundColor: '#38A7D0',
     alignItems: 'center',

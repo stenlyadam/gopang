@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  ScrollView
 } from 'react-native';
 import Header from '../../components/molecules/header';
 import firebase from '../../config/Firebase';
@@ -52,6 +53,7 @@ const InfoGazebo = ({navigation, route}) => {
 
   return (
     <View style={{flex: 1}}>
+      <ScrollView>
       <Header
         // title=""
         navigation={navigation}
@@ -121,6 +123,7 @@ const InfoGazebo = ({navigation, route}) => {
           </View>
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 };

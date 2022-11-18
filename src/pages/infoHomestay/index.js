@@ -277,8 +277,8 @@ const MenuGazebo = ({navigation, route}) => {
                           backgroundColor: 'rgba(0, 0, 0, 0.03)',
                           borderBottomColor: 'rgba(0, 0, 0, 0.10)',
                           borderBottomWidth: 3,
-                          width: 200,
-                          height: 50,
+                          width: responsiveWidth(200),
+                          height: responsiveHeight(50),
                         }}
                         onPress={el[1]}>
                         <Text>
@@ -377,25 +377,25 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   button: {
-    paddingTop: 15,
     alignItems: 'center',
+    justifyContent:'center',
     borderRadius: 20,
     backgroundColor: '#38A7D0',
-    width: responsiveWidth(191),
+    width: responsiveWidth(150),
     height: responsiveHeight(57),
-    marginLeft: 14,
+    marginLeft: 40,
   },
   button2: {
-    paddingTop: 15,
     alignItems: 'center',
+    justifyContent:'center',
     borderRadius: 20,
     backgroundColor: 'grey',
-    width: responsiveWidth(191),
+    width: responsiveWidth(150),
     height: responsiveHeight(57),
-    marginLeft: 14,
+    marginLeft: 40,
   },
   textButton: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
   },

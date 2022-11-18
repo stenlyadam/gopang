@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   textDetails: {
-    fontSize: 10,
+    fontSize: 8,
     fontWeight: 'bold',
     color: 'white',
   },

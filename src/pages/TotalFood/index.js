@@ -195,7 +195,7 @@ const TotalFood = ({navigation, route}) => {
       <View style={styles.garis2} />
 
       {/* total  */}
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row',marginLeft:5,marginRight:5}}>
         <View>
           <Text style={{fontSize: 18, marginLeft: 35, marginTop: 20}}>
             Total

@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import React from 'react';
+import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
 const ButtonCheckOut = props => {
   return (
@@ -29,9 +30,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 20,
-    width: 130,
-    height: 34,
-    marginLeft: 264,
+    width: responsiveWidth(130),
+    height: responsiveHeight(34),
+    marginLeft: 250,
     marginTop: 15,
     backgroundColor: '#38A7D0',
     alignItems: 'center',

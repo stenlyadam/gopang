@@ -15,6 +15,7 @@ import CardWarung from '../../components/molecules/CardWarung';
 import firebase from 'firebase';
 import {useEffect} from 'react';
 import {showMessage} from 'react-native-flash-message';
+import { responsiveWidth } from '../../utils/responsive';
 
 const ProfilWarung = ({navigation, route}) => {
   const {uid, WarungID} = route.params;
@@ -242,8 +243,8 @@ const ProfilWarung = ({navigation, route}) => {
 
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.NamaWarung}>Warung {onWarung.name}</Text>
-          <View style={{marginTop: 17, marginLeft: 95}}>
-            <View style={{flexDirection:'row',marginLeft:'45%'}}>
+          <View style={{marginTop: 17, marginLeft: '40%',width:responsiveWidth(50)}}>
+            <View style={{flexDirection:'row'}}>
               <Image source={require('../../assets/rating.png')} style={{width:15,height:15,alignSelf:'center'}}/>
               <Text style={{fontSize:15,fontWeight:'bold',marginLeft:2}}>{onWarung.totalRating}</Text>
             </View>

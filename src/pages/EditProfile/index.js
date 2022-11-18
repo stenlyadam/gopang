@@ -166,7 +166,7 @@ const SignUpUser = ({navigation, route}) => {
     if (!name && !photoBase64) {
       const dataWithoutNamePhoto = {
         email: users.email,
-        number: users.number,
+        number: number,
         name: users.name,
         photo: users.photo,
       };
