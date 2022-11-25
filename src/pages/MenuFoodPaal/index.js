@@ -11,6 +11,7 @@ import {
 import Header from '../../components/molecules/header';
 import CardFood from '../../components/molecules/CardFood';
 import firebase from 'firebase';
+import { responsiveHeight, responsiveWidth } from '../../utils/responsive';
 import Input from '../../components/atoms/Input';
 
 const MenuFoodPaal = ({navigation, route}) => {
@@ -58,7 +59,7 @@ const MenuFoodPaal = ({navigation, route}) => {
         style={{flex: 1, backgroundColor: 'white'}}
         showsVerticalScrollIndicator={false}>
         <Text style={styles.eat}>What do you want to eat?</Text>
-
+        <View style={{flexDirection:'row'}}>
         <View style={styles.SectionStyle}>
           <Image
             source={require('../../assets/icon/search.png')}
@@ -72,6 +73,27 @@ const MenuFoodPaal = ({navigation, route}) => {
               style={{flex:1}}
               onChangeText={value => setSearch(value)}
           />
+        </View>
+        {/* Filter */}
+        <View style={{alignSelf:'center'}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WFilterPaal',{uid: uid})}
+            style={{
+              width: 63,
+              height: 24,
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+            activeOpacity={1.0}>
+            <View style={styles.navigation}>
+              <Image source={require('../../assets/icon/filter.png')} style={{width:20,height:20}} />
+            </View>
+            <View style={{flexDirection:'column'}}>
+              <Text style={{fontSize: 8, textAlign: 'center'}}>Filter</Text>
+              <Text style={{fontSize: 12, textAlign: 'center'}}>Warung</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         </View>
 
         <View
@@ -247,18 +269,13 @@ const styles = StyleSheet.create({
 
   SectionStyle: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#fff',
     borderWidth: 0.5,
     borderColor: '#000',
-    height: 48.5,
+    width:responsiveWidth(300),
+    height: responsiveHeight(48.5),
     borderRadius: 5,
     margin: 10,
-
-    //
-    maxWidth: '80%',
-    marginHorizontal: '10%',
     borderWidth: 0.3,
     borderRadius: 10,
     fontSize: 14,

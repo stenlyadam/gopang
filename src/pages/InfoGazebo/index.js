@@ -60,7 +60,7 @@ const InfoGazebo = ({navigation, route}) => {
         onBack={() => navigation.goBack()}
       />
 
-      <Image source={{uri: `${gazebo.photo}`}} style={styles.gambar} />
+      <Image source={{uri: `data:image/jpeg;base64, ${gazebo.photo}`}} style={styles.gambar} />
       <View style={{flexDirection: 'row'}}>
         <View>
           
@@ -73,7 +73,7 @@ const InfoGazebo = ({navigation, route}) => {
               source={require('../../assets/icon/Direction.png')}
               style={styles.direction}
             />
-            <Text style={styles.alamat}>{gazebo.location}</Text>
+            <Text style={styles.alamat}>{gazebo.alamat}</Text>
           </View>
 
           <View>
@@ -155,7 +155,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 20,
   },
-  ukuran: {fontSize: 18, fontWeight: 'bold', paddingLeft: 130, paddingTop: 12},
+  ukuran: {
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    paddingLeft: 120, 
+    paddingTop: 12},
   overview: {
     fontWeight: 'bold',
     fontSize: 20,

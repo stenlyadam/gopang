@@ -83,6 +83,33 @@ const Warung = ({navigation, route}) => {
     // firebase.database().ref(`warung/${uid}/food`).set(data);
     navigation.navigate('OEditFood',{uid:uid, foodId: key})
   };
+
+  const handleOutOfStock = key =>{
+    const data = {
+      name: key.name,
+      price: key.price,
+      photo: key.photo,
+      kategori: key.kategori,
+      IDwarung: key.IDwarung,
+      location: key.location,
+      namaWarung: key.namaWarung,
+      stock:'out of stock',
+    };
+    firebase.database().ref(`food/${key.id}`).set(data);
+  }
+  const handleReady = key =>{
+    const data = {
+      name: key.name,
+      price: key.price,
+      photo: key.photo,
+      kategori: key.kategori,
+      IDwarung: key.IDwarung,
+      location: key.location,
+      namaWarung: key.namaWarung,
+      stock:'ready',
+    };
+    firebase.database().ref(`food/${key.id}`).set(data);
+  }
   
   return (
     <ScrollView
@@ -164,8 +191,11 @@ const Warung = ({navigation, route}) => {
               <View style={{flexDirection: 'row'}}>
                 <CardFoodOwner
                   title={key.name}
+                  status={key.stock}
                   harga={key.price}
                   image={`${key.photo}`}
+                  onOutofstock={()=> handleOutOfStock(key)}
+                  onReady={()=> handleReady(key)}
                   onDelete={() => handleDelete(key)}
                   onEdit={() => handleEdit(key.id)}
                   // myCondition={1}

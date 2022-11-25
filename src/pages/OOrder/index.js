@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Header from '../../components/molecules/header';
 import TabOrder from '../../components/molecules/TabOrder';
 import React,{useState,useEffect} from 'react';
@@ -81,6 +81,7 @@ const NavOrder = ({navigation,route}) => {
   
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
+        <ScrollView>
         <View>
           <Text style={{marginTop:15,fontSize:20,fontWeight:'bold',left:20}}>Homestay</Text>
           {transaksi
@@ -101,7 +102,7 @@ const NavOrder = ({navigation,route}) => {
               </View>
             ))}
         </View>
-        <View>
+        <View style={{marginBottom:25}}>
           <Text style={{marginTop:10,fontSize:20,fontWeight:'bold',left:20}}>Food</Text>
           {transaksiFood
             .filter(item =>item.IDwarung.includes(uid) &&
@@ -121,6 +122,7 @@ const NavOrder = ({navigation,route}) => {
               </View>
             ))}
         </View>
+        </ScrollView>
       </View>
     );
   };
@@ -210,7 +212,7 @@ const NavOrder = ({navigation,route}) => {
             </View>
           ))}
       </View>
-      <View>
+      <View style={{marginBottom:25}}>
         <Text style={{marginTop:10,fontSize:20,fontWeight:'bold',left:20}}>Food</Text>
         {transaksiFood
             .filter(item =>

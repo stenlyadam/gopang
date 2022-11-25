@@ -278,6 +278,7 @@ const ProfilWarung = ({navigation, route}) => {
               <CardWarung
                 title={key.name}
                 harga={key.price}
+                status={key.stock}
                 image={{uri: `data:image/jpeg;base64, ${key.photo}`}}
                 onPress={() => addToCart(key)}
               />

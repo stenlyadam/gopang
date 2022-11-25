@@ -81,8 +81,18 @@ const MenuGazeboPaal = ({navigation, route}) => {
                   style={{fontSize: 15}}
                 />
                 <Picker.Item
+                  label="3x2"
+                  value="3x2"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
                   label="3x4"
                   value="3x4"
+                  style={{fontSize: 15}}
+                />
+                <Picker.Item
+                  label="4x4"
+                  value="4x4"
                   style={{fontSize: 15}}
                 />
                 <Picker.Item
@@ -90,6 +100,7 @@ const MenuGazeboPaal = ({navigation, route}) => {
                   value="5x4"
                   style={{fontSize: 15}}
                 />
+                
               </Picker>
             </View>
           </View>
@@ -102,12 +113,36 @@ const MenuGazeboPaal = ({navigation, route}) => {
         {selectedValue === "All" &&(
             <View>
                 {gazebo
-                .filter(gazebo => gazebo.location.includes(locationPaal))
+                .filter(gazebo => gazebo.alamat.includes(locationPaal))
                 .map(key => (
                     <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
                         title={key.name}
-                        location={key.location}
+                        location={key.alamat}
+                        price={key.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                        image={`${key.photo}`}
+                        size={key.size}
+                        onPress={() => handleSubmit(key.id)}
+                    />
+                    </View>
+                ))}
+            </View>
+        )}
+        {selectedValue === "3x2" &&(
+            <View>
+                {gazebo
+                .filter(gazebo => gazebo.alamat.includes(locationPaal)&&
+                gazebo.size == '3x2')
+                .map(key => (
+                    <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
+                    <CardGazebo
+                        title={key.name}
+                        location={key.alamat}
+                        price={key.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                         image={`${key.photo}`}
                         size={key.size}
                         onPress={() => handleSubmit(key.id)}
@@ -120,13 +155,37 @@ const MenuGazeboPaal = ({navigation, route}) => {
         {selectedValue === "3x4" &&(
             <View>
                 {gazebo
-                .filter(gazebo => gazebo.location.includes(locationPaal)&&
+                .filter(gazebo => gazebo.alamat.includes(locationPaal)&&
                 gazebo.size == '3x4')
                 .map(key => (
                     <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
                         title={key.name}
-                        location={key.location}
+                        location={key.alamat}
+                        price={key.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                        image={`${key.photo}`}
+                        size={key.size}
+                        onPress={() => handleSubmit(key.id)}
+                    />
+                    </View>
+                ))}
+            </View>
+        )}
+        {selectedValue === "4x4" &&(
+            <View>
+                {gazebo
+                .filter(gazebo => gazebo.alamat.includes(locationPaal)&&
+                gazebo.size == '4x4')
+                .map(key => (
+                    <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
+                    <CardGazebo
+                        title={key.name}
+                        location={key.alamat}
+                        price={key.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                         image={`${key.photo}`}
                         size={key.size}
                         onPress={() => handleSubmit(key.id)}
@@ -138,13 +197,16 @@ const MenuGazeboPaal = ({navigation, route}) => {
         {selectedValue === "5x4" &&(
             <View>
                 {gazebo
-                .filter(gazebo => gazebo.location.includes(locationPaal)&&
+                .filter(gazebo => gazebo.alamat.includes(locationPaal)&&
                 gazebo.size == '5x4')
                 .map(key => (
                     <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                     <CardGazebo
                         title={key.name}
-                        location={key.location}
+                        location={key.alamat}
+                        price={key.price
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                         image={`${key.photo}`}
                         size={key.size}
                         onPress={() => handleSubmit(key.id)}

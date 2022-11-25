@@ -52,6 +52,11 @@ import ChangePassword from '../ChangePassword';
 import MenuFoodPulisan from '../MenuFoodPulisan';
 import MenuFoodKinunang from '../MenuFoodKinunang';
 import Help from '../Help';
+import OAddGazebo from '../OAddGazebo';
+import OGazebo from '../OGazebo';
+import WFilterPaal from '../WFilterPaal';
+import WFilterPulisan from '../WFilterPulisan';
+import WFilterKinunang from '../WFilterKinunang';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,6 +81,9 @@ const Router = () => {
       <Stack.Screen name="InfoGazebo" component={InfoGazebo} />
       <Stack.Screen name="infoHomestay" component={infoHomestay} />
       <Stack.Screen name="Filter" component={Filter} />
+      <Stack.Screen name="WFilterPaal" component={WFilterPaal} />
+      <Stack.Screen name="WFilterPulisan" component={WFilterPulisan} />
+      <Stack.Screen name="WFilterKinunang" component={WFilterKinunang} />
       <Stack.Screen name="OverviewPage" component={OverviewPage} />
       <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
       <Stack.Screen name="TD" component={TD} />
@@ -100,7 +108,9 @@ const Router = () => {
       <Stack.Screen name="OProfile" component={OProfile} />
       <Stack.Screen name="OnavigationBar" component={OnavigationBar} />
       <Stack.Screen name="OAddWarung" component={OAddWarung} />
+      <Stack.Screen name="OAddGazebo" component={OAddGazebo} />
       <Stack.Screen name="OWarung" component={OWarung} />
+      <Stack.Screen name="OGazebo" component={OGazebo} />
       <Stack.Screen name="OAddFood" component={OAddFood} />
       <Stack.Screen name="OEditFood" component={OEditFood} />
       <Stack.Screen name="OEditProfile" component={OEditProfile} />

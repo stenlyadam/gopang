@@ -121,7 +121,10 @@ const MenuGazebo = ({navigation, route}) => {
               <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                 <CardGazebo
                   title={key.name}
-                  location={key.location}
+                  location={key.alamat}
+                  price={key.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                   image={`${key.photo}`}
                   size={key.size}
                   onPress={() => handleSubmit(key.id)}
@@ -134,13 +137,16 @@ const MenuGazebo = ({navigation, route}) => {
         {selectedValue === 'Paal' && (
           <View>
             {gazebo
-              .filter(gazebo => gazebo.location.includes(locationPaal))
+              .filter(gazebo => gazebo.alamat.includes(locationPaal))
               .map(key => (
                 <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
-                    title="Gazebo Wahyu"
-                    location={key.location}
+                    title={key.name}
+                    location={key.alamat}
                     image={`${key.photo}`}
+                    price={key.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                     size={key.size}
                     onPress={() => handleSubmit(key.id)}
                   />
@@ -151,12 +157,15 @@ const MenuGazebo = ({navigation, route}) => {
         {selectedValue === 'Pulisan' && (
           <View>
             {gazebo
-              .filter(gazebo => gazebo.location.includes(locationPulisan))
+              .filter(gazebo => gazebo.alamat.includes(locationPulisan))
               .map(key => (
                 <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
-                    title="Gazebo Wahyu"
-                    location={key.location}
+                    title={key.name}
+                    location={key.alamat}
+                    price={key.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                     image={`${key.photo}`}
                     size={key.size}
                     onPress={() => handleSubmit(key.id)}
@@ -168,12 +177,15 @@ const MenuGazebo = ({navigation, route}) => {
         {selectedValue === 'Kinunang' && (
           <View>
             {gazebo
-              .filter(gazebo => gazebo.location.includes(locationKinunang))
+              .filter(gazebo => gazebo.alamat.includes(locationKinunang))
               .map(key => (
                 <View style={{width: responsiveWidth(390),alignSelf:'center',justifyContent:'center'}}>
                   <CardGazebo
-                    title="Gazebo Wahyu"
-                    location={key.location}
+                    title={key.name}
+                    location={key.alamat}
+                    price={key.price
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                     image={`${key.photo}`}
                     size={key.size}
                     onPress={() => handleSubmit(key.id)}

@@ -150,6 +150,7 @@ import {
         AC: homestay.AC,
         wifi: homestay.wifi,
         ratings: homestay.ratings,
+        totalRating:homestay.totalRating,
         status: 'available',
       };
       firebase.database().ref(`homestay/${uid}`).set(dataHomestay);

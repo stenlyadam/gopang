@@ -38,11 +38,11 @@ const OverviewPage = ({navigation, route}) => {
       harga: homestay.price,
       total: homestay.price,
       kategori: 'homestay',
-      time: 86400,
+      time: 7200,
       checkin: checkInDate,
       night:dayjs(checkOutDate).diff(dayjs(checkInDate),'day'),
       checkout: checkOutDate,
-      paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
+      paymentExpireDateTime: dayjs().add(3, 'hour').toDate().toString(),
     };
     firebase.database().ref(`transaksi`).push(data);
 

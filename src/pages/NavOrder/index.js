@@ -104,7 +104,7 @@ const NavOrder = ({navigation,route}) => {
                   </View>
                 ))}
             </View>
-            <View>
+            <View style={{marginBottom:25}}>
             <Text style={{marginTop:10,fontSize:20,fontWeight:'bold',left:20}}>Food</Text>
             {transaksiFood
               .filter(item =>item.IDPemesan.includes(uid) &&
@@ -214,7 +214,7 @@ const NavOrder = ({navigation,route}) => {
               </View>
             ))}
       </View>
-      <View>
+      <View style={{marginBottom:25}}>
         <Text style={{marginTop:10,fontSize:20,fontWeight:'bold',left:20}}>Food</Text>
         {transaksiFood
               .filter(item =>item.IDPemesan.includes(uid) &&

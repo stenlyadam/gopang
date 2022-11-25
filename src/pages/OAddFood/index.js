@@ -95,12 +95,13 @@ const AddFood = ({navigation, route}) => {
         IDwarung: uid,
         location: warung.alamat,
         namaWarung: warung.name,
+        stock:'ready',
       };
       firebase.database().ref(`food`).push(data);
       setTimeout(() => {
         setLoading(false);
         showMessage({
-          message: 'Sucsess Add Add',
+          message: 'Sucsess Add Food',
           type: 'default',
           backgroundColor: 'green',
           color: 'white',

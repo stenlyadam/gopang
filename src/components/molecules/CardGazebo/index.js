@@ -16,7 +16,7 @@ const CardGazebo = props => {
         borderBottomWidth: 0.5,
       }}>
       <View>
-        <Image source={{uri: `${props.image}`}} style={styles.Imagee} />
+        <Image source={{uri: `data:image/jpeg;base64, ${props.image}`}} style={styles.Imagee} />
       </View>
 
       <View
@@ -44,6 +44,9 @@ const CardGazebo = props => {
             <Image source={require('../../../assets/icon/Direction.png')} />
             <Text style={styles.location}>{props.location}</Text>
           </View>
+          <View style={{marginLeft:11,marginTop:3}}>
+              <Text style={styles.price}>IDR {props.price}</Text>
+            </View>
         </View>
         <View
           style={{
@@ -102,4 +105,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'red',
   },
+  price:{
+    fontSize:12,
+    fontWeight:'bold'
+  }
 });

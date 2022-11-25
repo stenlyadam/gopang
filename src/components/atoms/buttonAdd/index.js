@@ -2,9 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { responsiveHeight, responsiveWidth } from '../../../utils/responsive';
 
-// const buttonAdd = ({onSubmit, navigation}) => {
 const buttonAdd = props => {
-  console.log('props:', props);
   return (
     <TouchableOpacity
       onPress={props.onPress}
@@ -21,6 +19,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
+    alignSelf:'center',
     width: responsiveWidth(86),
     height: responsiveHeight(25),
     backgroundColor: '#38A7D0',

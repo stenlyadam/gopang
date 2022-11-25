@@ -28,6 +28,8 @@ const MenuGazebo = ({navigation, route}) => {
   const [checkOutDate, setCheckOutDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [currentDatePickerContext, setCurrentDatePickerContext] = useState('');
+  const day = `${dayjs(checkOutDate).diff(dayjs(checkInDate))}`;
+  const max = 31;
 
   const [loading, setLoading] = useState(false);
 
@@ -43,16 +45,24 @@ const MenuGazebo = ({navigation, route}) => {
             <View>
               {checkInDate == null
                 ? alert('Please add Check In')
-                : (setLoading(true),
-                  setTimeout(() => {
-                    setLoading(false);
-                    navigation.navigate('OverviewPage', {
-                      uid: uid,
-                      homestayID: homestayID,
-                      checkInDate: checkInDate.toString(),
-                      checkOutDate: checkOutDate.toString(),
-                    });
-                  }, 1000))}
+                : (
+                  <View>
+                    {day > 0 && day <= 2678400000 ?(
+                        setLoading(true),
+                        setTimeout(() => {
+                        setLoading(false);
+                        navigation.navigate('OverviewPage', {
+                          uid: uid,
+                          homestayID: homestayID,
+                          checkInDate: checkInDate.toString(),
+                          checkOutDate: checkOutDate.toString(),
+                        });
+                      }, 1000)
+                    ):(
+                      alert('cant booking')
+                    )}
+                  </View>
+                  )}
             </View>
           )}
         </View>
@@ -322,7 +332,7 @@ const MenuGazebo = ({navigation, route}) => {
                 <Text style={{fontWeight: 'bold', fontSize: 12, marginTop: 7}}>
                   /Night
                 </Text>
-                {status == 'available' ? (
+                {status == 'available'? (
                   <TouchableOpacity
                     style={styles.button}
                     onPress={() => handleSubmit(homestayID)}>

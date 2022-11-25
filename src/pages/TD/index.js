@@ -241,11 +241,9 @@ const TransactionDetails = ({navigation, route}) => {
       phonePenyewa:transaksi.phonePenyewa,
       status: 'cancel',
       total:transaksi.total,
-      time: 86400,
       night:transaksi.night,
       checkin: transaksi.checkin,
       checkout: transaksi.checkout,
-      paymentExpireDateTime: dayjs().add(24, 'hour').toDate().toString(),
     };
     firebase.database().ref(`transaksi/${homestayID}`).set(data);
 

@@ -383,6 +383,8 @@ const ODetails = ({navigation, route}) => {
               flexDirection: 'row',
               marginTop: 21,
             }}>
+            
+            <View style={{marginLeft:10,marginBottom:10}}>
             <Text
               style={{
                 fontSize: 30,
@@ -391,25 +393,21 @@ const ODetails = ({navigation, route}) => {
               }}>
               {homestay.name}
             </Text>
+              <View style={{marginLeft:5,flexDirection:'row'}}>
+                <Image
+                    source={require('../../assets/rating.png')}
+                  />
+                <Text style={{fontWeight:'bold',marginLeft:5}}>{homestay.totalRating}</Text>
+              </View>
+            </View>
+            
             <TouchableOpacity
               style={{position: 'absolute', right: 25}}
               onPress={() => setStatusModal(true)}>
               <Image source={require('../../assets/warung/penEdit.png')} />
             </TouchableOpacity>
-
-            <Image
-              source={require('../../assets/icon/Rating.png')}
-              style={{
-                width: 51,
-                height: 17,
-                marginTop: 12,
-                position: 'absolute',
-                right: 20,
-                top: 20,
-              }}
-            />
           </View>
-          <TouchableOpacity style={{marginLeft: 20, flexDirection: 'row'}}>
+          <View style={{marginLeft: 20, flexDirection: 'row'}}>
             <Image
               source={require('../../assets/icon/Direction.png')}
               style={{
@@ -425,7 +423,7 @@ const ODetails = ({navigation, route}) => {
               }}>
               {homestay.alamat}
             </Text>
-          </TouchableOpacity>
+          </View>
 
           {/* Fasilitas */}
           <View
@@ -610,7 +608,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#38A7D0',
     position: 'absolute',
     right: '5%',
-    top: '35%',
+    top: '34%',
     borderRadius: 5,
     width: '20%',
     height: '5%',
