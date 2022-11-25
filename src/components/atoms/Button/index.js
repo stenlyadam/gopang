@@ -5,7 +5,7 @@ const Button = (props,{navigation}) => {
   return (
     <View style={props.btnView}>
         {/* for se tampil button discreen mana saja */}
-        <TouchableOpacity style={styles.Button} onPress={props.onPress}>
+        <TouchableOpacity style={styles.Button} onPress={props.onPress} activeOpacity={0.6}>
                 <Text style={styles.textButton}>{props.title}</Text>
         </TouchableOpacity>
     </View>
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:20,
         backgroundColor: "#38A7D0",
-        width:353.92,
-        height:61.73,
+        width:230,
+        height:55,
       },
     textButton:{
         fontSize:18,

@@ -13,37 +13,39 @@ import {
 
 const {width, height} = Dimensions.get('window');
 
-const COLORS = {primary: '#000000', white: '#fff'};
 
 const slides = [
   {
     id: '1',
-    image: require('../../../src/assets/image/Onboard1.png'),
+    image: require('../../../src/assets/onboard/Onboard1.jpeg'),
     title: 'Find your Vacation Spot',
-    subtitle: 'Gopang is a travel service application that helps tourists to vacation in 3 beaches in likupang.',
+    subtitle:
+      'Gopang is a travel service application that helps tourists to vacation in 3 beaches in Likupang',
   },
   {
     id: '2',
-    image: require('../../../src/assets/image/Onboard2.png'),
+    image: require('../../../src/assets/onboard/Onboard2.jpeg'),
     title: 'Find Your Place',
-    subtitle: 'Booking homestay, Gazebos and ordering your food while you are travelling on 3 beaches in likupang',
+    subtitle:
+      'Booking homestay, Gazebos and ordering your food while you are travelling on 3 beaches in Likupang',
   },
   {
     id: '3',
-    image: require('../../../src/assets/image/Onboard1.png'),
+    image: require('../../../src/assets/onboard/Onboard3.jpeg'),
     title: 'Make a Special Moment',
-    subtitle: 'Lets create an account and feel the experience of travelling in likupang using GOPANG',
+    subtitle:
+      'Lets create an account and feel the experience of travelling in Likupang using GOPANG',
   },
 ];
 
 const Slide = ({item}) => {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{alignItems: 'center',backgroundColor:'white'}}>
       <Image
         source={item?.image}
-        style={{height: '75%', width, resizeMode: 'contain'}}
+        style={{height: '83%', width}}
       />
-      <View>
+      <View style={{alignItems:'center'}}>
         <Text style={styles.title}>{item?.title}</Text>
         <Text style={styles.subtitle}>{item?.subtitle}</Text>
       </View>
@@ -80,7 +82,6 @@ const OnboardingScreen = ({navigation}) => {
     return (
       <View
         style={{
-          height: height * 0.25,
           justifyContent: 'space-between',
           paddingHorizontal: 20,
         }}>
@@ -89,7 +90,7 @@ const OnboardingScreen = ({navigation}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 20,
+            marginBottom:40
           }}>
           {/* Render indicator */}
           {slides.map((_, index) => (
@@ -135,7 +136,7 @@ const OnboardingScreen = ({navigation}) => {
                   style={{
                     fontWeight: 'bold',
                     fontSize: 15,
-                    color: COLORS.black,
+                    color: 'black',
                   }}>
                   SKIP
                 </Text>
@@ -161,12 +162,11 @@ const OnboardingScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <StatusBar backgroundColor={COLORS.primary} />
+    <View style={{flex:1,backgroundColor:'white'}}>
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
-        contentContainerStyle={{height: height * 0.75}}
+        contentContainerStyle={{height: height * 0.80}}
         showsHorizontalScrollIndicator={false}
         horizontal
         data={slides}
@@ -174,7 +174,7 @@ const OnboardingScreen = ({navigation}) => {
         renderItem={({item}) => <Slide item={item} />}
       />
       <Footer />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -182,23 +182,21 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'black',
     fontSize: 13,
-    marginTop: 10,
-    width:276,
+    width: 239,
     textAlign: 'center',
-    lineHeight: 23,
+    lineHeight: 20,
   },
   title: {
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 20,
     textAlign: 'center',
   },
   image: {
-    height: 276,
-    width: 412,
+    height: 535,
+    width: '100%',
     resizeMode: 'contain',
-    marginTop:132
+    marginTop: 132,
   },
   indicator: {
     height: 2.5,

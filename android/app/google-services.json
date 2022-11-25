@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "705078793630",
+    "project_id": "gopang-2022",
+    "storage_bucket": "gopang-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705078793630:android:dc35cb748f3a7878bd328f",
+        "android_client_info": {
+          "package_name": "com.gopang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705078793630-ud48qth0gm9iqgvtgvhb2b6dhk5cl1st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEy8KE6pTXlmQAX8IUpy_YwRZTrDnbwC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705078793630-ud48qth0gm9iqgvtgvhb2b6dhk5cl1st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
